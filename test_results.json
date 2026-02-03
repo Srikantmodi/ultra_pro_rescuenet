@@ -1,0 +1,125 @@
+﻿{"protocolVersion":"0.1.1","runnerVersion":"1.26.3","pid":18996,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/core/utils_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading D:/ultra_pro_rescuenet/test/core/utils_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":1}
+{"suite":{"id":2,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart"},"type":"suite","time":4}
+{"test":{"id":3,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart","suiteID":2,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":4}
+{"suite":{"id":4,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart"},"type":"suite","time":4}
+{"test":{"id":5,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart","suiteID":4,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":4}
+{"suite":{"id":6,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/data/models_test.dart"},"type":"suite","time":5}
+{"test":{"id":7,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/data/models_test.dart","suiteID":6,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":5}
+{"suite":{"id":8,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/data/repositories_test.dart"},"type":"suite","time":5}
+{"test":{"id":9,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/data/repositories_test.dart","suiteID":8,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":5}
+{"suite":{"id":10,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"suite","time":5}
+{"test":{"id":11,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart","suiteID":10,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":5}
+{"suite":{"id":12,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart"},"type":"suite","time":5}
+{"test":{"id":13,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart","suiteID":12,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":6}
+{"suite":{"id":14,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_orchestrator_test.dart"},"type":"suite","time":6}
+{"test":{"id":15,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_orchestrator_test.dart","suiteID":14,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":6}
+{"count":11,"time":7,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1984}
+{"group":{"id":16,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":1986}
+{"test":{"id":17,"name":"Placeholder test for utils - to be implemented","suiteID":0,"groupIDs":[16],"metadata":{"skip":false,"skipReason":null},"line":4,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/core/utils_test.dart"},"type":"testStart","time":1987}
+{"testID":17,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2009}
+{"suite":{"id":18,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"suite","time":2032}
+{"test":{"id":19,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart","suiteID":18,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2032}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2341}
+{"group":{"id":20,"suiteID":2,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":2342}
+{"group":{"id":21,"suiteID":2,"parentID":20,"name":"LOAD TEST: Hive Persistence","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":7,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart"},"type":"group","time":2342}
+{"test":{"id":22,"name":"LOAD TEST: Hive Persistence (setUpAll)","suiteID":2,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":10,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart"},"type":"testStart","time":2342}
+{"testID":22,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2406}
+{"test":{"id":23,"name":"LOAD TEST: Hive Persistence Should handle High-Throughput Write/Read (1,000 packets)","suiteID":2,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":20,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart"},"type":"testStart","time":2407}
+{"testID":5,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2682}
+{"group":{"id":24,"suiteID":4,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":2683}
+{"group":{"id":25,"suiteID":4,"parentID":24,"name":"UNIT TEST: MeshPacket Protocol","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":9,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart"},"type":"group","time":2683}
+{"test":{"id":26,"name":"UNIT TEST: MeshPacket Protocol Should verify Packet Model JSON Serialization","suiteID":4,"groupIDs":[24,25],"metadata":{"skip":false,"skipReason":null},"line":10,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart"},"type":"testStart","time":2683}
+{"testID":26,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2711}
+{"test":{"id":27,"name":"UNIT TEST: MeshPacket Protocol Should decrement TTL and append Trace correctly","suiteID":4,"groupIDs":[24,25],"metadata":{"skip":false,"skipReason":null},"line":33,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart"},"type":"testStart","time":2712}
+{"testID":27,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2719}
+{"test":{"id":28,"name":"UNIT TEST: MeshPacket Protocol Should mark packet as DEAD if TTL reaches 0","suiteID":4,"groupIDs":[24,25],"metadata":{"skip":false,"skipReason":null},"line":52,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/models/mesh_packet_model_test.dart"},"type":"testStart","time":2719}
+{"testID":28,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2723}
+{"suite":{"id":29,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/features/mesh_network/presentation/sos_button_test.dart"},"type":"suite","time":2747}
+{"test":{"id":30,"name":"loading D:/ultra_pro_rescuenet/test/features/mesh_network/presentation/sos_button_test.dart","suiteID":29,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2747}
+{"testID":23,"messageType":"print","message":"Write 1000 packets: 535ms","type":"print","time":2955}
+{"testID":23,"messageType":"print","message":"Read 1000 packets: 0ms","type":"print","time":2955}
+{"testID":23,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2956}
+{"test":{"id":31,"name":"LOAD TEST: Hive Persistence (tearDownAll)","suiteID":2,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":16,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/datasources/local/hive_load_test.dart"},"type":"testStart","time":2956}
+{"testID":31,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2962}
+{"suite":{"id":32,"platform":"vm","path":"D:/ultra_pro_rescuenet/test/widget_test.dart"},"type":"suite","time":2986}
+{"test":{"id":33,"name":"loading D:/ultra_pro_rescuenet/test/widget_test.dart","suiteID":32,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2987}
+{"testID":7,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2998}
+{"group":{"id":34,"suiteID":6,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":2999}
+{"test":{"id":35,"name":"Placeholder test for models - to be implemented","suiteID":6,"groupIDs":[34],"metadata":{"skip":false,"skipReason":null},"line":4,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/models_test.dart"},"type":"testStart","time":2999}
+{"testID":35,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3023}
+{"testID":9,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3210}
+{"group":{"id":36,"suiteID":8,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":3210}
+{"test":{"id":37,"name":"Placeholder test for repositories - to be implemented","suiteID":8,"groupIDs":[36],"metadata":{"skip":false,"skipReason":null},"line":4,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/data/repositories_test.dart"},"type":"testStart","time":3210}
+{"testID":37,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3234}
+{"testID":11,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3509}
+{"group":{"id":38,"suiteID":10,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":4,"line":null,"column":null,"url":null},"type":"group","time":3509}
+{"group":{"id":39,"suiteID":10,"parentID":38,"name":"UNIT TEST: AI Router Logic","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":16,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"group","time":3510}
+{"test":{"id":40,"name":"UNIT TEST: AI Router Logic Should prioritize Node with Internet (+50 points)","suiteID":10,"groupIDs":[38,39],"metadata":{"skip":false,"skipReason":null},"line":17,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"testStart","time":3510}
+{"testID":40,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3546}
+{"test":{"id":41,"name":"UNIT TEST: AI Router Logic Should strictly exclude Sender ID (Layer 1 Loop Defense)","suiteID":10,"groupIDs":[38,39],"metadata":{"skip":false,"skipReason":null},"line":38,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"testStart","time":3546}
+{"testID":41,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3550}
+{"test":{"id":42,"name":"UNIT TEST: AI Router Logic Should exclude nodes in Trace History (Layer 2 Loop Defense)","suiteID":10,"groupIDs":[38,39],"metadata":{"skip":false,"skipReason":null},"line":59,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"testStart","time":3550}
+{"testID":42,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3554}
+{"group":{"id":43,"suiteID":10,"parentID":38,"name":"PERFORMANCE TEST: Routing Speed","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":81,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"group","time":3555}
+{"test":{"id":44,"name":"PERFORMANCE TEST: Routing Speed Should sort 10,000 neighbors in under 100ms","suiteID":10,"groupIDs":[38,43],"metadata":{"skip":false,"skipReason":null},"line":82,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/ai_router_test.dart"},"type":"testStart","time":3555}
+{"testID":44,"messageType":"print","message":"Routing 10k nodes took: 135ms","type":"print","time":3727}
+{"testID":44,"error":"Expected: a value less than <100>\n  Actual: <135>\n   Which: is not a value less than <100>\n","stackTrace":"package:matcher                                                       expect\npackage:flutter_test/src/widget_tester.dart 473:18                    expect\ntest\\features\\mesh_network\\domain\\services\\ai_router_test.dart 111:7  main.<fn>.<fn>\n","isFailure":true,"type":"error","time":3732}
+{"testID":44,"result":"failure","skipped":false,"hidden":false,"type":"testDone","time":3733}
+{"testID":13,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3748}
+{"group":{"id":45,"suiteID":12,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":3748}
+{"group":{"id":46,"suiteID":12,"parentID":45,"name":"Relay Node (Phone B) Intelligent Routing Verification","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":19,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart"},"type":"group","time":3748}
+{"test":{"id":47,"name":"Relay Node (Phone B) Intelligent Routing Verification VERIFY: Sender Exclusion & Goal Node Prioritization","suiteID":12,"groupIDs":[45,46],"metadata":{"skip":false,"skipReason":null},"line":27,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart"},"type":"testStart","time":3748}
+{"testID":47,"messageType":"print","message":"\n--- TEST 1: Relay Decision ---","type":"print","time":3780}
+{"testID":47,"messageType":"print","message":"Γ£à PASS: Ignored Sender (A). Auto-selected Goal Node (C).","type":"print","time":3781}
+{"testID":47,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3782}
+{"test":{"id":48,"name":"Relay Node (Phone B) Intelligent Routing Verification VERIFY: Trace History Loop Exclusion","suiteID":12,"groupIDs":[45,46],"metadata":{"skip":false,"skipReason":null},"line":102,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart"},"type":"testStart","time":3782}
+{"testID":48,"messageType":"print","message":"\n--- TEST 2: History Check ---","type":"print","time":3786}
+{"testID":48,"messageType":"print","message":"Γ£à PASS: Ignored Visited Node (E). Selected Fresh Node (F).","type":"print","time":3786}
+{"testID":48,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3787}
+{"test":{"id":49,"name":"Relay Node (Phone B) Intelligent Routing Verification VERIFY: Goal Node Termination","suiteID":12,"groupIDs":[45,46],"metadata":{"skip":false,"skipReason":null},"line":161,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_logic_test.dart"},"type":"testStart","time":3787}
+{"testID":49,"messageType":"print","message":"\n--- TEST 3: Goal Node Logic ---","type":"print","time":3790}
+{"testID":49,"messageType":"print","message":"Γ£à PASS: Goal Node recognized itself. Hopping Stopped.","type":"print","time":3791}
+{"testID":49,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3791}
+{"testID":15,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3983}
+{"group":{"id":50,"suiteID":14,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":3984}
+{"test":{"id":51,"name":"Placeholder test for relay orchestrator - to be implemented","suiteID":14,"groupIDs":[50],"metadata":{"skip":false,"skipReason":null},"line":4,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/domain/services/relay_orchestrator_test.dart"},"type":"testStart","time":3984}
+{"testID":51,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":4011}
+flutter : test/features/mesh_network/presentation/sos_button_test.dart:13:18: Error: Method not 
+found: 'SosButton'.
+At line:1 char:1
++ flutter test --reporter json 2>&1 | Out-File -FilePath test_results.j ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test/features/m...d: 'SosButton'.:String) [], RemoteExc 
+   eption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+          child: SosButton(onConfirmed: () => activated = true),
+                 ^^^^^^^^^
+{"testID":30,"error":"Failed to load \"D:/ultra_pro_rescuenet/test/features/mesh_network/presentation/sos_button_test.dart\":\nCompilation failed for testPath=D:/ultra_pro_rescuenet/test/features/mesh_network/presentation/sos_button_test.dart: test/features/mesh_network/presentation/sos_button_test.dart:13:18: Error: Method not found: 'SosButton'.\n          child: SosButton(onConfirmed: () => activated = true),\n                 ^^^^^^^^^\n.","stackTrace":"","isFailure":false,"type":"error","time":4925}
+{"testID":30,"result":"error","skipped":false,"hidden":false,"type":"testDone","time":4925}
+{"testID":19,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":5151}
+{"group":{"id":52,"suiteID":18,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":7,"line":null,"column":null,"url":null},"type":"group","time":5151}
+{"group":{"id":53,"suiteID":18,"parentID":52,"name":"INTEGRATION TEST: SOS Flow","metadata":{"skip":false,"skipReason":null},"testCount":7,"line":139,"column":3,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"group","time":5152}
+{"test":{"id":54,"name":"INTEGRATION TEST: SOS Flow Initial state is MeshState with inactive status","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":163,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5152}
+{"testID":54,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5183}
+{"test":{"id":55,"name":"INTEGRATION TEST: SOS Flow Emits state with incremented packetsSent when SOS is successfully sent","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":167,"root_column":5,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5183}
+{"testID":55,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5314}
+{"test":{"id":56,"name":"INTEGRATION TEST: SOS Flow Emits error state when SOS sending fails","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":198,"root_column":5,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5315}
+{"testID":56,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5424}
+{"test":{"id":57,"name":"INTEGRATION TEST: SOS Flow Emits [initializing, inactive] when mesh is initialized successfully","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":226,"root_column":5,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5424}
+{"testID":57,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5556}
+{"test":{"id":58,"name":"INTEGRATION TEST: SOS Flow Emits active state when mesh is started successfully","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":249,"root_column":5,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5557}
+{"testID":58,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5667}
+{"test":{"id":59,"name":"INTEGRATION TEST: SOS Flow Emits inactive state when mesh is stopped","suiteID":18,"groupIDs":[52,53],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":266,"root_column":5,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5667}
+{"testID":59,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":5775}
+{"group":{"id":60,"suiteID":18,"parentID":53,"name":"INTEGRATION TEST: SOS Flow Full SOS Pipeline Integration","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":283,"column":5,"url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"group","time":5775}
+{"test":{"id":61,"name":"INTEGRATION TEST: SOS Flow Full SOS Pipeline Integration Complete flow: Initialize -> Start -> Send SOS -> Verify stats","suiteID":18,"groupIDs":[52,53,60],"metadata":{"skip":false,"skipReason":null},"line":153,"column":8,"url":"package:bloc_test/src/bloc_test.dart","root_line":284,"root_column":7,"root_url":"file:///D:/ultra_pro_rescuenet/test/features/mesh_network/integration_test.dart"},"type":"testStart","time":5775}
+{"testID":33,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":6525}
+{"group":{"id":62,"suiteID":32,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":6525}
+{"test":{"id":63,"name":"App initialization smoke test","suiteID":32,"groupIDs":[62],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":11,"root_column":3,"root_url":"file:///D:/ultra_pro_rescuenet/test/widget_test.dart"},"type":"testStart","time":6525}
+{"testID":61,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6590}
+{"testID":63,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6787}
+{"success":false,"type":"done","time":6809}

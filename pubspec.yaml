@@ -1,0 +1,64 @@
+name: ultra_pro_rescuenet
+description: Production-grade offline mesh networking app for disaster rescue
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.3
+  bloc: ^8.1.2
+  equatable: ^2.0.5
+
+  # Dependency Injection
+  get_it: ^7.6.4
+  injectable: ^2.3.2
+
+  # Functional Programming
+  dartz: ^0.10.1
+
+  # Local Storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.1
+
+  # Network
+  connectivity_plus: ^5.0.1
+  permission_handler: ^11.0.1
+  geolocator: ^11.0.0
+
+  # Utils
+  uuid: ^4.1.0
+  rxdart: ^0.27.7
+  logger: ^2.0.2
+
+  # UI
+  cupertino_icons: ^1.0.8
+  battery_plus: ^7.0.0
+  http: ^1.6.0
+  
+  # Maps
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  
+  # Testing
+  mockito: ^5.4.2
+  bloc_test: ^9.1.4
+  
+  # Code Generation
+  build_runner: ^2.4.6
+  hive_generator: ^2.0.1
+  injectable_generator: ^2.4.1
+
+flutter:
+  uses-material-design: true

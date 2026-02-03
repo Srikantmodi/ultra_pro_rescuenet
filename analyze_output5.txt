@@ -1,0 +1,58 @@
+﻿Analyzing ultra_pro_rescuenet...                                
+
+warning - Unused import: 'dart:typed_data' - lib\core\network\network_security.dart:2:8 - unused_import
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:190:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:191:36 - curly_braces_in_flow_control_structures
+   info - Statements in a for should be enclosed in a block - lib\core\platform\location_manager.dart:201:34 - curly_braces_in_flow_control_structures
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:33:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:42:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:44:7 - avoid_print
+warning - Unused import: 'dart:convert' - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:2:8 - unused_import
+warning - Unused import: '../../../../core/error/failures.dart' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:13:8 - unused_import
+warning - Unused import: '../../domain/services/routing/neighbor_scorer.dart' - lib\features\mesh_network\data\services\relay_orchestrator.dart:6:8 - unused_import
+warning - The value of the field '_seenCache' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:27:25 - unused_field
+warning - The value of the local variable 'loopCheck' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:181:11 - unused_local_variable
+warning - The value of the local variable 'packetJson' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:254:13 - unused_local_variable
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:255:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:256:36 - curly_braces_in_flow_control_structures
+   info - The constant name 'natural_disaster' isn't a lowerCamelCase identifier - lib\features\mesh_network\domain\entities\sos_payload.dart:298:3 - constant_identifier_names
+warning - Unused import: '../../entities/node_info.dart' - lib\features\mesh_network\domain\usecases\transmission\relay_packet_usecase.dart:2:8 - unused_import
+  error - The method 'probe' isn't defined for the type 'InternetProbe' - lib\features\mesh_network\presentation\bloc\connectivity\connectivity_bloc.dart:61:38 - undefined_method
+  error - The method 'fromJson' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:92:39 - undefined_method
+  error - The argument type 'NodeInfo' can't be assigned to the parameter type 'Map<String, String>'.  - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:172:43 - argument_type_not_assignable
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:189:5 - invalid_use_of_visible_for_testing_member
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:197:7 - invalid_use_of_visible_for_testing_member
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:206:7 - invalid_use_of_visible_for_testing_member
+warning - Unused import: '../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\presentation\bloc\mesh_bloc.dart:5:8 - unused_import
+warning - Unused import: '../widgets/status/battery_indicator.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:6:8 - unused_import
+warning - Unused import: '../widgets/status/internet_badge.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:7:8 - unused_import
+warning - Unused import: '../widgets/status/packet_counter.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:8:8 - unused_import
+warning - Unused import: '../../domain/entities/node_info.dart' - lib\features\mesh_network\presentation\pages\home_page.dart:3:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\pages\home_page.dart:148:22 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\pages\home_page.dart:294:42 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\mesh_network\presentation\pages\settings_page.dart:131:7 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\mesh_network\presentation\widgets\controls\relay_mode_switch.dart:61:13 - deprecated_member_use
+warning - This default clause is covered by the previous cases - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:149:7 - unreachable_switch_default
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:142:18 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:177:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:196:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:222:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:138:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:176:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:189:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:200:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:318:30 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:334:30 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:417:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:417:71 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:453:29 - deprecated_member_use
+warning - Unused import: 'package:flutter/material.dart' - test\widget_test.dart:8:8 - unused_import
+
+flutter : 47 issues found. (ran in 1.8s)
+At line:1 char:1
++ flutter analyze 2>&1 | Out-File -FilePath "analyze_output5.txt" -Enco ...
++ ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (47 issues found. (ran in 1.8s):String) [], RemoteExcept 
+   ion
+    + FullyQualifiedErrorId : NativeCommandError
+ 

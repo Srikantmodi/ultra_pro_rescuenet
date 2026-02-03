@@ -1,0 +1,95 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <!-- ===================== NETWORK PERMISSIONS ===================== -->
+    
+    <!-- Basic network access -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    
+    <!-- Wi-Fi state and control -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    
+    <!-- ===================== WI-FI DIRECT PERMISSIONS ===================== -->
+    
+    <!-- Android 13+ (API 33+): Nearby Wi-Fi Devices permission -->
+    <!-- Note: neverForLocation flag removed - WiFi P2P requires location access internally -->
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+        tools:targetApi="tiramisu"/>
+    
+    <!-- Android 12 and below: Location required for Wi-Fi Direct -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    
+    <!-- Android 10+ (API 29+): Background location required for Wi-Fi P2P service registration -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    
+    <!-- ===================== FOREGROUND SERVICE ===================== -->
+    
+    <!-- Required for background mesh operation -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"
+        tools:targetApi="upside_down_cake"/>
+    
+    <!-- Wake lock to prevent CPU sleep during packet relay -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    
+    <!-- ===================== DEVICE FEATURES ===================== -->
+    
+    <!-- Wi-Fi Direct hardware feature -->
+    <uses-feature android:name="android.hardware.wifi.direct" android:required="true"/>
+    
+    <!-- Location hardware (for GPS in SOS) -->
+    <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+    
+    <application
+        android:label="RescueNet Pro"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        
+        <!-- Main Flutter Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- Foreground Service for Mesh Network Operations -->
+        <!-- Note: Using 'location' instead of 'connectedDevice' to fix WiFi P2P issues on Android 14+ -->
+        <service
+            android:name=".MeshService"
+            android:exported="false"
+            android:foregroundServiceType="location"/>
+        
+        <!-- Flutter Plugin Registration -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+            
+    </application>
+    
+    <!-- Queries for text processing (Flutter requirement) -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+    
+</manifest>

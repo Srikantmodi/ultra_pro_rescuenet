@@ -1,0 +1,296 @@
+﻿Analyzing ultra_pro_rescuenet...                                
+
+  error - The name 'AppException' isn't defined, so it can't be used in an 'is' expression - lib\core\error\error_handler.dart:39:18 - type_test_with_undefined_name
+  error - The method 'toFailure' isn't defined for the type 'Object' - lib\core\error\error_handler.dart:40:20 - undefined_method
+warning - Dead code - lib\core\error\error_handler.dart:43:5 - dead_code
+warning - Unused import: 'dart:typed_data' - lib\core\network\network_security.dart:2:8 - unused_import
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:190:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:191:36 - curly_braces_in_flow_control_structures
+   info - Statements in a for should be enclosed in a block - lib\core\platform\location_manager.dart:201:34 - curly_braces_in_flow_control_structures
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:33:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:42:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:44:7 - avoid_print
+  error - Target of URI doesn't exist: '../lru_cache.dart' - lib\features\mesh_network\data\datasources\local\cache\packet_deduplicator.dart:1:8 - uri_does_not_exist
+  error - Undefined class 'SeenPacketCache' - lib\features\mesh_network\data\datasources\local\cache\packet_deduplicator.dart:7:9 - undefined_class
+  error - The method 'SeenPacketCache' isn't defined for the type 'PacketDeduplicator' - lib\features\mesh_network\data\datasources\local\cache\packet_deduplicator.dart:10:18 - undefined_method
+  error - Target of URI doesn't exist: '../../../models/mesh_packet_model.dart' - lib\features\mesh_network\data\datasources\local\hive\adapters\mesh_packet_adapter.dart:2:8 - uri_does_not_exist
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\adapters\mesh_packet_adapter.dart:8:54 - non_type_as_type_argument
+  error - Undefined class 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\adapters\mesh_packet_adapter.dart:13:3 - undefined_class
+  error - The method 'MeshPacketModel' isn't defined for the type 'MeshPacketModelHiveAdapter' - lib\features\mesh_network\data\datasources\local\hive\adapters\mesh_packet_adapter.dart:23:12 - undefined_method
+  error - Undefined class 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\adapters\mesh_packet_adapter.dart:36:35 - undefined_class
+  error - Target of URI doesn't exist: '../../../../domain/entities/node_info.dart' - lib\features\mesh_network\data\datasources\local\hive\adapters\node_info_adapter.dart:2:8 - uri_does_not_exist
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\adapters\node_info_adapter.dart:5:43 - non_type_as_type_argument
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\data\datasources\local\hive\adapters\node_info_adapter.dart:10:3 - undefined_class
+  error - The method 'NodeInfo' isn't defined for the type 'NodeInfoAdapter' - lib\features\mesh_network\data\datasources\local\hive\adapters\node_info_adapter.dart:11:12 - undefined_method
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\data\datasources\local\hive\adapters\node_info_adapter.dart:27:35 - undefined_class
+  error - Target of URI doesn't exist: '../../../models/mesh_packet_model.dart' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:3:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:4:8 - uri_does_not_exist
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:9:7 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:13:31 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:17:8 - non_type_as_type_argument
+  error - The method 'toEntity' can't be unconditionally invoked because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:19:38 - unchecked_use_of_nullable_value
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:23:8 - non_type_as_type_argument
+  error - The property 'timestamp' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:26:26 - unchecked_use_of_nullable_value
+  error - The property 'timestamp' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:26:48 - unchecked_use_of_nullable_value
+  error - The method 'toEntity' can't be unconditionally invoked because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:27:41 - unchecked_use_of_nullable_value
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:31:20 - undefined_class
+  error - Undefined name 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:33:32 - undefined_identifier
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:55:8 - non_type_as_type_argument
+  error - The property 'type' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:58:25 - unchecked_use_of_nullable_value
+  error - Undefined name 'PacketType' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:58:33 - undefined_identifier
+  error - The method 'toEntity' can't be unconditionally invoked because the receiver can be 'null' - lib\features\mesh_network\data\datasources\local\hive\boxes\inbox_box.dart:59:23 - unchecked_use_of_nullable_value
+  error - Target of URI doesn't exist: '../../../models/mesh_packet_model.dart' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:3:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:4:8 - uri_does_not_exist
+  error - The method 'MeshPacketModelAdapter' isn't defined for the type 'OutboxBox' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:38:28 - undefined_method
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:57:28 - undefined_class
+  error - Undefined name 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:61:15 - undefined_identifier
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:73:8 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:87:3 - undefined_class
+  error - Undefined class 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:252:9 - undefined_class
+  error - Undefined class 'MeshPacketModel' - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:275:5 - undefined_class
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used in an 'as' expression - lib\features\mesh_network\data\datasources\local\hive\boxes\outbox_box.dart:319:28 - cast_to_non_type
+  error - Target of URI doesn't exist: '../../models/mesh_packet_model.dart' - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:2:8 - uri_does_not_exist
+  error - The method 'MeshPacketModelAdapter' isn't defined for the type 'LocalDatabase' - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:24:28 - undefined_method
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:28:24 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:29:24 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:37:7 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:39:21 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:43:7 - non_type_as_type_argument
+  error - The name 'MeshPacketModel' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\local\hive\local_database.dart:45:21 - non_type_as_type_argument
+  error - Target of URI doesn't exist: '../../../../domain/entities/node_info.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:3:8 - uri_does_not_exist
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:10:31 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:11:29 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:17:15 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:66:8 - non_type_as_type_argument
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:70:16 - undefined_identifier
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\discovery_channel.dart:73:18 - non_type_as_type_argument
+  error - Target of URI doesn't exist: '../../../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:3:8 - uri_does_not_exist
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:10:26 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:11:24 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:17:10 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:44:49 - undefined_class
+  error - Undefined name 'MeshPacket' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\channels\socket_channel.dart:63:28 - undefined_identifier
+  error - Target of URI doesn't exist: '../../../domain/entities/node_info.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:3:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:4:8 - uri_does_not_exist
+warning - The value of the field '_packetChannel' isn't used - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:13:16 - unused_field
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:15:31 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:16:29 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:17:26 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:18:24 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:25:15 - non_type_as_type_argument
+  error - The name 'MeshPacket' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:28:10 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:62:48 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:89:8 - non_type_as_type_argument
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:93:16 - undefined_identifier
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p\wifi_p2p_source.dart:96:18 - non_type_as_type_argument
+  error - Target of URI doesn't exist: '../../domain/entities/node_info.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:5:8 - uri_does_not_exist
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:26:59 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:31:21 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:38:15 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:47:8 - non_type_as_type_argument
+warning - The value of the local variable 'deviceName' isn't used - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:329:11 - unused_local_variable
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:336:24 - undefined_identifier
+  error - The argument type 'int' can't be assigned to the parameter type 'DateTime'.  - lib\features\mesh_network\data\models\ack_packet_model.dart:52:18 - argument_type_not_assignable
+  error - The named parameter 'id' is required, but there's no corresponding argument - lib\features\mesh_network\data\models\ack_packet_model.dart:63:12 - missing_required_argument
+  error - The named parameter 'packetType' is required, but there's no corresponding argument - lib\features\mesh_network\data\models\ack_packet_model.dart:63:12 - missing_required_argument
+  error - The named parameter 'type' isn't defined - lib\features\mesh_network\data\models\ack_packet_model.dart:66:7 - undefined_named_parameter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\data\models\ack_packet_model.dart:66:13 - undefined_identifier
+  error - The argument type 'String' can't be assigned to the parameter type 'int'.  - lib\features\mesh_network\data\models\node_metadata_model.dart:43:20 - argument_type_not_assignable
+  error - The argument type 'String' can't be assigned to the parameter type 'int'.  - lib\features\mesh_network\data\models\node_metadata_model.dart:44:13 - argument_type_not_assignable
+  error - The argument type 'int' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\data\models\node_metadata_model.dart:60:20 - argument_type_not_assignable
+  error - The argument type 'int' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\data\models\node_metadata_model.dart:61:13 - argument_type_not_assignable
+  error - Target of URI doesn't exist: '../../../core/errors/failures.dart' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:13:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../core/platform/location_manager.dart' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:14:8 - uri_does_not_exist
+  error - Undefined class 'LocationManager' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:30:9 - undefined_class
+  error - Undefined class 'LocationManager' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:52:14 - undefined_class
+  error - The method 'createSos' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\data\repositories\mesh_repository_impl.dart:174:33 - undefined_method
+  error - The method 'selectBestCandidate' isn't defined for the type 'AiRouter' - lib\features\mesh_network\data\repositories\routing_repository_impl.dart:26:22 - undefined_method
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\data\repositories\routing_repository_impl.dart:37:22 - missing_required_argument
+warning - Unused import: '../../domain/services/routing/neighbor_scorer.dart' - lib\features\mesh_network\data\services\relay_orchestrator.dart:6:8 - unused_import
+warning - The value of the field '_seenCache' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:27:25 - unused_field
+warning - The value of the local variable 'loopCheck' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:181:11 - unused_local_variable
+warning - The value of the local variable 'packetJson' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:254:13 - unused_local_variable
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:232:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:233:36 - curly_braces_in_flow_control_structures
+  error - The method 'empty' isn't defined for the type 'NodeInfo' - lib\features\mesh_network\domain\services\relay\forwarding_strategy.dart:31:30 - undefined_method
+  error - The getter 'type' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\domain\services\relay\forwarding_strategy.dart:34:38 - undefined_getter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\domain\services\relay\forwarding_strategy.dart:34:46 - undefined_identifier
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\relay\packet_processor.dart:28:44 - missing_required_argument
+  error - The named parameter 'packet' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\relay\packet_processor.dart:28:44 - missing_required_argument
+  error - Too many positional arguments: 0 expected, but 2 found - lib\features\mesh_network\domain\services\relay\packet_processor.dart:28:64 - extra_positional_arguments_could_be_named
+  error - The getter 'shouldProcess' isn't defined for the type 'LoopCheckResult' - lib\features\mesh_network\domain\services\relay\packet_processor.dart:29:27 - undefined_getter
+  error - The argument type 'Object' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\domain\services\relay\packet_processor.dart:32:9 - argument_type_not_assignable
+  error - The method 'empty' isn't defined for the type 'NodeInfo' - lib\features\mesh_network\domain\services\relay\packet_processor.dart:39:30 - undefined_method
+  error - The getter 'type' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\domain\services\relay\packet_processor.dart:42:38 - undefined_getter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\domain\services\relay\packet_processor.dart:42:46 - undefined_identifier
+  error - Target of URI doesn't exist: '../../../entities/node_info.dart' - lib\features\mesh_network\domain\services\routing\ai_router.dart:1:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../entities/mesh_packet.dart' - lib\features\mesh_network\domain\services\routing\ai_router.dart:2:8 - uri_does_not_exist
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\ai_router.dart:35:3 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:36:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:37:14 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:62:8 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:63:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:64:14 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:84:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:85:14 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:125:8 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:126:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:127:14 - undefined_class
+  error - The property 'id' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:132:34 - unchecked_use_of_nullable_value
+  error - The property 'id' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:137:16 - unchecked_use_of_nullable_value
+  error - The property 'id' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:142:16 - unchecked_use_of_nullable_value
+  error - The property 'isStale' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:147:16 - unchecked_use_of_nullable_value
+  error - The property 'isAvailableForRelay' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:152:17 - unchecked_use_of_nullable_value
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:162:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:163:14 - undefined_class
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:177:14 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\ai_router.dart:191:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\ai_router.dart:192:14 - undefined_class
+  error - The property 'id' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:207:69 - unchecked_use_of_nullable_value
+  error - The property 'isStale' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:212:49 - unchecked_use_of_nullable_value
+  error - The property 'isAvailableForRelay' can't be unconditionally accessed because the receiver can be 'null' - lib\features\mesh_network\domain\services\routing\ai_router.dart:217:55 - unchecked_use_of_nullable_value
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\ai_router.dart:247:9 - undefined_class
+  error - Target of URI doesn't exist: '../../../entities/node_info.dart' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:1:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../../entities/mesh_packet.dart' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:2:8 - uri_does_not_exist
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:70:14 - undefined_class
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:71:14 - undefined_class
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:117:28 - undefined_identifier
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:136:26 - undefined_identifier
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:138:33 - undefined_identifier
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:153:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:154:14 - undefined_class
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:181:3 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:182:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:183:14 - undefined_class
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:202:8 - non_type_as_type_argument
+  error - The name 'NodeInfo' isn't a type, so it can't be used as a type argument - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:203:19 - non_type_as_type_argument
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:204:14 - undefined_class
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:218:14 - undefined_class
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:219:14 - undefined_class
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:287:26 - undefined_identifier
+  error - Undefined name 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:290:33 - undefined_identifier
+  error - Undefined class 'NodeInfo' - lib\features\mesh_network\domain\services\routing\neighbor_scorer.dart:307:9 - undefined_class
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\routing\route_optimizer.dart:22:33 - missing_required_argument
+  error - The named parameter 'neighbor' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\routing\route_optimizer.dart:22:33 - missing_required_argument
+  error - The named parameter 'node' isn't defined - lib\features\mesh_network\domain\services\routing\route_optimizer.dart:22:43 - undefined_named_parameter
+  error - The method 'isAfter' isn't defined for the type 'int' - lib\features\mesh_network\domain\services\validation\integrity_checker.dart:41:26 - undefined_method
+  error - The method 'isBefore' isn't defined for the type 'int' - lib\features\mesh_network\domain\services\validation\integrity_checker.dart:45:26 - undefined_method
+  error - Target of URI doesn't exist: '../../../entities/mesh_packet.dart' - lib\features\mesh_network\domain\services\validation\loop_detector.dart:1:8 - uri_does_not_exist
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\validation\loop_detector.dart:26:14 - undefined_class
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\validation\loop_detector.dart:95:14 - undefined_class
+  error - Undefined class 'MeshPacket' - lib\features\mesh_network\domain\services\validation\loop_detector.dart:159:38 - undefined_class
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\validation\packet_validator.dart:36:38 - missing_required_argument
+  error - The named parameter 'packet' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\validation\packet_validator.dart:36:38 - missing_required_argument
+  error - Too many positional arguments: 0 expected, but 2 found - lib\features\mesh_network\domain\services\validation\packet_validator.dart:36:58 - extra_positional_arguments_could_be_named
+  error - The getter 'shouldProcess' isn't defined for the type 'LoopCheckResult' - lib\features\mesh_network\domain\services\validation\packet_validator.dart:37:21 - undefined_getter
+  error - The argument type 'Object' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\domain\services\validation\packet_validator.dart:38:18 - argument_type_not_assignable
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\validation\packet_validator.dart:61:38 - missing_required_argument
+  error - The named parameter 'packet' is required, but there's no corresponding argument - lib\features\mesh_network\domain\services\validation\packet_validator.dart:61:38 - missing_required_argument
+  error - Too many positional arguments: 0 expected, but 2 found - lib\features\mesh_network\domain\services\validation\packet_validator.dart:61:58 - extra_positional_arguments_could_be_named
+  error - The getter 'shouldProcess' isn't defined for the type 'LoopCheckResult' - lib\features\mesh_network\domain\services\validation\packet_validator.dart:62:23 - undefined_getter
+  error - The method 'empty' isn't defined for the type 'NodeInfo' - lib\features\mesh_network\domain\usecases\processing\process_incoming_packet_usecase.dart:47:30 - undefined_method
+  error - The getter 'type' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\domain\usecases\processing\process_incoming_packet_usecase.dart:50:38 - undefined_getter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\domain\usecases\processing\process_incoming_packet_usecase.dart:50:46 - undefined_identifier
+  error - The named parameter 'id' is required, but there's no corresponding argument - lib\features\mesh_network\domain\usecases\transmission\acknowledge_packet_usecase.dart:18:23 - missing_required_argument
+  error - The named parameter 'packetType' is required, but there's no corresponding argument - lib\features\mesh_network\domain\usecases\transmission\acknowledge_packet_usecase.dart:18:23 - missing_required_argument
+  error - The named parameter 'type' isn't defined - lib\features\mesh_network\domain\usecases\transmission\acknowledge_packet_usecase.dart:21:7 - undefined_named_parameter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\domain\usecases\transmission\acknowledge_packet_usecase.dart:21:13 - undefined_identifier
+  error - The method 'createSos' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\domain\usecases\transmission\broadcast_sos_usecase.dart:13:31 - undefined_method
+  error - The method 'simple' isn't defined for the type 'SosPayload' - lib\features\mesh_network\domain\usecases\transmission\broadcast_sos_usecase.dart:36:32 - undefined_method
+warning - Unused import: '../../entities/node_info.dart' - lib\features\mesh_network\domain\usecases\transmission\relay_packet_usecase.dart:2:8 - unused_import
+  error - The named parameter 'currentNodeId' is required, but there's no corresponding argument - lib\features\mesh_network\domain\usecases\transmission\relay_packet_usecase.dart:31:32 - missing_required_argument
+  error - The getter 'explanation' isn't defined for the type 'RoutingDecision' - lib\features\mesh_network\domain\usecases\transmission\relay_packet_usecase.dart:39:18 - undefined_getter
+  error - The method 'probe' isn't defined for the type 'InternetProbe' - lib\features\mesh_network\presentation\bloc\connectivity\connectivity_bloc.dart:61:38 - undefined_method
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:12:40 - ambiguous_import
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:27:21 - ambiguous_import
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:39:13 - ambiguous_import
+  error - The named parameter 'nodeId' is required, but there's no corresponding argument - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:44:25 - missing_required_argument
+  error - The method 'probe' isn't defined for the type 'InternetProbe' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:46:48 - undefined_method
+  error - The argument type 'int' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:56:22 - argument_type_not_assignable
+  error - The argument type 'int' can't be assigned to the parameter type 'String'.  - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:57:15 - argument_type_not_assignable
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:75:13 - ambiguous_import
+  error - The method 'startDiscovery' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:78:25 - undefined_method
+  error - The getter 'neighborsStream' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:81:44 - undefined_getter
+  error - The getter 'packetsStream' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:85:42 - undefined_getter
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:103:13 - ambiguous_import
+  error - The method 'stopDiscovery' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:110:25 - undefined_method
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:123:13 - ambiguous_import
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:140:13 - ambiguous_import
+  error - The method 'broadcastMetadata' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:147:25 - undefined_method
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:153:13 - ambiguous_import
+  error - The method 'broadcastMetadata' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:161:25 - undefined_method
+  error - The name 'MeshState' is defined in the libraries 'package:ultra_pro_rescuenet/features/mesh_network/data/repositories/mesh_repository_impl.dart' and 'package:ultra_pro_rescuenet/features/mesh_network/presentation/bloc/mesh/mesh_state.dart' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:167:13 - ambiguous_import
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:178:5 - invalid_use_of_visible_for_testing_member
+  error - The getter 'type' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:184:16 - undefined_getter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:184:24 - undefined_identifier
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:186:7 - invalid_use_of_visible_for_testing_member
+warning - The member 'emit' can only be used within 'package:bloc/src/bloc.dart' or a test - lib\features\mesh_network\presentation\bloc\mesh\mesh_bloc.dart:195:7 - invalid_use_of_visible_for_testing_member
+warning - Unused import: '../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\presentation\bloc\mesh_bloc.dart:5:8 - unused_import
+  error - The method 'sendPacket' isn't defined for the type 'MeshRepositoryImpl' - lib\features\mesh_network\presentation\bloc\transmission\transmission_bloc.dart:30:41 - undefined_method
+warning - Unused import: '../widgets/status/battery_indicator.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:6:8 - unused_import
+warning - Unused import: '../widgets/status/internet_badge.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:7:8 - unused_import
+warning - Unused import: '../widgets/status/packet_counter.dart' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:8:8 - unused_import
+  error - 'MeshBloc' doesn't conform to the bound 'StateStreamable<MeshState>' of the type parameter 'B' - lib\features\mesh_network\presentation\pages\dashboard_page.dart:23:25 - type_argument_not_matching_bounds
+  error - 'MeshBloc' doesn't conform to the bound 'StateStreamable<MeshState>' of the type parameter 'B' - lib\features\mesh_network\presentation\pages\debug_console_page.dart:68:24 - type_argument_not_matching_bounds
+  error - 'MeshBloc' doesn't conform to the bound 'StateStreamable<MeshState>' of the type parameter 'B' - lib\features\mesh_network\presentation\pages\debug_console_page.dart:121:24 - type_argument_not_matching_bounds
+warning - Unused import: '../../domain/entities/node_info.dart' - lib\features\mesh_network\presentation\pages\home_page.dart:3:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\pages\home_page.dart:148:22 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\pages\home_page.dart:294:42 - deprecated_member_use
+  error - 'MeshBloc' doesn't conform to the bound 'StateStreamable<MeshState>' of the type parameter 'B' - lib\features\mesh_network\presentation\pages\packet_history_page.dart:26:25 - type_argument_not_matching_bounds
+  error - The constructor being called isn't a const constructor - lib\features\mesh_network\presentation\pages\packet_history_page.dart:123:28 - const_with_non_const
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\mesh_network\presentation\pages\settings_page.dart:131:7 - deprecated_member_use
+  error - Target of URI doesn't exist: 'sos_button.dart' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:6:8 - uri_does_not_exist
+  error - There's no constant named 'general' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:30:48 - undefined_enum_constant
+  error - There's no constant named 'green' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:31:42 - undefined_enum_constant
+  error - There's no constant named 'none' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:96:52 - undefined_enum_constant
+  error - The method 'SosButton' isn't defined for the type '_SosFormPageState' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:143:24 - undefined_method
+  error - The getter 'displayName' isn't defined for the type 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:211:20 - undefined_getter
+  error - There's no constant named 'rescue' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:229:26 - undefined_enum_constant
+  error - There's no constant named 'natural_disaster' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:231:26 - undefined_enum_constant
+  error - There's no constant named 'security' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:233:26 - undefined_enum_constant
+  error - There's no constant named 'rescue' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:246:26 - undefined_enum_constant
+  error - There's no constant named 'natural_disaster' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:248:26 - undefined_enum_constant
+  error - There's no constant named 'security' in 'EmergencyType' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:250:26 - undefined_enum_constant
+  error - The getter 'displayName' isn't defined for the type 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:284:23 - undefined_getter
+  error - There's no constant named 'red' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:300:24 - undefined_enum_constant
+  error - There's no constant named 'yellow' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:302:24 - undefined_enum_constant
+  error - There's no constant named 'green' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:304:24 - undefined_enum_constant
+  error - There's no constant named 'red' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:313:24 - undefined_enum_constant
+  error - There's no constant named 'yellow' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:315:24 - undefined_enum_constant
+  error - There's no constant named 'green' in 'TriageLevel' - lib\features\mesh_network\presentation\pages\sos_form_page.dart:317:24 - undefined_enum_constant
+  error - The named parameter 'locationAccuracy' is required, but there's no corresponding argument - lib\features\mesh_network\presentation\pages\sos_form_page.dart:420:17 - missing_required_argument
+  error - The argument type 'DateTime' can't be assigned to the parameter type 'int'.  - lib\features\mesh_network\presentation\pages\sos_form_page.dart:432:18 - argument_type_not_assignable
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\mesh_network\presentation\widgets\controls\relay_mode_switch.dart:61:13 - deprecated_member_use
+  error - The argument type 'int' can't be assigned to the parameter type 'DateTime'.  - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:94:39 - argument_type_not_assignable
+  error - The getter 'type' isn't defined for the type 'MeshPacket' - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:132:20 - undefined_getter
+  error - Undefined name 'PacketType' - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:133:12 - undefined_identifier
+  error - Undefined name 'PacketType' - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:138:12 - undefined_identifier
+  error - Undefined name 'PacketType' - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:143:12 - undefined_identifier
+  error - Undefined name 'PacketType' - lib\features\mesh_network\presentation\widgets\lists\packet_log_item.dart:148:12 - undefined_identifier
+  error - The operator '>' isn't defined for the type 'String' - lib\features\mesh_network\presentation\widgets\lists\peer_list_tile.dart:118:36 - undefined_operator
+  error - The operator '>' isn't defined for the type 'String' - lib\features\mesh_network\presentation\widgets\radar\peer_marker.dart:106:28 - undefined_operator
+  error - The operator '>' isn't defined for the type 'String' - lib\features\mesh_network\presentation\widgets\radar\radar_painter.dart:115:30 - undefined_operator
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:142:18 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:177:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:196:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\sos_button.dart:222:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:138:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:176:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:189:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:200:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:318:30 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:334:30 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:417:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:417:71 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\mesh_network\presentation\widgets\tactical_map_view.dart:453:29 - deprecated_member_use
+  error - The argument type 'CardTheme' can't be assigned to the parameter type 'CardThemeData?'.  - lib\main.dart:124:18 - argument_type_not_assignable
+  error - The name 'MyApp' isn't a class - test\widget_test.dart:16:35 - creation_with_non_type
+
+flutter : 285 issues found. (ran in 1.6s)
+At line:1 char:1
++ flutter analyze 2>&1 | Out-File -FilePath "analyze_output.txt" -Encod ...
++ ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (285 issues found. (ran in 1.6s):String) [], RemoteExcep 
+   tion
+    + FullyQualifiedErrorId : NativeCommandError
+ 

@@ -1,0 +1,56 @@
+# -----------------------
+# CORE FLUTTER
+# -----------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# -----------------------
+# ANDROID
+# -----------------------
+# Ignore local settings (SDK location varies per PC)
+android/local.properties
+
+# Ignore generated build files
+android/.gradle/
+android/app/build/
+android/.cxx/
+android/app/.cxx/
+
+# Ignore captures (screenshots taken from Android Studio)
+android/captures/
+
+# -----------------------
+# SECRETS (CRITICAL)
+# -----------------------
+# Never upload your signing keys or passwords
+key.properties
+**/*.keystore
+**/*.jks
+
+# -----------------------
+# iOS
+# -----------------------
+ios/.generated/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Pods/
+ios/.symlinks/
+
+# -----------------------
+# IDEs (VS Code / Android Studio)
+# -----------------------
+.idea/
+.vscode/
+*.iml
+*.class

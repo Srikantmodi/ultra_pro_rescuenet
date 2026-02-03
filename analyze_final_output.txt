@@ -1,0 +1,35 @@
+﻿Analyzing ultra_pro_rescuenet...                                
+
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:190:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\core\platform\location_manager.dart:191:36 - curly_braces_in_flow_control_structures
+   info - Statements in a for should be enclosed in a block - lib\core\platform\location_manager.dart:201:34 - curly_braces_in_flow_control_structures
+   info - Don't invoke 'print' in production code - lib\core\utils\logger.dart:33:7 - avoid_print
+warning - Unused import: '../../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:6:8 - unused_import
+warning - The value of the field '_packetSubscription' isn't used - lib\features\mesh_network\data\datasources\remote\wifi_p2p_source.dart:29:23 - unused_field
+warning - The value of the field '_backendUrl' isn't used - lib\features\mesh_network\data\services\cloud_delivery_service.dart:12:23 - unused_field
+warning - The value of the field '_client' isn't used - lib\features\mesh_network\data\services\cloud_delivery_service.dart:14:21 - unused_field
+   info - Don't invoke 'print' in production code - lib\features\mesh_network\data\services\cloud_delivery_service.dart:46:7 - avoid_print
+warning - Unused import: '../datasources/local/cache/lru_cache.dart' - lib\features\mesh_network\data\services\relay_orchestrator.dart:7:8 - unused_import
+warning - The value of the local variable 'loopCheck' isn't used - lib\features\mesh_network\data\services\relay_orchestrator.dart:177:11 - unused_local_variable
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:262:35 - curly_braces_in_flow_control_structures
+   info - Statements in a while should be enclosed in a block - lib\features\mesh_network\domain\entities\node_info.dart:263:36 - curly_braces_in_flow_control_structures
+warning - Unused import: '../../domain/entities/mesh_packet.dart' - lib\features\mesh_network\presentation\bloc\mesh_bloc.dart:5:8 - unused_import
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\mesh_network\presentation\pages\settings_page.dart:132:7 - deprecated_member_use
+   info - Don't invoke 'print' in production code - test\features\mesh_network\data\datasources\local\hive_load_test.dart:46:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\data\datasources\local\hive_load_test.dart:54:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\ai_router_test.dart:110:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:74:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:92:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:139:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:153:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:178:7 - avoid_print
+   info - Don't invoke 'print' in production code - test\features\mesh_network\domain\services\relay_logic_test.dart:195:7 - avoid_print
+
+flutter : 24 issues found. (ran in 2.0s)
+At line:1 char:1
++ flutter analyze 2>&1 | Out-File -FilePath analyze_final_output.txt -E ...
++ ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (24 issues found. (ran in 2.0s):String) [], RemoteExcept 
+   ion
+    + FullyQualifiedErrorId : NativeCommandError
+ 

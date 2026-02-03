@@ -1,0 +1,451 @@
+import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
+import '../../domain/entities/node_info.dart';
+import '../../domain/entities/sos_payload.dart';
+import '../../data/repositories/mesh_repository_impl.dart';
+import '../../data/services/relay_orchestrator.dart';
+import '../../data/services/internet_probe.dart';
+
+// ============== EVENTS ==============
+
+abstract class MeshEvent extends Equatable {
+  const MeshEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+/// Initialize the mesh network system.
+class MeshInitialize extends MeshEvent {
+  const MeshInitialize();
+}
+
+/// Start mesh network operations (broadcasting, discovery, server).
+class MeshStart extends MeshEvent {
+  const MeshStart();
+}
+
+/// Stop mesh network operations.
+class MeshStop extends MeshEvent {
+  const MeshStop();
+}
+
+/// Send an SOS alert.
+class MeshSendSos extends MeshEvent {
+  final SosPayload sos;
+
+  const MeshSendSos(this.sos);
+
+  @override
+  List<Object?> get props => [sos];
+}
+
+/// Cancel an active SOS alert.
+class MeshCancelSos extends MeshEvent {
+  final String sosId;
+
+  const MeshCancelSos(this.sosId);
+
+  @override
+  List<Object?> get props => [sosId];
+}
+
+/// Force a relay attempt for pending packets.
+class MeshForceRelay extends MeshEvent {
+  const MeshForceRelay();
+}
+
+/// Update broadcast metadata (e.g., after location change).
+class MeshUpdateMetadata extends MeshEvent {
+  const MeshUpdateMetadata();
+}
+
+/// Internal: Neighbors list updated.
+class _NeighborsUpdated extends MeshEvent {
+  final List<NodeInfo> neighbors;
+
+  const _NeighborsUpdated(this.neighbors);
+
+  @override
+  List<Object?> get props => [neighbors];
+}
+
+/// Internal: SOS received from network.
+class _SosReceived extends MeshEvent {
+  final ReceivedSos sos;
+
+  const _SosReceived(this.sos);
+
+  @override
+  List<Object?> get props => [sos];
+}
+
+/// Internal: Relay stats updated.
+class _RelayStatsUpdated extends MeshEvent {
+  final RelayStats stats;
+
+  const _RelayStatsUpdated(this.stats);
+
+  @override
+  List<Object?> get props => [stats];
+}
+
+/// Internal: Connectivity changed.
+class _ConnectivityChanged extends MeshEvent {
+  final bool hasInternet;
+
+  const _ConnectivityChanged(this.hasInternet);
+
+  @override
+  List<Object?> get props => [hasInternet];
+}
+
+// ============== STATES ==============
+
+abstract class MeshState extends Equatable {
+  const MeshState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+/// Initial state before initialization.
+class MeshInitial extends MeshState {
+  const MeshInitial();
+}
+
+/// Loading/initializing state.
+class MeshLoading extends MeshState {
+  final String message;
+
+  const MeshLoading({this.message = 'Initializing...'});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+/// Error state.
+class MeshError extends MeshState {
+  final String message;
+
+  const MeshError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+/// Ready state - initialized but not active.
+class MeshReady extends MeshState {
+  const MeshReady();
+}
+
+/// Active state - mesh network is running.
+class MeshActive extends MeshState {
+  final List<NodeInfo> neighbors;
+  final bool hasInternet;
+  final RelayStats relayStats;
+  final List<ReceivedSos> recentSosAlerts;
+  final String? activeSosId;
+  final bool isRelaying;
+
+  const MeshActive({
+    this.neighbors = const [],
+    this.hasInternet = false,
+    this.relayStats = const RelayStats(
+      packetsSent: 0,
+      packetsFailed: 0,
+      pendingCount: 0,
+      neighborsCount: 0,
+      isRunning: false,
+      consecutiveFailures: 0,
+    ),
+    this.recentSosAlerts = const [],
+    this.activeSosId,
+    this.isRelaying = false,
+  });
+
+  MeshActive copyWith({
+    List<NodeInfo>? neighbors,
+    bool? hasInternet,
+    RelayStats? relayStats,
+    List<ReceivedSos>? recentSosAlerts,
+    String? activeSosId,
+    bool? isRelaying,
+  }) {
+    return MeshActive(
+      neighbors: neighbors ?? this.neighbors,
+      hasInternet: hasInternet ?? this.hasInternet,
+      relayStats: relayStats ?? this.relayStats,
+      recentSosAlerts: recentSosAlerts ?? this.recentSosAlerts,
+      activeSosId: activeSosId,
+      isRelaying: isRelaying ?? this.isRelaying,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        neighbors,
+        hasInternet,
+        relayStats,
+        recentSosAlerts,
+        activeSosId,
+        isRelaying,
+      ];
+
+  /// Number of neighbors currently available.
+  int get neighborCount => neighbors.length;
+
+  /// Whether we have any neighbors.
+  bool get hasNeighbors => neighbors.isNotEmpty;
+
+  /// Best neighbor for routing (if any).
+  NodeInfo? get bestNeighbor => neighbors.isNotEmpty ? neighbors.first : null;
+
+  /// Whether an SOS is currently active.
+  bool get hasSosActive => activeSosId != null;
+}
+
+// ============== BLOC ==============
+
+/// BLoC for managing mesh network state and operations.
+///
+/// This is the main state management component for the mesh network UI.
+/// It orchestrates:
+/// - Initialization and lifecycle of mesh network
+/// - SOS sending and receiving
+/// - Neighbor discovery updates
+/// - Relay statistics
+/// - Connectivity status
+class MeshBloc extends Bloc<MeshEvent, MeshState> {
+  final MeshRepositoryImpl _repository;
+  final RelayOrchestrator _relayOrchestrator;
+  final InternetProbe _internetProbe;
+
+  // Subscriptions
+  StreamSubscription? _neighborsSubscription;
+  StreamSubscription? _sosSubscription;
+  StreamSubscription? _relayStatsSubscription;
+  StreamSubscription? _connectivitySubscription;
+
+  // Recent SOS alerts (keep last 10)
+  final List<ReceivedSos> _recentSosAlerts = [];
+  static const int _maxRecentAlerts = 10;
+
+  /// Creates the MeshBloc with required dependencies.
+  MeshBloc({
+    required MeshRepositoryImpl repository,
+    required RelayOrchestrator relayOrchestrator,
+    required InternetProbe internetProbe,
+  })  : _repository = repository,
+        _relayOrchestrator = relayOrchestrator,
+        _internetProbe = internetProbe,
+        super(const MeshInitial()) {
+    // Register event handlers
+    on<MeshInitialize>(_onInitialize);
+    on<MeshStart>(_onStart);
+    on<MeshStop>(_onStop);
+    on<MeshSendSos>(_onSendSos);
+    on<MeshCancelSos>(_onCancelSos);
+    on<MeshForceRelay>(_onForceRelay);
+    on<MeshUpdateMetadata>(_onUpdateMetadata);
+    on<_NeighborsUpdated>(_onNeighborsUpdated);
+    on<_SosReceived>(_onSosReceived);
+    on<_RelayStatsUpdated>(_onRelayStatsUpdated);
+    on<_ConnectivityChanged>(_onConnectivityChanged);
+  }
+
+  /// Handles initialization.
+  Future<void> _onInitialize(
+    MeshInitialize event,
+    Emitter<MeshState> emit,
+  ) async {
+    emit(const MeshLoading(message: 'Initializing mesh network...'));
+
+    // Generate node ID
+    final nodeId = const Uuid().v4();
+
+    // Initialize repository
+    final result = await _repository.initialize(nodeId: nodeId);
+
+    result.fold(
+      (failure) => emit(MeshError(failure.message)),
+      (_) {
+        // Set up subscriptions
+        _setupSubscriptions();
+
+        // Start internet probing
+        _internetProbe.startProbing();
+
+        emit(const MeshReady());
+      },
+    );
+  }
+
+  /// Handles starting mesh operations.
+  Future<void> _onStart(
+    MeshStart event,
+    Emitter<MeshState> emit,
+  ) async {
+    emit(const MeshLoading(message: 'Starting mesh network...'));
+
+    final result = await _repository.startMesh();
+
+    result.fold(
+      (failure) => emit(MeshError(failure.message)),
+      (_) {
+        // Start relay orchestrator
+        _relayOrchestrator.start();
+
+        emit(MeshActive(
+          hasInternet: _internetProbe.hasInternet,
+          isRelaying: true,
+        ));
+      },
+    );
+  }
+
+  /// Handles stopping mesh operations.
+  Future<void> _onStop(
+    MeshStop event,
+    Emitter<MeshState> emit,
+  ) async {
+    _relayOrchestrator.stop();
+    await _repository.stopMesh();
+    emit(const MeshReady());
+  }
+
+  /// Handles sending an SOS.
+  Future<void> _onSendSos(
+    MeshSendSos event,
+    Emitter<MeshState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! MeshActive) return;
+
+    final result = await _repository.sendSos(event.sos);
+
+    result.fold(
+      (failure) {
+        // TODO: Show error to user
+      },
+      (sosId) {
+        emit(currentState.copyWith(activeSosId: sosId));
+      },
+    );
+  }
+
+  /// Handles cancelling an SOS.
+  void _onCancelSos(
+    MeshCancelSos event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is! MeshActive) return;
+
+    // TODO: Implement SOS cancellation packet
+    emit(currentState.copyWith(activeSosId: null));
+  }
+
+  /// Handles force relay attempt.
+  Future<void> _onForceRelay(
+    MeshForceRelay event,
+    Emitter<MeshState> emit,
+  ) async {
+    await _relayOrchestrator.forceRelay();
+  }
+
+  /// Handles metadata update.
+  Future<void> _onUpdateMetadata(
+    MeshUpdateMetadata event,
+    Emitter<MeshState> emit,
+  ) async {
+    await _repository.updateMetadata();
+  }
+
+  /// Handles neighbors list update.
+  void _onNeighborsUpdated(
+    _NeighborsUpdated event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is MeshActive) {
+      emit(currentState.copyWith(neighbors: event.neighbors));
+    }
+  }
+
+  /// Handles received SOS.
+  void _onSosReceived(
+    _SosReceived event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is! MeshActive) return;
+
+    // Add to recent alerts
+    _recentSosAlerts.insert(0, event.sos);
+    if (_recentSosAlerts.length > _maxRecentAlerts) {
+      _recentSosAlerts.removeLast();
+    }
+
+    emit(currentState.copyWith(
+      recentSosAlerts: List.from(_recentSosAlerts),
+    ));
+  }
+
+  /// Handles relay stats update.
+  void _onRelayStatsUpdated(
+    _RelayStatsUpdated event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is MeshActive) {
+      emit(currentState.copyWith(relayStats: event.stats));
+    }
+  }
+
+  /// Handles connectivity change.
+  void _onConnectivityChanged(
+    _ConnectivityChanged event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is MeshActive) {
+      emit(currentState.copyWith(hasInternet: event.hasInternet));
+    }
+  }
+
+  /// Sets up stream subscriptions.
+  void _setupSubscriptions() {
+    _neighborsSubscription = _repository.neighbors.listen((neighbors) {
+      add(_NeighborsUpdated(neighbors));
+    });
+
+    _sosSubscription = _repository.sosAlerts.listen((sos) {
+      add(_SosReceived(sos));
+    });
+
+    _relayStatsSubscription = _relayOrchestrator.stats.listen((stats) {
+      add(_RelayStatsUpdated(stats));
+    });
+
+    _connectivitySubscription = _internetProbe.connectivityStream.listen((hasInternet) {
+      add(_ConnectivityChanged(hasInternet));
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    await _neighborsSubscription?.cancel();
+    await _sosSubscription?.cancel();
+    await _relayStatsSubscription?.cancel();
+    await _connectivitySubscription?.cancel();
+
+    _relayOrchestrator.dispose();
+    _internetProbe.dispose();
+    await _repository.dispose();
+
+    return super.close();
+  }
+}
