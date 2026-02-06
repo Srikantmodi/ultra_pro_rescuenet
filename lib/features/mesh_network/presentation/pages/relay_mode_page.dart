@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,14 +19,12 @@ class RelayModePage extends StatefulWidget {
 class _RelayModePageState extends State<RelayModePage> {
   bool _isRelaying = false;
   int _batteryLevel = 87;
-  String _nodeId = '';
   final List<PacketLogEntry> _packetLog = [];
   Timer? _scanTimer;
   
   @override
   void initState() {
     super.initState();
-    _generateNodeId();
     _getBatteryLevel();
   }
 
@@ -35,11 +32,6 @@ class _RelayModePageState extends State<RelayModePage> {
   void dispose() {
     _scanTimer?.cancel();
     super.dispose();
-  }
-
-  void _generateNodeId() {
-    final random = Random();
-    _nodeId = 'RELAY-${10000 + random.nextInt(90000)}';
   }
 
   Future<void> _getBatteryLevel() async {
@@ -73,12 +65,15 @@ class _RelayModePageState extends State<RelayModePage> {
                   consecutiveFailures: 0,
                 );
           
+          // Build UI based on state
+          final currentNodeId = state.nodeId ?? 'Initializing...';
+          
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildStatusCard(),
+                _buildStatusCard(currentNodeId),
                 const SizedBox(height: 20),
                 _buildForwardTargetsSection(neighbors),
                 const SizedBox(height: 20),
@@ -141,7 +136,7 @@ class _RelayModePageState extends State<RelayModePage> {
     );
   }
 
-  Widget _buildStatusCard() {
+  Widget _buildStatusCard(String nodeId) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(32),
@@ -197,7 +192,7 @@ class _RelayModePageState extends State<RelayModePage> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Node ID: $_nodeId',
+            'Node ID: $nodeId',
             style: const TextStyle(
               color: Color(0xFF64748B),
               fontSize: 14,

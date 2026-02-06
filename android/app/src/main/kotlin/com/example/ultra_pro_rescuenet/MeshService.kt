@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 
 class MeshService : Service() {
@@ -21,6 +22,20 @@ class MeshService : Service() {
             .setSmallIcon(android.R.drawable.ic_menu_compass)
             .build()
         startForeground(1, notification)
+        
+        // Acquire Wake Lock
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RescueNet:MeshServiceWakeLock")
+        wakeLock?.acquire() // Acquire without timeout to keep service running
+    }
+    
+    private var wakeLock: PowerManager.WakeLock? = null
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        if (wakeLock?.isHeld == true) {
+            wakeLock?.release()
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

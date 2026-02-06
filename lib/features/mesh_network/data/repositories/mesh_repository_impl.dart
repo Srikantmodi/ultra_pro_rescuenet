@@ -140,17 +140,16 @@ class MeshRepositoryImpl {
       // Start Android Foreground Service (safe to call here as perms should be granted)
       await _wifiP2pSource.startMeshService();
 
-      // Start broadcasting
-      await _wifiP2pSource.startBroadcasting(
+      // DUAL-MODE: Start mesh node (advertising + discovery + server in one call)
+      final success = await _wifiP2pSource.startMeshNode(
         nodeId: _nodeId!,
         metadata: metadata,
       );
 
-      // Start discovery
-      await _wifiP2pSource.startDiscovery();
-
-      // Start server for incoming packets
-      await _wifiP2pSource.startServer();
+      if (!success) {
+        _meshStateController.add(RepositoryState.error);
+        return Left(WifiP2pFailure('Failed to start mesh node'));
+      }
 
       // Start stale node cleanup timer
       _staleCleanupTimer = Timer.periodic(
@@ -170,9 +169,8 @@ class MeshRepositoryImpl {
     _staleCleanupTimer?.cancel();
     _staleCleanupTimer = null;
 
-    await _wifiP2pSource.stopBroadcasting();
-    await _wifiP2pSource.stopDiscovery();
-    await _wifiP2pSource.stopServer();
+    // DUAL-MODE: Stop mesh node (stops advertising, discovery, and server)
+    await _wifiP2pSource.stopMeshNode();
 
     _meshStateController.add(RepositoryState.idle);
   }
@@ -340,13 +338,14 @@ class MeshRepositoryImpl {
     await _forwardPacket(updatedPacket);
   }
 
-  /// Forwards a packet to the best available neighbor.
+  /// Forwards a packet to the best available neighbor using connect-and-send.
   Future<bool> _forwardPacket(MeshPacket packet) async {
     // Get current neighbors
     final neighbors = currentNeighbors;
 
     if (neighbors.isEmpty) {
       // No neighbors, keep in outbox for later
+      print('❌ No neighbors available for forwarding');
       return false;
     }
 
@@ -359,14 +358,26 @@ class MeshRepositoryImpl {
 
     if (bestNode == null) {
       // No viable route
+      print('❌ No viable route found by AI router');
       return false;
     }
 
-    // TODO: Connect to node and get IP address
-    // For now, we need the group connection flow
-    // This will be completed in relay_orchestrator.dart
+    print('📡 Forwarding packet to ${bestNode.id} (${bestNode.deviceAddress})');
 
-    return false;
+    // DUAL-MODE: Use connect-and-send flow
+    // This connects to the device, sends the packet, and disconnects
+    final result = await _wifiP2pSource.connectAndSendPacket(
+      deviceAddress: bestNode.deviceAddress,
+      packetJson: MeshPacketModel.entityToJsonString(packet),
+    );
+
+    if (result.success) {
+      print('✅ Packet forwarded successfully to ${bestNode.id}');
+      return true;
+    } else {
+      print('❌ Forward failed: ${result.error} - ${result.message}');
+      return false;
+    }
   }
 
   /// Builds metadata map for broadcasting.

@@ -1,9 +1,7 @@
 package com.example.ultra_pro_rescuenet
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
@@ -12,6 +10,12 @@ import androidx.core.content.ContextCompat
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
+/**
+ * GeneralHandler for permissions and device info.
+ * 
+ * Mesh operations (startMeshNode, stopMeshNode, connectAndSend) are now 
+ * handled directly by WifiP2pHandler through a separate channel.
+ */
 class GeneralHandler(
     private val activity: Activity
 ) : MethodChannel.MethodCallHandler {
@@ -22,23 +26,32 @@ class GeneralHandler(
         private const val REQUEST_CODE_BG_LOCATION = 1002
     }
 
+    private lateinit var channel: MethodChannel
+
     fun setup(messenger: io.flutter.plugin.common.BinaryMessenger) {
-        val channel = MethodChannel(messenger, "com.rescuenet/wifi_p2p")
+        // This channel is for permissions and general utility methods
+        channel = MethodChannel(messenger, "com.rescuenet/wifi_p2p")
         channel.setMethodCallHandler(this)
+        Log.d(TAG, "✅ GeneralHandler setup on channel: com.rescuenet/wifi_p2p")
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        Log.d(TAG, "📞 Method call: ${call.method}")
+        
         when (call.method) {
             "initialize" -> {
                 // Already initialized in MainActivity
                 result.success(mapOf("success" to true))
             }
+            
             "checkPermissions" -> {
                 checkPermissions(result)
             }
+            
             "requestPermissions" -> {
                 requestPermissions(result)
             }
+            
             "getDeviceInfo" -> {
                 result.success(mapOf(
                     "deviceName" to (android.provider.Settings.Global.getString(activity.contentResolver, "device_name") ?: Build.MODEL),
@@ -46,6 +59,7 @@ class GeneralHandler(
                     "isP2pSupported" to activity.packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)
                 ))
             }
+            
             "startMeshService" -> {
                 try {
                     val serviceIntent = android.content.Intent(activity, MeshService::class.java)
@@ -56,10 +70,26 @@ class GeneralHandler(
                     }
                     result.success(true)
                 } catch (e: Exception) {
+                    Log.e(TAG, "Failed to start MeshService: ${e.message}")
                     result.error("SERVICE_START_FAILED", e.message, null)
                 }
             }
-            else -> result.notImplemented()
+            
+            "stopMeshService" -> {
+                try {
+                    val serviceIntent = android.content.Intent(activity, MeshService::class.java)
+                    activity.stopService(serviceIntent)
+                    result.success(true)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to stop MeshService: ${e.message}")
+                    result.error("SERVICE_STOP_FAILED", e.message, null)
+                }
+            }
+            
+            else -> {
+                Log.w(TAG, "Method not implemented: ${call.method}")
+                result.notImplemented()
+            }
         }
     }
 
@@ -82,7 +112,7 @@ class GeneralHandler(
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
         
-        Log.d(TAG, "Permissions check: missing=${missing}, needsBgLocation=$needsBackgroundLocation")
+        Log.d(TAG, "Permissions check: missing=${missing.size}, needsBgLocation=$needsBackgroundLocation")
         
         result.success(mapOf(
             "allGranted" to (missing.isEmpty() && !needsBackgroundLocation),
@@ -137,14 +167,20 @@ class GeneralHandler(
         
         // Location permissions (required for WiFi P2P)
         perms.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        perms.add(Manifest.permission.ACCESS_COARSE_LOCATION)
         
         // WiFi state permissions
         perms.add(Manifest.permission.ACCESS_WIFI_STATE)
         perms.add(Manifest.permission.CHANGE_WIFI_STATE)
         
+        // Network state permissions
+        perms.add(Manifest.permission.ACCESS_NETWORK_STATE)
+        perms.add(Manifest.permission.CHANGE_NETWORK_STATE)
+        
         // Android 13+ requires NEARBY_WIFI_DEVICES
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             perms.add(Manifest.permission.NEARBY_WIFI_DEVICES)
+            perms.add(Manifest.permission.POST_NOTIFICATIONS)
         }
         
         // Note: ACCESS_BACKGROUND_LOCATION is requested separately after foreground location is granted

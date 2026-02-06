@@ -9,6 +9,8 @@ import '../../../domain/entities/node_info.dart';
 import 'mesh_event.dart';
 import 'mesh_state.dart';
 
+import '../../../../../core/platform/device_info_provider.dart';
+
 /// BLoC for managing mesh network state.
 class MeshBloc extends Bloc<MeshEvent, MeshState> {
   final MeshRepositoryImpl _repository;
@@ -47,8 +49,8 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     emit(state.copyWith(status: MeshStatus.initializing));
 
     try {
-      // Generate nodeId (simple timestamp based for now)
-      final nodeId = DateTime.now().millisecondsSinceEpoch.toString();
+      // Use persistent Device ID
+      final nodeId = await DeviceInfoProvider.getDeviceId();
       await _repository.initialize(nodeId: nodeId);
 
       final hasInternet = await _internetProbe.checkConnectivity();
@@ -84,7 +86,17 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     Emitter<MeshState> emit,
   ) async {
     try {
-      await _repository.startDiscovery();
+      // Start full mesh operation: service registration + discovery + server
+      final result = await _repository.startMesh();
+      if (result.isLeft()) {
+        final failure = result.fold((l) => l, (r) => null);
+        emit(state.copyWith(
+          status: MeshStatus.error,
+          error: failure?.message ?? 'Failed to start mesh node',
+        ));
+        return;
+      }
+
       _relayOrchestrator.start();
       _internetProbe.startProbing();
 
@@ -134,7 +146,7 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     _internetProbe.stopProbing();
 
     try {
-      await _repository.stopDiscovery();
+      await _repository.stopMesh();
     } catch (e) {
       // Ignore
     }

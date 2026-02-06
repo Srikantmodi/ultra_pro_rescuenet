@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 /// Provides device information for mesh network identification.
 class DeviceInfoProvider {
@@ -14,11 +16,26 @@ class DeviceInfoProvider {
     if (_cachedDeviceId != null) return _cachedDeviceId!;
 
     try {
-      // Try to get Android ID via platform channel
-      const channel = MethodChannel('com.rescuenet/device_info');
-      final result = await channel.invokeMethod<String>('getDeviceId');
-      _cachedDeviceId = result ?? _generateFallbackId();
+      // Open box for device settings
+      final box = await Hive.openBox('device_settings');
+      String? id = box.get('device_id');
+      
+      if (id == null) {
+        // Generate new persistent UUID
+        id = const Uuid().v4();
+        // Take first 8 chars to make it readable but unique enough for small mesh
+        // Or keep full UUID if needed. User liked "RescueNet-1762" style.
+        // Let's store full UUID but maybe use a shorter version for display if needed.
+        // For distinctness, let's keep full UUID or at least a longer segment.
+        // The previous "RescueNet-XXXX" logic in Kotlin used the ID passed to it.
+        // If we pass a full UUID, the service name might get long.
+        // But let's stick to standard UUID for unique ID.
+        await box.put('device_id', id);
+      }
+      
+      _cachedDeviceId = id;
     } catch (e) {
+      // Fallback if Hive fails
       _cachedDeviceId = _generateFallbackId();
     }
 

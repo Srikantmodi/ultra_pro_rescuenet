@@ -18,6 +18,8 @@
     <!-- Note: neverForLocation flag removed - WiFi P2P requires location access internally -->
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
         tools:targetApi="tiramisu"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="tiramisu"/>
     
     <!-- Android 12 and below: Location required for Wi-Fi Direct -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>

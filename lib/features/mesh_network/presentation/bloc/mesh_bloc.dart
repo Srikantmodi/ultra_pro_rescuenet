@@ -107,6 +107,8 @@ class _ConnectivityChanged extends MeshEvent {
 abstract class MeshState extends Equatable {
   const MeshState();
 
+  String? get nodeId => null;
+
   @override
   List<Object?> get props => [];
 }
@@ -138,11 +140,19 @@ class MeshError extends MeshState {
 
 /// Ready state - initialized but not active.
 class MeshReady extends MeshState {
-  const MeshReady();
+  @override
+  final String? nodeId;
+  
+  const MeshReady({this.nodeId});
+  
+  @override
+  List<Object?> get props => [nodeId];
 }
 
 /// Active state - mesh network is running.
 class MeshActive extends MeshState {
+  @override
+  final String nodeId;
   final List<NodeInfo> neighbors;
   final bool hasInternet;
   final RelayStats relayStats;
@@ -151,6 +161,7 @@ class MeshActive extends MeshState {
   final bool isRelaying;
 
   const MeshActive({
+    required this.nodeId,
     this.neighbors = const [],
     this.hasInternet = false,
     this.relayStats = const RelayStats(
@@ -167,6 +178,7 @@ class MeshActive extends MeshState {
   });
 
   MeshActive copyWith({
+    String? nodeId,
     List<NodeInfo>? neighbors,
     bool? hasInternet,
     RelayStats? relayStats,
@@ -175,6 +187,7 @@ class MeshActive extends MeshState {
     bool? isRelaying,
   }) {
     return MeshActive(
+      nodeId: nodeId ?? this.nodeId,
       neighbors: neighbors ?? this.neighbors,
       hasInternet: hasInternet ?? this.hasInternet,
       relayStats: relayStats ?? this.relayStats,
@@ -186,6 +199,7 @@ class MeshActive extends MeshState {
 
   @override
   List<Object?> get props => [
+        nodeId,
         neighbors,
         hasInternet,
         relayStats,
@@ -278,7 +292,7 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
         // Start internet probing
         _internetProbe.startProbing();
 
-        emit(const MeshReady());
+        emit(MeshReady(nodeId: _repository.nodeId));
       },
     );
   }
@@ -299,6 +313,7 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
         _relayOrchestrator.start();
 
         emit(MeshActive(
+          nodeId: _repository.nodeId,
           hasInternet: _internetProbe.hasInternet,
           isRelaying: true,
         ));
@@ -313,7 +328,7 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   ) async {
     _relayOrchestrator.stop();
     await _repository.stopMesh();
-    emit(const MeshReady());
+    emit(MeshReady(nodeId: _repository.nodeId));
   }
 
   /// Handles sending an SOS.

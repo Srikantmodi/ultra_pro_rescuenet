@@ -193,6 +193,118 @@ class WifiP2pSource {
     }
   }
 
+  // ═══════════════════════════════════════════════════════════════════
+  // DUAL-MODE METHODS
+  // ═══════════════════════════════════════════════════════════════════
+
+  /// Starts the mesh node in dual-mode (advertising + discovery + server).
+  ///
+  /// This is the recommended unified method that replaces separate calls to:
+  /// - startBroadcasting()
+  /// - startDiscovery()
+  /// - startServer()
+  ///
+  /// All operations run simultaneously with automatic refresh timers.
+  Future<bool> startMeshNode({
+    required String nodeId,
+    required Map<String, String> metadata,
+  }) async {
+    try {
+      print('═══════════════════════════════════');
+      print('STARTING MESH NODE (DUAL MODE)');
+      print('   Node ID: $nodeId');
+      print('   Metadata: $metadata');
+      print('═══════════════════════════════════');
+
+      _nodeCache.clear();
+      _discoveredNodesController.add([]);
+
+      final result = await _generalChannel.invokeMethod<Map>('startMeshNode', {
+        'nodeId': nodeId,
+        'metadata': metadata,
+      });
+
+      final success = result?['success'] as bool? ?? false;
+      
+      if (success) {
+        print('✅ Mesh node started successfully');
+      } else {
+        final error = result?['error'] as String?;
+        print('❌ Mesh node start failed: $error');
+        _emitError('Mesh node start failed: $error');
+      }
+
+      return success;
+    } on PlatformException catch (e) {
+      print('❌ Start mesh node exception: ${e.message}');
+      _emitError('Start mesh node failed: ${e.message}');
+      return false;
+    }
+  }
+
+  /// Stops the mesh node (stops advertising, discovery, and server).
+  Future<bool> stopMeshNode() async {
+    try {
+      final result = await _generalChannel.invokeMethod<Map>('stopMeshNode');
+      return result?['success'] as bool? ?? false;
+    } on PlatformException catch (e) {
+      print('❌ Stop mesh node error: ${e.message}');
+      return false;
+    }
+  }
+
+  /// Connects to a device and sends a packet, then disconnects.
+  ///
+  /// This is the full "hit-and-run" flow:
+  /// 1. Connect to the target device via Wi-Fi Direct
+  /// 2. Get the group owner's IP address
+  /// 3. Send the packet via TCP socket
+  /// 4. Wait for ACK
+  /// 5. Disconnect
+  ///
+  /// Returns [TransmissionResult] indicating success or failure.
+  Future<TransmissionResult> connectAndSendPacket({
+    required String deviceAddress,
+    required String packetJson,
+  }) async {
+    try {
+      print('═══════════════════════════════════');
+      print('CONNECT AND SEND PACKET');
+      print('   Target: $deviceAddress');
+      print('   Packet size: ${packetJson.length} bytes');
+      print('═══════════════════════════════════');
+
+      final result = await _generalChannel.invokeMethod<Map>('connectAndSendPacket', {
+        'deviceAddress': deviceAddress,
+        'packetJson': packetJson,
+      });
+
+      final success = result?['success'] as bool? ?? false;
+
+      if (success) {
+        final targetIp = result?['targetIp'] as String? ?? deviceAddress;
+        print('✅ Packet sent successfully to $targetIp');
+        return TransmissionResult.success(targetIp: targetIp);
+      } else {
+        final error = result?['error'] as String? ?? 'UNKNOWN';
+        final message = result?['message'] as String? ?? 'Unknown error';
+        print('❌ Send failed: $error - $message');
+        return TransmissionResult.failure(
+          targetIp: deviceAddress,
+          error: error,
+          message: message,
+        );
+      }
+    } on PlatformException catch (e) {
+      print('❌ Connect and send exception: ${e.message}');
+      return TransmissionResult.failure(
+        targetIp: deviceAddress,
+        error: 'EXCEPTION',
+        message: e.message ?? 'Platform exception',
+      );
+    }
+  }
+
   /// Sends packet implementation.
   Future<TransmissionResult> sendPacket({
     required String targetIp,

@@ -4,86 +4,67 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.annotation.SuppressLint
 import android.net.wifi.p2p.WifiP2pManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import android.util.Log
 
-class MainActivity : FlutterActivity() {
-    private lateinit var manager: WifiP2pManager
-    private lateinit var channel: WifiP2pManager.Channel
-    private lateinit var receiver: BroadcastReceiver
+class MainActivity: FlutterActivity() {
     
-    // Handlers
-    private lateinit var discoveryHandler: WifiP2pHandler
-    private lateinit var connectionHandler: ConnectionHandler
-    private lateinit var socketHandler: SocketHandler
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Note: MeshService is now started from Flutter side (GeneralHandler) 
-        // after permissions are confirmed granted. 
-        // Use "startService" method channel.
+    companion object {
+        private const val TAG = "RescueNet"
     }
+    
+    private var wifiP2pHandler: WifiP2pHandler? = null
+    private var manager: WifiP2pManager? = null
+    private var channel: WifiP2pManager.Channel? = null
+    private var receiver: BroadcastReceiver? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         
-        manager = getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager
-        channel = manager.initialize(this, mainLooper, null)
-        
-        val messenger = flutterEngine.dartExecutor.binaryMessenger
-        
-        // Initialize Handlers
-        discoveryHandler = WifiP2pHandler(this, manager, channel)
-        connectionHandler = ConnectionHandler(this, manager, channel)
-        socketHandler = SocketHandler()
-        val generalHandler = GeneralHandler(this)
-        
-        // Setup MethodChannels
-        discoveryHandler.setup(messenger)
-        connectionHandler.setup(messenger)
-        socketHandler.setup(messenger)
-        generalHandler.setup(messenger)
-        
-        // Link Connection info to Socket/UI
-        connectionHandler.onConnectionInfoAvailable = { info ->
-            // For now, no specific action needed, but could notify socket handler if needed
-            Log.d("MainActivity", "Connection Info: ${info.groupOwnerAddress}")
-        }
-    }
+        Log.d(TAG, "═══════════════════════════════════")
+        Log.d(TAG, "🚀 CONFIGURING FLUTTER ENGINE")
+        Log.d(TAG, "═══════════════════════════════════")
 
-    override fun onResume() {
-        super.onResume()
-        receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                when(intent.action) {
-                    WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -> {
-                         // Determine if Wifi P2P mode is enabled or not
-                         val state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1)
-                         if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
-                             Log.d("P2P", "P2P Enabled")
-                         } else {
-                             Log.d("P2P", "P2P Disabled")
-                         }
-                    }
-                    WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -> {
-                        // The peer list has changed
-                        // We rely on service discovery usually, but can also trigger peer request
-                    }
-                    WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -> {
-                        // Connection state changed
-                        connectionHandler.onConnectionChanged()
-                    }
-                    WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -> {
-                        // This device's details changed
-                    }
-                }
-            }
+        // Initialize Wi-Fi P2P Manager
+        manager = getSystemService(Context.WIFI_P2P_SERVICE) as? WifiP2pManager
+        if (manager == null) {
+            Log.e(TAG, "❌ WifiP2pManager not available!")
+            return
         }
         
+        channel = manager!!.initialize(this, mainLooper, null)
+        if (channel == null) {
+            Log.e(TAG, "❌ Failed to initialize P2P channel!")
+            return
+        }
+        
+        Log.d(TAG, "✅ WifiP2pManager initialized")
+
+        // Setup the main P2P handler (handles mesh operations)
+        wifiP2pHandler = WifiP2pHandler(this, manager!!, channel!!)
+        wifiP2pHandler?.setup(flutterEngine.dartExecutor.binaryMessenger)
+        Log.d(TAG, "✅ WifiP2pHandler setup complete")
+        
+        // Setup general handler (handles permissions and device info)
+        val generalHandler = GeneralHandler(this)
+        generalHandler.setup(flutterEngine.dartExecutor.binaryMessenger)
+        Log.d(TAG, "✅ GeneralHandler setup complete")
+    }
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Register BroadcastReceiver for Wi-Fi P2P state changes
+        registerP2pReceiver()
+    }
+    
+    @SuppressLint("MissingPermission")
+    private fun registerP2pReceiver() {
         val intentFilter = IntentFilter().apply {
             addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)
             addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)
@@ -91,11 +72,75 @@ class MainActivity : FlutterActivity() {
             addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
         }
         
-        registerReceiver(receiver, intentFilter)
+        receiver = object : BroadcastReceiver() {
+            @SuppressLint("MissingPermission")
+            override fun onReceive(context: Context, intent: Intent) {
+                when (intent.action) {
+                    WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -> {
+                        val state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1)
+                        val enabled = state == WifiP2pManager.WIFI_P2P_STATE_ENABLED
+                        Log.d(TAG, "⚡ P2P State Changed: ${if (enabled) "ENABLED" else "DISABLED"}")
+                    }
+                    
+                    WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -> {
+                        Log.d(TAG, "⚡ Peers Changed Intent Received")
+                        
+                        // CRITICAL FIX: Request peers immediately when intent fires
+                        manager?.requestPeers(channel) { peers ->
+                            Log.d(TAG, "═══════════════════════════════════")
+                            Log.d(TAG, "📱 Physical Device List: ${peers.deviceList.size} devices")
+                            for (device in peers.deviceList) {
+                                Log.d(TAG, "   -> ${device.deviceName} (${device.deviceAddress})")
+                            }
+                            Log.d(TAG, "═══════════════════════════════════")
+                        }
+                    }
+                    
+                    WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -> {
+                        Log.d(TAG, "⚡ Connection Changed Intent Received")
+                        
+                        manager?.requestConnectionInfo(channel) { info ->
+                            if (info != null) {
+                                Log.d(TAG, "   Group Formed: ${info.groupFormed}")
+                                Log.d(TAG, "   Is Group Owner: ${info.isGroupOwner}")
+                                Log.d(TAG, "   Group Owner Address: ${info.groupOwnerAddress?.hostAddress}")
+                            }
+                        }
+                    }
+                    
+                    WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -> {
+                        Log.d(TAG, "⚡ This Device Changed Intent Received")
+                    }
+                }
+            }
+        }
+        
+        // Register with appropriate flag for Android 14+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            registerReceiver(receiver, intentFilter, Context.RECEIVER_NOT_EXPORTED)
+            Log.d(TAG, "✅ BroadcastReceiver registered (with RECEIVER_NOT_EXPORTED)")
+        } else {
+            registerReceiver(receiver, intentFilter)
+            Log.d(TAG, "✅ BroadcastReceiver registered")
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        unregisterReceiver(receiver)
+    override fun onDestroy() {
+        Log.d(TAG, "🛑 MainActivity onDestroy")
+        
+        // Cleanup handler
+        wifiP2pHandler?.cleanup()
+        wifiP2pHandler = null
+        
+        // Unregister receiver
+        try {
+            receiver?.let { unregisterReceiver(it) }
+            receiver = null
+            Log.d(TAG, "✅ BroadcastReceiver unregistered")
+        } catch (e: Exception) {
+            Log.w(TAG, "⚠️ Error unregistering receiver: ${e.message}")
+        }
+        
+        super.onDestroy()
     }
 }
