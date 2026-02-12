@@ -13,6 +13,7 @@ import 'features/mesh_network/data/services/internet_probe.dart';
 import 'features/mesh_network/data/services/relay_orchestrator.dart';
 import 'features/mesh_network/presentation/bloc/mesh_bloc.dart';
 import 'features/mesh_network/presentation/pages/home_page.dart';
+import 'features/mesh_network/presentation/bloc/discovery/discovery_bloc.dart';
 import 'core/platform/location_manager.dart';
 import 'core/theme/app_theme.dart';
 
@@ -129,6 +130,11 @@ Future<void> _initDependencies() async {
       internetProbe: getIt<InternetProbe>(),
     ),
   );
+
+  // DiscoveryBloc
+  getIt.registerFactory<DiscoveryBloc>(
+    () => DiscoveryBloc(wifiP2pSource: getIt<WifiP2pSource>()),
+  );
 }
 
 /// Root widget for RescueNet Pro application.
@@ -137,8 +143,11 @@ class RescueNetApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MeshBloc>(
-      create: (context) => getIt<MeshBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MeshBloc>(create: (context) => getIt<MeshBloc>()),
+        BlocProvider<DiscoveryBloc>(create: (context) => getIt<DiscoveryBloc>()),
+      ],
       child: MaterialApp(
         title: 'RescueNet Pro',
         debugShowCheckedModeBanner: false,

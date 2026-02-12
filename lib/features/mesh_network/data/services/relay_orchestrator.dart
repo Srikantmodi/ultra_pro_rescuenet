@@ -3,7 +3,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../domain/entities/mesh_packet.dart';
 import '../../domain/entities/node_info.dart';
 import '../../domain/services/routing/ai_router.dart';
-import '../../domain/services/validation/loop_detector.dart';
 import '../datasources/local/hive/boxes/outbox_box.dart';
 import '../datasources/remote/wifi_p2p_source.dart';
 import '../models/mesh_packet_model.dart';
@@ -23,8 +22,7 @@ class RelayOrchestrator {
   final WifiP2pSource _wifiP2pSource;
   final OutboxBox _outbox;
   final AiRouter _aiRouter;
-  final LoopDetector _loopDetector;
-  final String _nodeId;
+  String _nodeId;
 
   // Relay loop control
   Timer? _relayTimer;
@@ -51,12 +49,10 @@ class RelayOrchestrator {
     required OutboxBox outbox,
     required String nodeId,
     AiRouter? aiRouter,
-    LoopDetector? loopDetector,
   })  : _wifiP2pSource = wifiP2pSource,
         _outbox = outbox,
         _nodeId = nodeId,
-        _aiRouter = aiRouter ?? AiRouter(),
-        _loopDetector = loopDetector ?? LoopDetector();
+        _aiRouter = aiRouter ?? AiRouter();
 
   /// Stream of relay statistics.
   Stream<RelayStats> get stats => _statsController.stream;
@@ -67,12 +63,26 @@ class RelayOrchestrator {
   /// Whether the relay loop is running.
   bool get isRunning => _isRunning;
 
+  /// Sets the node ID. Must be called before [start].
+  void setNodeId(String id) {
+    _nodeId = id;
+  }
+
   /// Current statistics.
   RelayStats get currentStats => _statsController.value;
 
   /// Starts the background relay loop.
+  ///
+  /// Throws [StateError] if [setNodeId] has not been called.
   void start() {
     if (_isRunning) return;
+
+    if (_nodeId.isEmpty) {
+      throw StateError(
+        'RelayOrchestrator.start() called before setNodeId(). '
+        'Node ID must be set during MeshBloc initialization.',
+      );
+    }
 
     _isRunning = true;
     _emitActivity(RelayActivityType.started, 'Relay orchestrator started');
@@ -172,15 +182,7 @@ class RelayOrchestrator {
       return false;
     }
 
-    // Validate with loop detector
-    final loopCheck = _loopDetector.canForwardTo(
-      packet: packet,
-      targetNodeId: '', // Will be checked per-neighbor
-      currentNodeId: _nodeId,
-    );
-
-    // This check is for the packet itself, not the target
-    // We'll check each target in selectBestNode
+    // Loop detection is handled per-target inside makeRoutingDecision
 
     // Select best neighbor
     final decision = _aiRouter.makeRoutingDecision(
@@ -225,7 +227,8 @@ class RelayOrchestrator {
     return sendResult;
   }
 
-  /// Attempts to send a packet to a target node.
+  /// Attempts to send a packet to a target node using the unified
+  /// connectAndSendPacket (hit-and-run) flow.
   Future<bool> _attemptSend(MeshPacket packet, NodeInfo target) async {
     try {
       // Add our hop to the packet
@@ -236,65 +239,19 @@ class RelayOrchestrator {
         'Connecting to ${target.displayName} (${target.deviceAddress})...',
       );
 
-      // CRITICAL: Remove any existing group first
-      await _wifiP2pSource.removeGroup();
-
-      // Connect to the target
-      final connInfo = await _wifiP2pSource.connect(target.deviceAddress);
-
-      if (!connInfo.success) {
-        _emitActivity(RelayActivityType.failed, 'Connection failed: ${connInfo.error}');
-        return false;
-      }
-
-      // Determine Target IP
-      String? targetIp;
-      if (!connInfo.isGroupOwner && connInfo.groupOwnerAddress != null) {
-        // We are Client, sending to Group Owner
-        targetIp = connInfo.groupOwnerAddress!;
-      } else {
-        // We are Group Owner. Need to resolve client IP.
-        _emitActivity(
-          RelayActivityType.processing, 
-          'Became Group Owner, resolving IP for ${target.deviceAddress}...'
-        );
-        
-        // Retry ARP lookup a few times as it might take a moment to populate
-        for (int i = 0; i < 5; i++) {
-          targetIp = await _wifiP2pSource.resolveClientIp(target.deviceAddress);
-          if (targetIp != null) break;
-          await Future.delayed(const Duration(milliseconds: 500));
-        }
-
-        if (targetIp == null) {
-          _emitActivity(RelayActivityType.failed, 'Could not resolve IP for ${target.deviceAddress}');
-          await _wifiP2pSource.disconnect();
-          return false;
-        }
-      }
-      
-      _emitActivity(RelayActivityType.processing, 'Sending packet to $targetIp...');
-
       // Serialize packet
       final packetJson = MeshPacketModel.entityToJsonString(updatedPacket);
 
-      // Send Packet
-      final sendResult = await _wifiP2pSource.sendPacket(
-        targetIp: targetIp,
+      // Use unified connect-and-send: native handles connect → send → ACK → disconnect
+      final sendResult = await _wifiP2pSource.connectAndSendPacket(
+        deviceAddress: target.deviceAddress,
         packetJson: packetJson,
       );
-
-      // Disconnect immediately after (Store-and-Forward)
-      await _wifiP2pSource.disconnect();
 
       return sendResult.success;
 
     } catch (e) {
       _emitActivity(RelayActivityType.error, 'Send error: $e');
-      // Ensure we clean up connection on error
-      try {
-        await _wifiP2pSource.disconnect();
-      } catch (_) {}
       return false;
     }
   }

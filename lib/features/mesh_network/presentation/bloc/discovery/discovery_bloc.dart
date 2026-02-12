@@ -26,8 +26,8 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     try {
       emit(state.copyWith(isDiscovering: true, error: null));
 
-      await _wifiP2pSource.startDiscovery();
-
+      // Discovery is managed by MeshBloc → MeshRepository → startMeshNode.
+      // DiscoveryBloc only subscribes to the neighbor stream.
       _neighborsSubscription?.cancel();
       _neighborsSubscription = _wifiP2pSource.discoveredNodes.listen(
         (neighbors) => add(NeighborsUpdated(neighbors)),
@@ -47,12 +47,8 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     await _neighborsSubscription?.cancel();
     _neighborsSubscription = null;
 
-    try {
-      await _wifiP2pSource.stopDiscovery();
-    } catch (e) {
-      // Ignore stop errors
-    }
-
+    // Discovery lifecycle is controlled by MeshBloc (startMeshNode/stopMeshNode).
+    // We only toggle the local UI state here.
     emit(state.copyWith(isDiscovering: false));
   }
 
@@ -75,12 +71,8 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     RefreshNeighbors event,
     Emitter<DiscoveryState> emit,
   ) async {
-    // Trigger a refresh by restarting discovery briefly
-    if (state.isDiscovering) {
-      await _wifiP2pSource.stopDiscovery();
-      await Future.delayed(const Duration(milliseconds: 500));
-      await _wifiP2pSource.startDiscovery();
-    }
+    // Native auto-refreshes discovery every 15-20s.
+    // Manual refresh is a no-op; the stream will update automatically.
   }
 
   @override

@@ -30,7 +30,7 @@ class WifiP2pHandler(
     companion object {
         private const val TAG = "WifiP2pHandler"
         private const val SERVICE_NAME = "RescueNet"
-        private const val SERVICE_TYPE = "_rescuenet._tcp"
+        private const val SERVICE_TYPE = "_rescuenet._tcp.local."
         
         private const val DISCOVERY_REFRESH_INTERVAL_MS = 15000L
         private const val PEER_DISCOVERY_INTERVAL_MS = 20000L

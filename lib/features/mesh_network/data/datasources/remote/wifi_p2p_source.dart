@@ -1,64 +1,67 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../domain/entities/node_info.dart';
-import 'wifi_p2p/channels/discovery_channel.dart';
-import 'wifi_p2p/channels/connection_channel.dart';
-import 'wifi_p2p/channels/socket_channel.dart';
 
-/// Flutter data source for Wi-Fi Direct communication via platform channels.
+/// Unified Wi-Fi P2P data source bridging the Flutter domain layer with the
+/// native Android implementation.
 ///
-/// This class bridges the Flutter domain layer with the native Android
-/// implementation via multiple Channels.
+/// Uses two platform channels:
+///   - `com.rescuenet/wifi_p2p` (GeneralHandler): permissions, init, service lifecycle
+///   - `com.rescuenet/wifi_p2p/discovery` (WifiP2pHandler): mesh node operations
+///
+/// And one event channel:
+///   - `com.rescuenet/wifi_p2p/discovery_events`: servicesFound, packetReceived
 class WifiP2pSource {
+  // ── Platform Channels ──────────────────────────────────────────────
+  /// General channel → GeneralHandler (permissions, init, foreground service)
   static const _generalChannel = MethodChannel('com.rescuenet/wifi_p2p');
-  
-  final _discoveryChannel = DiscoveryChannel();
-  final _connectionChannel = ConnectionChannel();
-  final _socketChannel = SocketChannel();
-  
+
+  /// Discovery channel → WifiP2pHandler (mesh node ops, connectAndSend)
+  static const _discoveryChannel = MethodChannel('com.rescuenet/wifi_p2p/discovery');
+
+  /// Event channel → WifiP2pHandler emits servicesFound / packetReceived
+  static const _eventChannel = EventChannel('com.rescuenet/wifi_p2p/discovery_events');
+
+  // ── State ──────────────────────────────────────────────────────────
   final _wifiStateController = BehaviorSubject<bool>.seeded(false);
   final _discoveredNodesController = BehaviorSubject<List<NodeInfo>>.seeded([]);
+  final _receivedPacketsController = StreamController<ReceivedPacket>.broadcast();
   final _errorController = StreamController<String>.broadcast();
-  
-  // Cache of discovered nodes
+
   final Map<String, NodeInfo> _nodeCache = {};
-  
-  StreamSubscription? _discoverySubscription;
-  StreamSubscription? _packetSubscription;
+
+  StreamSubscription? _eventSubscription;
   Timer? _staleCleanupTimer;
+  bool _isInitialized = false;
 
-  /// Stream of discovered nodes.
+  // ═══════════════════════════════════════════════════════════════════
+  // PUBLIC STREAMS
+  // ═══════════════════════════════════════════════════════════════════
+
   Stream<List<NodeInfo>> get discoveredNodes => _discoveredNodesController.stream;
-
-  /// Current list of discovered nodes.
   List<NodeInfo> get currentNodes => _nodeCache.values.toList();
-
-  /// Stream of received packets.
-  Stream<ReceivedPacket> get receivedPackets => _socketChannel.packetStream.map(
-    (event) => ReceivedPacket(
-      senderIp: event.senderIp,
-      packetJson: event.packetJson,
-      receivedAt: DateTime.now(),
-    ),
-  );
-
-  /// Stream of Wi-Fi P2P enabled state.
+  Stream<ReceivedPacket> get receivedPackets => _receivedPacketsController.stream;
   Stream<bool> get wifiP2pState => _wifiStateController.stream;
-
-  /// Stream of error messages.
   Stream<String> get errorStream => _errorController.stream;
 
-  /// Initializes the Wi-Fi P2P system.
+  // ═══════════════════════════════════════════════════════════════════
+  // INITIALIZATION  (GeneralHandler → com.rescuenet/wifi_p2p)
+  // ═══════════════════════════════════════════════════════════════════
+
+  /// Initializes the Wi-Fi P2P system and starts listening for native events.
   Future<bool> initialize() async {
+    if (_isInitialized) return true;
+
     try {
       final result = await _generalChannel.invokeMethod<Map>('initialize');
       final success = result?['success'] as bool? ?? false;
-      
+
       if (success) {
-        _startListeningToDiscovery();
+        _startEventListener();
         _startStaleCleanupTimer();
+        _isInitialized = true;
+        print('✅ WifiP2pSource initialized');
       }
       return success;
     } on PlatformException catch (e) {
@@ -67,22 +70,10 @@ class WifiP2pSource {
     }
   }
 
-  void _startListeningToDiscovery() {
-    _discoverySubscription = _discoveryChannel.neighborsStream.listen((nodes) {
-      for (final node in nodes) {
-        _nodeCache[node.id] = node;
-      }
-      _discoveredNodesController.add(_nodeCache.values.toList());
-    });
-  }
+  // ═══════════════════════════════════════════════════════════════════
+  // PERMISSIONS  (GeneralHandler)
+  // ═══════════════════════════════════════════════════════════════════
 
-  void _startStaleCleanupTimer() {
-    _staleCleanupTimer = Timer.periodic(const Duration(seconds: 30), (_) {
-      cleanStaleNodes();
-    });
-  }
-
-  /// Checks permissions.
   Future<PermissionStatus> checkPermissions() async {
     try {
       final result = await _generalChannel.invokeMethod<Map>('checkPermissions');
@@ -97,7 +88,6 @@ class WifiP2pSource {
     }
   }
 
-  /// Requests permissions.
   Future<bool> requestPermissions() async {
     try {
       final result = await _generalChannel.invokeMethod<Map>('requestPermissions');
@@ -106,105 +96,38 @@ class WifiP2pSource {
       throw WifiP2pException('Permission request failed: ${e.message}', e.code);
     }
   }
-  
-  /// Starts the Android Foreground Service.
-  /// 
-  /// Must be called only AFTER permissions are granted to avoid Android 14+ crash.
+
+  // ═══════════════════════════════════════════════════════════════════
+  // FOREGROUND SERVICE  (GeneralHandler)
+  // ═══════════════════════════════════════════════════════════════════
+
   Future<bool> startMeshService() async {
     try {
       final result = await _generalChannel.invokeMethod<bool>('startMeshService');
       return result ?? false;
-    } on PlatformException catch (e) {
-      // Log but don't rethrow, as service might already be running or not critical for basic UI
+    } on PlatformException {
       return false;
     }
   }
 
-  /// Starts broadcasting metadata via local service.
-  Future<void> startBroadcasting({
-    required String nodeId,
-    required Map<String, String> metadata,
-  }) async {
+  Future<bool> stopMeshService() async {
     try {
-      // Ensure node ID is in metadata
-      final fullMetadata = Map<String, String>.from(metadata);
-      fullMetadata['id'] = nodeId;
-      await _discoveryChannel.registerService(fullMetadata);
-    } on PlatformException catch (e) {
-      _emitError('Broadcasting failed: ${e.message}');
-      throw WifiP2pException('Broadcasting failed: ${e.message}', e.code);
-    }
-  }
-
-  /// Stops broadcasting metadata.
-  Future<void> stopBroadcasting() async {
-    try {
-      await _discoveryChannel.unregisterService();
-    } on PlatformException catch (e) {
-      throw WifiP2pException('Stop broadcasting failed: ${e.message}', e.code);
-    }
-  }
-
-  /// Starts discovery.
-  Future<void> startDiscovery() async {
-    try {
-      _nodeCache.clear();
-      _discoveredNodesController.add([]);
-      await _discoveryChannel.startDiscovery();
-    } on PlatformException catch (e) {
-      _emitError('Discovery failed: ${e.message}');
-      throw WifiP2pException('Discovery failed: ${e.message}', e.code);
-    }
-  }
-
-  /// Refreshes discovery without clearing cache.
-  Future<void> refreshDiscovery() async {
-    try {
-      await _discoveryChannel.refreshDiscovery();
-    } catch (e) {
-      // Ignore refresh errors
-    }
-  }
-
-  /// Stops discovery.
-  Future<void> stopDiscovery() async {
-    try {
-      await _discoveryChannel.stopDiscovery();
-    } on PlatformException catch (e) {
-      throw WifiP2pException('Stop discovery failed: ${e.message}', e.code);
-    }
-  }
-
-  /// Starts server.
-  Future<void> startServer() async {
-    try {
-      await _socketChannel.startListening();
-    } on PlatformException catch (e) {
-      throw WifiP2pException('Server start failed: ${e.message}', e.code);
-    }
-  }
-
-  /// Stops server.
-  Future<void> stopServer() async {
-    try {
-      await _socketChannel.stopListening();
-    } on PlatformException catch (e) {
-      throw WifiP2pException('Server stop failed: ${e.message}', e.code);
+      final result = await _generalChannel.invokeMethod<bool>('stopMeshService');
+      return result ?? false;
+    } on PlatformException {
+      return false;
     }
   }
 
   // ═══════════════════════════════════════════════════════════════════
-  // DUAL-MODE METHODS
+  // MESH NODE OPERATIONS  (WifiP2pHandler → com.rescuenet/wifi_p2p/discovery)
   // ═══════════════════════════════════════════════════════════════════
 
   /// Starts the mesh node in dual-mode (advertising + discovery + server).
   ///
-  /// This is the recommended unified method that replaces separate calls to:
-  /// - startBroadcasting()
-  /// - startDiscovery()
-  /// - startServer()
-  ///
-  /// All operations run simultaneously with automatic refresh timers.
+  /// This replaces the old separate startBroadcasting / startDiscovery / startServer
+  /// calls. The native WifiP2pHandler registers the DNS-SD service, starts
+  /// peer+service discovery, and starts periodic refresh timers — all in one call.
   Future<bool> startMeshNode({
     required String nodeId,
     required Map<String, String> metadata,
@@ -219,22 +142,20 @@ class WifiP2pSource {
       _nodeCache.clear();
       _discoveredNodesController.add([]);
 
-      final result = await _generalChannel.invokeMethod<Map>('startMeshNode', {
-        'nodeId': nodeId,
-        'metadata': metadata,
-      });
+      // Native expects the metadata map directly as `call.arguments`
+      final fullMetadata = Map<String, String>.from(metadata);
+      fullMetadata['id'] = nodeId;
 
-      final success = result?['success'] as bool? ?? false;
-      
-      if (success) {
+      final result = await _discoveryChannel.invokeMethod<bool>('startMeshNode', fullMetadata);
+
+      if (result == true) {
         print('✅ Mesh node started successfully');
+        return true;
       } else {
-        final error = result?['error'] as String?;
-        print('❌ Mesh node start failed: $error');
-        _emitError('Mesh node start failed: $error');
+        print('❌ Mesh node start failed');
+        _emitError('Mesh node start failed');
+        return false;
       }
-
-      return success;
     } on PlatformException catch (e) {
       print('❌ Start mesh node exception: ${e.message}');
       _emitError('Start mesh node failed: ${e.message}');
@@ -242,27 +163,105 @@ class WifiP2pSource {
     }
   }
 
-  /// Stops the mesh node (stops advertising, discovery, and server).
+  /// Updates node metadata without restarting the mesh node.
+  /// Maps to native `updateMetadata`.
+  Future<bool> updateMetadata(Map<String, String> metadata) async {
+    try {
+      final result = await _discoveryChannel.invokeMethod<bool>('updateMetadata', metadata);
+      return result == true;
+    } on PlatformException catch (e) {
+      print('❌ Update metadata error: ${e.message}');
+      return false;
+    }
+  }
+
+  /// Stops the mesh node (stops advertising, discovery, and server timers).
   Future<bool> stopMeshNode() async {
     try {
-      final result = await _generalChannel.invokeMethod<Map>('stopMeshNode');
-      return result?['success'] as bool? ?? false;
+      final result = await _discoveryChannel.invokeMethod<bool>('stopMeshNode');
+      if (result == true) {
+        _nodeCache.clear();
+        _discoveredNodesController.add([]);
+        print('✅ Mesh node stopped');
+        return true;
+      }
+      return false;
     } on PlatformException catch (e) {
       print('❌ Stop mesh node error: ${e.message}');
       return false;
     }
   }
 
-  /// Connects to a device and sends a packet, then disconnects.
+  /// Gets diagnostic information from the native layer.
+  Future<Map<String, dynamic>> getDiagnostics() async {
+    try {
+      final result = await _discoveryChannel.invokeMethod<Map>('getDiagnostics');
+      return Map<String, dynamic>.from(result ?? {});
+    } on PlatformException catch (e) {
+      print('❌ Get diagnostics error: ${e.message}');
+      return {};
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // BACKWARD-COMPAT WRAPPERS
+  //
+  // These are kept so that callers (MeshRepositoryImpl, DiscoveryBloc) that
+  // still reference the old API names don't break. They are now no-ops or
+  // thin wrappers over the unified API.
+  // ═══════════════════════════════════════════════════════════════════
+
+  /// Start broadcasting — now maps to updateMetadata (the mesh node must
+  /// already be started via startMeshNode).
+  Future<void> startBroadcasting({
+    required String nodeId,
+    required Map<String, String> metadata,
+  }) async {
+    final fullMetadata = Map<String, String>.from(metadata);
+    fullMetadata['id'] = nodeId;
+    await updateMetadata(fullMetadata);
+  }
+
+  /// No-op. Discovery is auto-managed by the native mesh node.
+  Future<void> startDiscovery() async {
+    // Discovery is automatically managed by startMeshNode.
+    // Kept for backward compatibility with DiscoveryBloc.
+    print('ℹ️  startDiscovery() is now a no-op — managed by startMeshNode');
+  }
+
+  /// No-op. Discovery is auto-managed by the native mesh node.
+  Future<void> stopDiscovery() async {
+    print('ℹ️  stopDiscovery() is now a no-op — managed by stopMeshNode');
+  }
+
+  /// No-op. Server is auto-started by WifiP2pHandler.setup().
+  Future<void> startServer() async {
+    print('ℹ️  startServer() is now a no-op — auto-started by native');
+  }
+
+  /// No-op. Server lifecycle is managed by native cleanup.
+  Future<void> stopServer() async {
+    print('ℹ️  stopServer() is now a no-op — managed by native cleanup');
+  }
+
+  /// No-op. Broadcasting is managed by stopMeshNode now.
+  Future<void> stopBroadcasting() async {
+    print('ℹ️  stopBroadcasting() is now a no-op — managed by stopMeshNode');
+  }
+
+  /// No-op. Refresh is handled by native periodic timers.
+  Future<void> refreshDiscovery() async {
+    print('ℹ️  refreshDiscovery() is now a no-op — native handles periodic refresh');
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PACKET TRANSMISSION  (WifiP2pHandler → connectAndSend)
+  // ═══════════════════════════════════════════════════════════════════
+
+  /// Connects to a target device, sends a packet, waits for ACK, disconnects.
   ///
-  /// This is the full "hit-and-run" flow:
-  /// 1. Connect to the target device via Wi-Fi Direct
-  /// 2. Get the group owner's IP address
-  /// 3. Send the packet via TCP socket
-  /// 4. Wait for ACK
-  /// 5. Disconnect
-  ///
-  /// Returns [TransmissionResult] indicating success or failure.
+  /// This is the **only** way to transmit data. The native layer handles
+  /// the full connect → send → ACK → disconnect lifecycle ("hit-and-run").
   Future<TransmissionResult> connectAndSendPacket({
     required String deviceAddress,
     required String packetJson,
@@ -274,108 +273,167 @@ class WifiP2pSource {
       print('   Packet size: ${packetJson.length} bytes');
       print('═══════════════════════════════════');
 
-      final result = await _generalChannel.invokeMethod<Map>('connectAndSendPacket', {
+      final result = await _discoveryChannel.invokeMethod<bool>('connectAndSend', {
         'deviceAddress': deviceAddress,
-        'packetJson': packetJson,
+        'packet': packetJson,
       });
 
-      final success = result?['success'] as bool? ?? false;
-
-      if (success) {
-        final targetIp = result?['targetIp'] as String? ?? deviceAddress;
-        print('✅ Packet sent successfully to $targetIp');
-        return TransmissionResult.success(targetIp: targetIp);
+      if (result == true) {
+        print('✅ Packet sent successfully');
+        return TransmissionResult.success(targetIp: deviceAddress);
       } else {
-        final error = result?['error'] as String? ?? 'UNKNOWN';
-        final message = result?['message'] as String? ?? 'Unknown error';
-        print('❌ Send failed: $error - $message');
+        print('❌ Send failed');
         return TransmissionResult.failure(
           targetIp: deviceAddress,
-          error: error,
-          message: message,
+          error: 'SEND_FAILED',
+          message: 'Native returned false',
         );
       }
     } on PlatformException catch (e) {
       print('❌ Connect and send exception: ${e.message}');
       return TransmissionResult.failure(
         targetIp: deviceAddress,
-        error: 'EXCEPTION',
-        message: e.message ?? 'Platform exception',
+        error: e.code,
+        message: e.message ?? 'Unknown error',
       );
     }
   }
 
-  /// Sends packet implementation.
-  Future<TransmissionResult> sendPacket({
-    required String targetIp,
-    required String packetJson,
-  }) async {
-     try {
-       final success = await _socketChannel.sendPacketJson(targetIp, packetJson);
-       if (success) {
-         return TransmissionResult.success(targetIp: targetIp);
-       } else {
-         return TransmissionResult.failure(targetIp: targetIp, error: 'Send failed', message: 'Unknown error');
-       }
-     } catch (e) {
-       return TransmissionResult.failure(targetIp: targetIp, error: 'Error', message: e.toString());
-     }
-  }
+  // ═══════════════════════════════════════════════════════════════════
+  // EVENT LISTENER  (EventChannel → discovery_events)
+  // ═══════════════════════════════════════════════════════════════════
 
-  /// Connects to a device.
-  Future<ConnectionInfo> connect(String deviceAddress) async {
-      try {
-        // Remove any existing group first
-        await removeGroup();
-        
-        final result = await _connectionChannel.connect(deviceAddress);
-        
-        if (result != null && result['success'] == true) {
-          return ConnectionInfo(
-            success: true,
-            groupOwnerAddress: result['groupOwnerAddress'] as String?,
-            isGroupOwner: result['isGroupOwner'] as bool? ?? false,
-          );
+  void _startEventListener() {
+    _eventSubscription = _eventChannel.receiveBroadcastStream().listen(
+      (dynamic event) {
+        if (event is! Map) return;
+
+        final eventMap = Map<String, dynamic>.from(event);
+        final type = eventMap['type'] as String?;
+
+        switch (type) {
+          case 'servicesFound':
+            _handleServicesFound(eventMap);
+            break;
+          case 'packetReceived':
+            _handlePacketReceived(eventMap);
+            break;
+          default:
+            print('⚠️ Unknown event type: $type');
         }
-        
-        // Fallback to getting connection info
-        final info = await _connectionChannel.getConnectionInfo();
-        return ConnectionInfo(
-          success: info != null && info['groupFormed'] == true,
-          groupOwnerAddress: info?['groupOwnerAddress'] as String?,
-          isGroupOwner: info?['isGroupOwner'] as bool? ?? false,
+      },
+      onError: (error) {
+        print('❌ Event stream error: $error');
+        _emitError('Event stream error: $error');
+      },
+    );
+  }
+
+  void _handleServicesFound(Map<String, dynamic> event) {
+    try {
+      final services = event['services'] as List?;
+      if (services == null || services.isEmpty) return;
+
+      for (final service in services) {
+        if (service is! Map) continue;
+
+        final svcMap = Map<String, dynamic>.from(service);
+        final nodeId = svcMap['id'] as String? ?? svcMap['nodeId'] as String?;
+        final deviceAddress = svcMap['deviceAddress'] as String? ?? '';
+
+        if (nodeId == null || deviceAddress.isEmpty) continue;
+
+        // Build NodeInfo using the TXT record fields when available,
+        // falling back to defaults for the serviceCallback (no TXT data).
+        final hasTxtData = svcMap.containsKey('bat');
+
+        final node = NodeInfo(
+          id: nodeId,
+          deviceAddress: deviceAddress,
+          displayName: svcMap['deviceName'] as String? ?? 'Unknown',
+          batteryLevel: int.tryParse(svcMap['bat']?.toString() ?? '0') ?? 0,
+          hasInternet: svcMap['net'] == '1',
+          latitude: double.tryParse(svcMap['lat']?.toString() ?? '0') ?? 0.0,
+          longitude: double.tryParse(svcMap['lng']?.toString() ?? '0') ?? 0.0,
+          lastSeen: DateTime.now(),
+          signalStrength: int.tryParse(svcMap['sig']?.toString() ?? '-70') ?? -70,
+          triageLevel: _mapTriageLevel(svcMap['tri']?.toString()),
+          role: _mapRole(svcMap['rol']?.toString()),
+          isAvailableForRelay: svcMap['rel'] != '0',
         );
-      } catch (e) {
-        return ConnectionInfo(success: false, error: e.toString());
+
+        _nodeCache[node.id] = node;
+        print('✅ Node discovered: ${node.id} (${node.deviceAddress}) [${hasTxtData ? "TXT" : "service"}]');
       }
+
+      _discoveredNodesController.add(_nodeCache.values.toList());
+    } catch (e) {
+      print('❌ Error handling servicesFound: $e');
+    }
   }
 
-  /// Gets group info including connected clients.
-  Future<GroupInfo?> getGroupInfo() async {
-    return _connectionChannel.getGroupInfo();
+  void _handlePacketReceived(Map<String, dynamic> event) {
+    try {
+      final data = event['data'] as String?;
+      if (data == null) return;
+
+      print('📦 PACKET RECEIVED (${data.length} bytes)');
+
+      _receivedPacketsController.add(ReceivedPacket(
+        senderIp: 'p2p',
+        packetJson: data,
+        receivedAt: DateTime.now(),
+      ));
+    } catch (e) {
+      print('❌ Error handling packetReceived: $e');
+    }
   }
 
-  Future<void> removeGroup() => _connectionChannel.removeGroup();
-  Future<void> disconnect() => _connectionChannel.disconnect();
-  
+  static String _mapTriageLevel(String? code) {
+    if (code == null) return NodeInfo.triageNone;
+    const map = {'n': NodeInfo.triageNone, 'g': NodeInfo.triageGreen, 'y': NodeInfo.triageYellow, 'r': NodeInfo.triageRed};
+    return map[code] ?? NodeInfo.triageNone;
+  }
+
+  static String _mapRole(String? code) {
+    if (code == null) return NodeInfo.roleIdle;
+    const map = {'s': NodeInfo.roleSender, 'r': NodeInfo.roleRelay, 'g': NodeInfo.roleGoal, 'i': NodeInfo.roleIdle};
+    return map[code] ?? NodeInfo.roleIdle;
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // STALE NODE CLEANUP
+  // ═══════════════════════════════════════════════════════════════════
+
+  void _startStaleCleanupTimer() {
+    _staleCleanupTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      cleanStaleNodes();
+    });
+  }
+
+  void cleanStaleNodes() {
+    final before = _nodeCache.length;
+    final now = DateTime.now();
+    _nodeCache.removeWhere((id, node) => now.difference(node.lastSeen).inSeconds > 60);
+    if (_nodeCache.length != before) {
+      print('🧹 Cleaned ${before - _nodeCache.length} stale nodes');
+      _discoveredNodesController.add(_nodeCache.values.toList());
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // CLEANUP
+  // ═══════════════════════════════════════════════════════════════════
+
   Future<void> cleanup() async {
     _staleCleanupTimer?.cancel();
-    _discoverySubscription?.cancel();
-    _discoveryChannel.dispose();
-    _socketChannel.dispose();
-    _connectionChannel.dispose();
-    _discoveredNodesController.close();
-    _wifiStateController.close();
-    _errorController.close();
-  }
-  
-  /// Remove stale nodes.
-  void cleanStaleNodes() {
-    final now = DateTime.now();
-    _nodeCache.removeWhere((id, node) {
-      return now.difference(node.lastSeen).inSeconds > 60;
-    });
-    _discoveredNodesController.add(_nodeCache.values.toList());
+    _eventSubscription?.cancel();
+    await _discoveredNodesController.close();
+    await _receivedPacketsController.close();
+    await _wifiStateController.close();
+    await _errorController.close();
+    _isInitialized = false;
+    print('✅ WifiP2pSource cleanup complete');
   }
 
   void _emitError(String message) {
@@ -383,40 +441,12 @@ class WifiP2pSource {
       _errorController.add(message);
     }
   }
-
-  /// Resolves a client's IP address from their MAC address using ARP table.
-  /// 
-  /// This is required when we are the Group Owner and need to send data
-  /// to a specific client.
-  Future<String?> resolveClientIp(String peerMacAddress) async {
-    try {
-      final file = File('/proc/net/arp');
-      if (!await file.exists()) return null;
-
-      final lines = await file.readAsLines();
-      final normalizedMac = peerMacAddress.toLowerCase().replaceAll(':', '');
-
-      for (final line in lines) {
-        // Line format: IP address       HW type     Flags       HW address            Mask     Device
-        // Example: 192.168.49.205   0x1         0x2         aa:bb:cc:dd:ee:ff     *        p2p-wlan0-0
-        final parts = line.split(RegExp(r'\s+'));
-        if (parts.length >= 4) {
-          final ip = parts[0];
-          final mac = parts[3].toLowerCase().replaceAll(':', '');
-
-          if (mac == normalizedMac) {
-            return ip;
-          }
-        }
-      }
-    } catch (e) {
-      // Ignore reading errors
-    }
-    return null;
-  }
 }
 
-/// Exception for Wi-Fi P2P errors.
+// ═══════════════════════════════════════════════════════════════════
+// MODELS
+// ═══════════════════════════════════════════════════════════════════
+
 class WifiP2pException implements Exception {
   final String message;
   final String? code;
@@ -427,7 +457,6 @@ class WifiP2pException implements Exception {
   String toString() => 'WifiP2pException: $message${code != null ? ' ($code)' : ''}';
 }
 
-/// Permission status information.
 class PermissionStatus {
   final bool allGranted;
   final bool hasWifiDirect;
@@ -442,7 +471,6 @@ class PermissionStatus {
   });
 }
 
-/// Result of a packet transmission.
 class TransmissionResult {
   final bool success;
   final String targetIp;
@@ -474,7 +502,6 @@ class TransmissionResult {
   }
 }
 
-/// Wi-Fi Direct connection information.
 class ConnectionInfo {
   final bool success;
   final String? groupOwnerAddress;
@@ -489,7 +516,6 @@ class ConnectionInfo {
   });
 }
 
-/// A received packet from the mesh network.
 class ReceivedPacket {
   final String senderIp;
   final String packetJson;
@@ -502,7 +528,6 @@ class ReceivedPacket {
   });
 }
 
-/// Device information.
 class DeviceInfo {
   final String deviceName;
   final int androidVersion;

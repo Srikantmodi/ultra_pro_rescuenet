@@ -280,6 +280,9 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     // Generate node ID
     final nodeId = const Uuid().v4();
 
+    // Wire the node ID into the relay orchestrator
+    _relayOrchestrator.setNodeId(nodeId);
+
     // Initialize repository
     final result = await _repository.initialize(nodeId: nodeId);
 
