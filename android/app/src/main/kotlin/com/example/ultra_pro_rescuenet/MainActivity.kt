@@ -117,8 +117,8 @@ class MainActivity: FlutterActivity() {
         
         // Register with appropriate flag for Android 14+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            registerReceiver(receiver, intentFilter, Context.RECEIVER_NOT_EXPORTED)
-            Log.d(TAG, "✅ BroadcastReceiver registered (with RECEIVER_NOT_EXPORTED)")
+            registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED)
+            Log.d(TAG, "✅ BroadcastReceiver registered (with RECEIVER_EXPORTED)")
         } else {
             registerReceiver(receiver, intentFilter)
             Log.d(TAG, "✅ BroadcastReceiver registered")

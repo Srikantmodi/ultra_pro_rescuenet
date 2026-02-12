@@ -145,11 +145,14 @@ class AiRouter {
 
       // Rule 4: Must be fresh (not stale)
       if (node.isStale) {
+        // DebugLogger().log('AiRouter: Node ${node.id} excluded (Stale)');
         return false;
       }
 
       // Rule 5: Must be accepting relay connections
-      if (!node.isAvailableForRelay) {
+      // EXCEPTION: If packet is SOS, ignore this rule!
+      if (!node.isAvailableForRelay && !packet.isSos) {
+        // DebugLogger().log('AiRouter: Node ${node.id} excluded (Not Available)');
         return false;
       }
 

@@ -2,6 +2,9 @@ package com.example.ultra_pro_rescuenet
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.wifi.p2p.WifiP2pManager
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceInfo
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
@@ -30,7 +33,7 @@ class WifiP2pHandler(
     companion object {
         private const val TAG = "WifiP2pHandler"
         private const val SERVICE_NAME = "RescueNet"
-        private const val SERVICE_TYPE = "_rescuenet._tcp.local."
+        private const val SERVICE_TYPE = "_rescuenet._tcp"
         
         private const val DISCOVERY_REFRESH_INTERVAL_MS = 15000L
         private const val PEER_DISCOVERY_INTERVAL_MS = 20000L
@@ -160,7 +163,14 @@ class WifiP2pHandler(
             return
         }
         
+
+        
         currentMetadata = metadata
+        
+        // Ensure server is running (restart if it was stopped)
+        if (socketServer == null) {
+            startSocketServer()
+        }
         
         // Step 1: Register service (with retry logic)
         registerServicePersistent(metadata) { serviceSuccess ->
@@ -383,7 +393,14 @@ class WifiP2pHandler(
                         if (isDiscoveryActive) {
                             Log.d(TAG, "🔄 Refreshing service discovery...")
                             setupDnsSdListeners()
-                            manager.discoverServices(channel, null)
+                            manager.discoverServices(channel, object : WifiP2pManager.ActionListener {
+                                override fun onSuccess() {
+                                    Log.d(TAG, "✅ Service discovery refresh succeeded")
+                                }
+                                override fun onFailure(code: Int) {
+                                    Log.w(TAG, "⚠️ Service discovery refresh failed (code: $code)")
+                                }
+                            })
                         }
                     }
                 }
@@ -507,6 +524,34 @@ class WifiP2pHandler(
                 scope.launch {
                     try {
                         val socket = Socket()
+                        
+                        // FIX: Bind to specific P2P interface IP
+                        val p2pInterface = java.net.NetworkInterface.getNetworkInterfaces().toList().firstOrNull { iface ->
+                            iface.inetAddresses.toList().any { addr -> 
+                                addr.hostAddress.startsWith("192.168.49.") && !addr.isLoopbackAddress
+                            }
+                        }
+
+                        if (p2pInterface != null) {
+                            val p2pIp = p2pInterface.inetAddresses.toList().first { it.hostAddress.startsWith("192.168.49.") }
+                            Log.d(TAG, "🔗 Binding socket to P2P Interface: ${p2pInterface.name} ($p2pIp)")
+                            socket.bind(InetSocketAddress(p2pIp, 0))
+                        } else {
+                             // Fallback: try binding to Wi-Fi network if P2P interface not found (Android 10+ legacy)
+                            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                            val wifiNetwork = cm.allNetworks.firstOrNull { net ->
+                                val caps = cm.getNetworkCapabilities(net)
+                                caps?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
+                            }
+                            
+                             if (wifiNetwork != null) {
+                                Log.d(TAG, "🔗 Binding socket to Wi-Fi network (Fallback): $wifiNetwork")
+                                wifiNetwork.bindSocket(socket)
+                             } else {
+                                Log.w(TAG, "⚠️ No P2P or Wi-Fi network found to bind socket")
+                             }
+                        }
+
                         socket.connect(InetSocketAddress(targetIp, 8888), 10000)
                         socket.soTimeout = 5000
 

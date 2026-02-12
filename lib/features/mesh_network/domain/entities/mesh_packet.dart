@@ -123,7 +123,18 @@ class MeshPacket extends Equatable {
   }) {
     // Generate a unique ID for this packet
     final id = '${DateTime.now().millisecondsSinceEpoch}-${originatorId.hashCode}';
-    final payload = sosPayload?.toJsonString?.call() ?? sosPayload?.toString() ?? '';
+    
+    String payload;
+    if (sosPayload is String) {
+      payload = sosPayload;
+    } else {
+      // Try to call toJsonString if available, otherwise toString
+      try {
+        payload = (sosPayload as dynamic).toJsonString();
+      } catch (_) {
+        payload = sosPayload?.toString() ?? '';
+      }
+    }
     
     return MeshPacket.sos(
       id: id,

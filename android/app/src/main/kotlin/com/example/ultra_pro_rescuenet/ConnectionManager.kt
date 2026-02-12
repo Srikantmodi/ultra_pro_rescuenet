@@ -40,7 +40,7 @@ class ConnectionManager(
                 Log.d(TAG, "✅ Connection initiated, waiting for group info...")
 
                 scope.launch {
-                    delay(3000L)
+                    delay(1000L)
                     requestConnectionInfo(onConnected, onFailure)
                 }
             }
@@ -56,23 +56,42 @@ class ConnectionManager(
     @SuppressLint("MissingPermission")
     private fun requestConnectionInfo(
         onConnected: (String) -> Unit,
-        onFailure: (String) -> Unit
+        onFailure: (String) -> Unit,
+        attempt: Int = 1
     ) {
+        val maxAttempts = 15
+        
         manager.requestConnectionInfo(channel) { info ->
             if (info == null) {
-                Log.e(TAG, "❌ Connection info is null")
-                onFailure("Connection info unavailable")
+                if (attempt < maxAttempts) {
+                    Log.d(TAG, "⏳ Connection info null, retrying ($attempt/$maxAttempts)...")
+                    scope.launch {
+                        delay(1000L)
+                        requestConnectionInfo(onConnected, onFailure, attempt + 1)
+                    }
+                } else {
+                    Log.e(TAG, "❌ Connection info unavailable after $maxAttempts attempts")
+                    onFailure("Connection info unavailable")
+                }
                 return@requestConnectionInfo
             }
 
-            Log.d(TAG, "📋 Connection Info:")
+            Log.d(TAG, "📋 Connection Info (Attempt $attempt):")
             Log.d(TAG, "   Group Formed: ${info.groupFormed}")
             Log.d(TAG, "   Is Group Owner: ${info.isGroupOwner}")
             Log.d(TAG, "   Group Owner Address: ${info.groupOwnerAddress?.hostAddress}")
 
             if (!info.groupFormed) {
-                Log.e(TAG, "❌ Group not formed")
-                onFailure("P2P group not formed")
+                if (attempt < maxAttempts) {
+                    Log.d(TAG, "⏳ Group not formed yet, retrying ($attempt/$maxAttempts)...")
+                    scope.launch {
+                        delay(1000L)
+                        requestConnectionInfo(onConnected, onFailure, attempt + 1)
+                    }
+                } else {
+                    Log.e(TAG, "❌ Group not formed after $maxAttempts attempts")
+                    onFailure("P2P group not formed")
+                }
                 return@requestConnectionInfo
             }
 

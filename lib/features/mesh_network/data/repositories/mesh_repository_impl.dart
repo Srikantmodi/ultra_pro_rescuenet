@@ -222,29 +222,49 @@ class MeshRepositoryImpl {
   /// 1. Wrapped in a MeshPacket with high priority
   /// 2. Added to the outbox for persistence
   /// 3. Immediately attempted to send to the best neighbor
-  Future<Either<Failure, String>> sendSos(SosPayload sos) async {
+  Future<Either<Failure, String>> sendSos(dynamic sos) async {
     try {
+      print('🚨 Repository: sendSos called');
+      print('🚨 Repository: sos type is ${sos.runtimeType}');
+
+      // Handle potential String/SosPayload confusion
+      String payloadString;
+      if (sos is String) {
+        payloadString = sos;
+      } else if (sos is SosPayload) {
+        payloadString = sos.toJsonString();
+      } else {
+        payloadString = sos.toString();
+      }
+
       // Create SOS packet with high priority
       final packet = MeshPacket.createSos(
         originatorId: _nodeId!,
-        sosPayload: sos.toJsonString(),
+        sosPayload: payloadString,
       );
 
       // Add to outbox for persistence
+      print('🚨 Repository: Adding packet to outbox: ${packet.id}');
       await _outbox.addPacket(packet);
 
       // Mark as seen to prevent processing our own packet
       _seenCache.markAsSeen(packet.id);
 
       // Attempt immediate send
+      print('🚨 Repository: Attempting immediate forward');
       final sendResult = await _forwardPacket(packet);
 
       if (sendResult) {
+        print('🚨 Repository: Marked as sent in outbox');
         await _outbox.markSent(packet.id);
+      } else {
+        print('🚨 Repository: Forward failed (initial attempt)');
       }
 
       return Right(packet.id);
-    } catch (e) {
+    } catch (e, stack) {
+      print('🚨 Repository: Exception in sendSos: $e');
+      print('🚨 Stack: $stack');
       return Left(UnexpectedFailure(e.toString()));
     }
   }
@@ -279,6 +299,7 @@ class MeshRepositoryImpl {
 
       // Process based on packet type
       if (packet.isSos) {
+        print('🚨 Repository: Received SOS packet from ${received.senderIp}');
         // Emit SOS to local stream
         try {
           final sosPayload = SosPayload.fromJsonString(packet.payload);
@@ -288,7 +309,9 @@ class MeshRepositoryImpl {
             receivedAt: DateTime.now(),
             senderIp: received.senderIp,
           ));
+          print('🚨 Repository: SOS emitted to stream');
         } catch (e) {
+          print('🚨 Repository: Failed to parse SOS payload: $e');
           // Invalid SOS payload, but still try to forward
         }
       }
@@ -343,6 +366,11 @@ class MeshRepositoryImpl {
     // Get current neighbors
     final neighbors = currentNeighbors;
 
+    print('🚨 _forwardPacket: Checking neighbors (count: ${neighbors.length})');
+    if (neighbors.isNotEmpty) {
+      print('🚨 Neighbors: ${neighbors.map((n) => n.deviceAddress).toList()}');
+    }
+
     if (neighbors.isEmpty) {
       // No neighbors, keep in outbox for later
       print('❌ No neighbors available for forwarding');
@@ -366,6 +394,7 @@ class MeshRepositoryImpl {
 
     // DUAL-MODE: Use connect-and-send flow
     // This connects to the device, sends the packet, and disconnects
+    print('🚨 Calling wifiP2pSource.connectAndSendPacket...');
     final result = await _wifiP2pSource.connectAndSendPacket(
       deviceAddress: bestNode.deviceAddress,
       packetJson: MeshPacketModel.entityToJsonString(packet),

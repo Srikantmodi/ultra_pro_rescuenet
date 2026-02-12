@@ -339,16 +339,25 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     MeshSendSos event,
     Emitter<MeshState> emit,
   ) async {
+    print('🚨 MeshBloc: _onSendSos triggered');
     final currentState = state;
-    if (currentState is! MeshActive) return;
+    print('🚨 MeshBloc: Current state is ${currentState.runtimeType}');
+    
+    if (currentState is! MeshActive) {
+      print('🚨 MeshBloc: State is NOT MeshActive, ignoring SOS');
+      return;
+    }
 
+    print('🚨 MeshBloc: Calling repository.sendSos');
     final result = await _repository.sendSos(event.sos);
 
     result.fold(
       (failure) {
+        print('🚨 MeshBloc: Failed to send SOS: ${failure.message}');
         // TODO: Show error to user
       },
       (sosId) {
+        print('🚨 MeshBloc: SOS sent successfully, ID: $sosId');
         emit(currentState.copyWith(activeSosId: sosId));
       },
     );
