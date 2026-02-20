@@ -62,6 +62,23 @@ class GeneralHandler(
             
             "startMeshService" -> {
                 try {
+                    // FIX: Verify location permissions are granted BEFORE starting
+                    // the foreground service. On Android 14+ (targetSDK 34+),
+                    // starting a FGS with foregroundServiceType="location" without
+                    // runtime location permission throws a SecurityException.
+                    val hasLocation = ContextCompat.checkSelfPermission(
+                        activity, android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == android.content.pm.PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(
+                        activity, android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+
+                    if (!hasLocation) {
+                        Log.w(TAG, "Cannot start MeshService: location permission not granted")
+                        result.error("PERMISSION_DENIED", "Location permission required to start mesh service", null)
+                        return
+                    }
+
                     val serviceIntent = android.content.Intent(activity, MeshService::class.java)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         activity.startForegroundService(serviceIntent)

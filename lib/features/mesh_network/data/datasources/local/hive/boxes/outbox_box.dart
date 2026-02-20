@@ -16,7 +16,9 @@ import '../../../../../domain/entities/mesh_packet.dart';
 /// - Expiration (old packets are cleaned up)
 class OutboxBox {
   static const String boxName = 'outbox';
-  static const int maxRetries = 5;
+  // FIX B-8: Aligned with RelayOrchestrator.maxConsecutiveFailures = 3
+  // Previous value of 5 meant outbox kept retrying after orchestrator had already paused
+  static const int maxRetries = 3;
   static const Duration packetTtl = Duration(hours: 1);
 
   Box<OutboxEntry>? _box;
@@ -42,6 +44,31 @@ class OutboxBox {
     
     // Clean up expired entries on startup
     await _cleanupExpired();
+
+    // CRITICAL FIX: Reset any packets stuck in 'inProgress' back to 'pending'.
+    // If the app crashed mid-send, those packets would remain inProgress forever
+    // and never appear in getPendingPackets() — causing permanent packet loss.
+    await _resetStuckInProgress();
+  }
+
+  /// Resets all inProgress packets to pending so they can be retried.
+  Future<void> _resetStuckInProgress() async {
+    final stuckKeys = _box!.toMap().entries
+        .where((e) => e.value.status == OutboxStatus.inProgress)
+        .map((e) => e.key)
+        .toList();
+
+    for (final key in stuckKeys) {
+      final entry = _box!.get(key);
+      if (entry != null) {
+        await _box!.put(key, entry.copyWith(status: OutboxStatus.pending));
+      }
+    }
+
+    if (stuckKeys.isNotEmpty) {
+      // ignore: avoid_print
+      print('🔄 OutboxBox: reset ${stuckKeys.length} stuck inProgress packets to pending');
+    }
   }
 
   /// Closes the outbox box.
@@ -81,6 +108,15 @@ class OutboxBox {
     entries.sort((a, b) => b.packet.priority.compareTo(a.packet.priority));
 
     return entries.map((e) => e.packet.toEntity()).toList();
+  }
+
+  /// FIX E-4: Gets all outbox entries for the packet history page.
+  List<OutboxEntry> getAllEntries() {
+    _ensureInitialized();
+    final entries = _box!.values.toList();
+    // Most recent first
+    entries.sort((a, b) => b.addedAt.compareTo(a.addedAt));
+    return entries;
   }
 
   /// Gets the next packet to send (highest priority pending).

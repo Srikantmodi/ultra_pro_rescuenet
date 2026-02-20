@@ -9,8 +9,10 @@ import 'package:dartz/dartz.dart';
 /// It takes the place of the mesh relay mechanism.
 class CloudDeliveryService {
   // TODO: Replace with actual backend URL
+  // ignore: unused_field
   static const String _backendUrl = 'https://api.rescuenet.com/v1/sos';
-  
+
+  // ignore: unused_field
   final http.Client _client;
 
   CloudDeliveryService({http.Client? client}) : _client = client ?? http.Client();
@@ -20,28 +22,10 @@ class CloudDeliveryService {
   /// Returns [true] if successful, [false] otherwise.
   Future<Either<Failure, bool>> uploadSos(SosPayload sos, String originalSenderId) async {
     try {
-      // In a real app, this would be a POST request
-      // For now, we simulate a network call
+      // TODO: Replace mock with actual HTTP POST when backend is ready.
+      // Will use _client.post(Uri.parse(_backendUrl), ...) once backend is live.
       await Future.delayed(const Duration(seconds: 2));
-      
-      /*
-      final response = await _client.post(
-        Uri.parse(_backendUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'sender_id': originalSenderId,
-          'payload': sos.toJson(),
-          'timestamp': DateTime.now().toIso8601String(),
-        }),
-      );
 
-      if (response.statusCode == 200) {
-        return const Right(true);
-      } else {
-        return Left(ServerFailure('Backend returned ${response.statusCode}'));
-      }
-      */
-      
       // Mock success for demonstration
       print('☁️ [CloudDelivery] MOCK UPLOAD SUCCESS: SOS from $originalSenderId');
       return const Right(true);

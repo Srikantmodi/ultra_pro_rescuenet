@@ -1,0 +1,190 @@
+--------- beginning of main
+02-20 12:52:03.278 25720 25720 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:52:03.292 25720 25720 D WifiP2pHandler: ✅ Discovery nudge succeeded
+02-20 12:52:09.005 25720 25720 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:52:09.009 25720 25720 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:52:09.009 25720 25720 D WifiP2pHandler: 📝 Updating metadata: {sig=-76, bat=100, lng=78.721247, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469832, rol=g}
+02-20 12:52:09.025 25720 25720 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler:    Name: RescueNet
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler:    Metadata: {sig=-76, bat=100, lng=78.721247, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469832, rol=g}
+02-20 12:52:09.036 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:10.183 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:52:10.184 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:52:10.200 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:52:10.200 25720 25720 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:52:10.200 25720 25720 D RescueNet:    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:52:10.200 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:52:56.254 25720 25720 D GeneralHandler: 📞 Method call: checkPermissions
+02-20 12:52:56.254 25720 25720 D GeneralHandler: Permissions check: missing=0, needsBgLocation=false
+02-20 12:52:56.257 25720 25720 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:52:56.264 25720 25720 D GeneralHandler: 📞 Method call: startMeshService
+02-20 12:52:56.267 25720 25720 D MeshService: ℹ️ MeshService onStartCommand
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler: 📞 Method call: startMeshNode
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler: 🚀 STARTING MESH NODE
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler:    Metadata: {sig=-78, bat=100, lng=78.721257, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469944, rol=g}
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:56.267 25720 25720 W WifiP2pHandler: ⚠️ Mesh node already running — updating metadata only
+02-20 12:52:56.267 25720 25720 D WifiP2pHandler: 📝 Updating metadata: {sig=-78, bat=100, lng=78.721257, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469944, rol=g}
+02-20 12:52:56.274 25720 25720 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler:    Name: RescueNet
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler:    Metadata: {sig=-78, bat=100, lng=78.721257, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469944, rol=g}
+02-20 12:52:56.280 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:03.278 25720 25720 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:53:03.289 25720 25720 D WifiP2pHandler: ✅ Discovery nudge succeeded
+02-20 12:53:03.529 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:03.530 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:03.541 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:03.541 25720 25720 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:53:03.541 25720 25720 D RescueNet:    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:53:03.541 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:37.875 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:37.876 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:37.900 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=null
+02-20 12:53:37.901 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:53:37.901 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:53:37.901 25720 25720 D RescueNet:    Group Owner Address: null
+02-20 12:53:37.951 25720 25720 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:53:37.952 25720 25720 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:53:38.100 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:38.101 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:38.128 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:38.128 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:38.134 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.135 25720 25720 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:53:38.135 25720 25720 D RescueNet:    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:53:38.135 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.135 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:53:38.136 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:53:38.136 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:53:38.136 25720 25720 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:53:38.244 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:38.244 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:38.251 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:53:38.251 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:53:38.251 25720 25720 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:53:38.251 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:53:38.982 25720 25836 D SocketServer: 📥 Client connected: 192.168.49.91
+02-20 12:53:38.985 25720 25838 D SocketServer: 📦 Expecting packet size: 640 bytes, CRC32: -464856598
+02-20 12:53:38.985 25720 25838 D SocketServer: ═══════════════════════════════════
+02-20 12:53:38.985 25720 25838 D SocketServer: ✅ PACKET RECEIVED
+02-20 12:53:38.985 25720 25838 D SocketServer:    Size: 640 bytes
+02-20 12:53:38.985 25720 25838 D SocketServer:    Data: {"id":"1771572214687-597247780","originatorId":"42bdad83-9cf4-420a-ab86-344b764586ad","payload":"{\"sosId\":\"52609568-34c2-4b31-bf53-de021f3f394e\",\"senderId\":\"42bdad83-9cf4-420a-ab86-344b764586ad...
+02-20 12:53:38.985 25720 25838 D SocketServer: ═══════════════════════════════════
+02-20 12:53:38.987 25720 25720 D WifiP2pHandler: 📥 Packet received from socket, forwarding to Flutter...
+02-20 12:53:39.010 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:39.011 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:39.027 25720 25720 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:53:39.028 25720 25720 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:53:39.046 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:39.047 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:39.070 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:39.071 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:39.075 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:39.075 25720 25720 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:53:39.075 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:39.076 25720 25720 D RescueNet:    Group Formed: false
+02-20 12:53:39.076 25720 25720 D RescueNet:    Is Group Owner: false
+02-20 12:53:39.076 25720 25720 D RescueNet:    Group Owner Address: null
+02-20 12:53:39.079 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:53:39.079 25720 25720 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:53:39.079 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:03.278 25720 25720 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:54:03.296 25720 25720 D WifiP2pHandler: ✅ Discovery nudge succeeded
+02-20 12:54:07.625 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:07.627 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:07.636 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:07.636 25720 25720 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:07.636 25720 25720 D RescueNet:    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:54:07.636 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:10.545 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:10.545 25720 25720 D WifiP2pHandler: 📋 TXT RECORD RECEIVED
+02-20 12:54:10.545 25720 25720 D WifiP2pHandler:    Domain: rescuenet._rescuenet._tcp.local.
+02-20 12:54:10.545 25720 25720 D WifiP2pHandler:    Device: Redmi 12
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler:    Address: 6a:cc:11:ae:dd:07
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler:    Data: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler: 📡 SERVICE FOUND (Name callback)
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler:    Instance: RescueNet
+02-20 12:54:10.546 25720 25720 D WifiP2pHandler:    Type: _rescuenet._tcp.local.
+02-20 12:54:10.547 25720 25720 D WifiP2pHandler:    Device: Redmi 12
+02-20 12:54:10.547 25720 25720 D WifiP2pHandler:    Address: 6a:cc:11:ae:dd:07
+02-20 12:54:10.547 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:10.674 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:10.674 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:10.687 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:54:10.688 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:54:10.688 25720 25720 D RescueNet:    Group Owner Address: null
+02-20 12:54:10.688 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=null
+02-20 12:54:10.717 25720 25720 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:54:10.718 25720 25720 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:54:11.244 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:11.245 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:11.273 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:11.275 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:11.283 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.283 25720 25720 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:11.283 25720 25720 D RescueNet:    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:54:11.283 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.283 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:54:11.284 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:54:11.284 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:54:11.284 25720 25720 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:54:11.302 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:11.302 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:11.306 25720 25720 D RescueNet:    Group Formed: true
+02-20 12:54:11.306 25720 25720 D RescueNet:    Is Group Owner: true
+02-20 12:54:11.306 25720 25720 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:54:11.306 25720 25720 D MeshService:    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:54:11.842 25720 25836 D SocketServer: 📥 Client connected: 192.168.49.32
+02-20 12:54:11.843 25720 25837 D SocketServer: 📦 Expecting packet size: 611 bytes, CRC32: 1848696029
+02-20 12:54:11.843 25720 25837 D SocketServer: ═══════════════════════════════════
+02-20 12:54:11.843 25720 25837 D SocketServer: ✅ PACKET RECEIVED
+02-20 12:54:11.843 25720 25837 D SocketServer:    Size: 611 bytes
+02-20 12:54:11.843 25720 25837 D SocketServer:    Data: {"id":"1771572246578-597247780","originatorId":"42bdad83-9cf4-420a-ab86-344b764586ad","payload":"{\"sosId\":\"47758d0b-b9b9-4a18-9b1c-2addbf50a4b5\",\"senderId\":\"42bdad83-9cf4-420a-ab86-344b764586ad...
+02-20 12:54:11.843 25720 25837 D SocketServer: ═══════════════════════════════════
+02-20 12:54:11.846 25720 25720 D WifiP2pHandler: 📥 Packet received from socket, forwarding to Flutter...
+02-20 12:54:11.869 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:11.870 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:11.884 25720 25720 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:54:11.884 25720 25720 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:54:11.902 25720 25720 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:11.903 25720 25720 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:11.922 25720 25720 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:11.922 25720 25720 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:11.926 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.926 25720 25720 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:54:11.926 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.927 25720 25720 D RescueNet:    Group Formed: false
+02-20 12:54:11.927 25720 25720 D RescueNet:    Is Group Owner: false
+02-20 12:54:11.927 25720 25720 D RescueNet:    Group Owner Address: null
+02-20 12:54:11.930 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.930 25720 25720 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:54:11.930 25720 25720 D RescueNet: ═══════════════════════════════════
+02-20 12:54:31.784 25720 25720 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:54:31.793 25720 25720 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:54:31.793 25720 25720 D WifiP2pHandler: 📝 Updating metadata: {sig=-77, bat=100, lng=78.721254, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469868, rol=g}
+02-20 12:54:31.812 25720 25720 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler:    Name: RescueNet
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler:    Metadata: {sig=-77, bat=100, lng=78.721254, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469868, rol=g}
+02-20 12:54:31.822 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler: 📞 Method call: connectAndSend
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler: 📤 CONNECT AND SEND
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler:    Target: 6a:cc:11:ae:dd:07
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler:    Packet size: 640 chars
+02-20 12:54:31.826 25720 25720 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:31.827 25720 25720 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:31.827 25720 25720 D ConnectionManager: CONNECTING TO: 6a:cc:11:ae:dd:07
+02-20 12:54:31.827 25720 25720 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:31.828 25720 25720 W ConnectionManager: âš ï¸ removeGroup returned BUSY â€” waiting 2500ms

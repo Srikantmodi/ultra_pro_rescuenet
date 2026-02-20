@@ -21,6 +21,23 @@ class _ResponderModePageState extends State<ResponderModePage> {
   ReceivedSos? _selectedSos;
 
   @override
+  void initState() {
+    super.initState();
+    // FIX C-5: Auto-start mesh when entering Responder Mode.
+    // A responder MUST be in MeshActive to receive SOS packets.
+    // If already MeshReady (initialized but not started), start immediately.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = context.read<MeshBloc>().state;
+      if (state is MeshReady) {
+        context.read<MeshBloc>().add(const MeshStart());
+        setState(() => _isListening = true);
+      } else if (state is MeshActive) {
+        setState(() => _isListening = true);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),

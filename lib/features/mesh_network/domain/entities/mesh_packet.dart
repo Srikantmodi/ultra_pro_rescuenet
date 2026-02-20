@@ -49,8 +49,9 @@ class MeshPacket extends Equatable {
   /// - 'data': Generic data transfer
   final String packetType;
 
-  /// Default TTL value for new packets
-  static const int defaultTtl = 20;
+  /// Default TTL value for new packets.
+  /// FIX E-3: Made configurable for testing. Default 20, set to 3 for TTL tests.
+  static int defaultTtl = 20;
 
   /// Priority levels as constants for type safety
   static const int priorityLow = 0;
@@ -210,9 +211,15 @@ class MeshPacket extends Equatable {
   /// Returns null if trace is empty (should never happen in valid packets).
   String? get lastHop => trace.isNotEmpty ? trace.last : null;
 
-  /// Returns the sender (previous node) of this packet.
+  /// Returns the sender (previous node = immediate previous hop) of this packet.
   /// For loop prevention: this node should be excluded from forwarding candidates.
-  String? get sender => trace.length >= 2 ? trace[trace.length - 2] : lastHop;
+  ///
+  /// BUG FIX: Was `trace[trace.length - 2]` which returns the second-to-last
+  /// node, not the actual previous sender. For a packet received by C with
+  /// trace=[A, B], the sender is B (trace.last), NOT A (trace[n-2]).
+  /// The old value was doubly-redundant with originatorId exclusion rather
+  /// than providing the intended immediate-bounce-back prevention.
+  String? get sender => lastHop; // same as trace.last
 
   /// Returns the number of hops this packet has traveled.
   int get hopCount => trace.length - 1; // -1 because originator is in trace

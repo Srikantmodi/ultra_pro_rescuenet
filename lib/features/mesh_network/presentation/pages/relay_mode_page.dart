@@ -51,7 +51,15 @@ class _RelayModePageState extends State<RelayModePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
       appBar: _buildAppBar(),
-      body: BlocBuilder<MeshBloc, MeshState>(
+      body: BlocConsumer<MeshBloc, MeshState>(
+        listener: (context, state) {
+          // FIX C-4: Sync local _isRelaying with actual BLoC state
+          // Prevents desync where button says "Active" but BLoC is in MeshReady.
+          final shouldBeRelaying = state is MeshActive;
+          if (_isRelaying != shouldBeRelaying) {
+            setState(() => _isRelaying = shouldBeRelaying);
+          }
+        },
         builder: (context, state) {
           final neighbors = state is MeshActive ? state.neighbors : <NodeInfo>[];
           final relayStats = state is MeshActive 

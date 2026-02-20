@@ -1,4 +1,4 @@
-package com.example.ultra_pro_rescuenet
+﻿package com.example.ultra_pro_rescuenet
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities
 import android.net.wifi.p2p.WifiP2pManager
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceInfo
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
+import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -23,6 +24,7 @@ import java.io.DataOutputStream
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.nio.ByteBuffer
+import java.util.zip.CRC32
 
 class WifiP2pHandler(
     private val context: Context,
@@ -33,11 +35,13 @@ class WifiP2pHandler(
     companion object {
         private const val TAG = "WifiP2pHandler"
         private const val SERVICE_NAME = "RescueNet"
+        // NOTE: Android WifiP2p DNS-SD API expects "_name._tcp" WITHOUT the .local. suffix.
+        // The framework appends .local. internally. Passing .local. here causes the type-filtered
+        // service request to never match registered services — silence all callbacks.
         private const val SERVICE_TYPE = "_rescuenet._tcp"
         
-        private const val DISCOVERY_REFRESH_INTERVAL_MS = 15000L
-        private const val PEER_DISCOVERY_INTERVAL_MS = 20000L
-        private const val SERVICE_UPDATE_INTERVAL_MS = 30000L
+        private const val DISCOVERY_REFRESH_INTERVAL_MS = 60000L  // 60s — DNS-SD needs time to propagate
+        private const val SERVICE_UPDATE_INTERVAL_MS = 60000L
         
         private const val MAX_RETRY_ATTEMPTS = 3
         private const val INITIAL_RETRY_DELAY_MS = 2000L
@@ -45,12 +49,16 @@ class WifiP2pHandler(
 
     private var eventSink: EventChannel.EventSink? = null
     private var discoveryRefreshTimer: Timer? = null
-    private var peerDiscoveryTimer: Timer? = null
+    // peerDiscoveryTimer REMOVED: BUG-01 fix — standalone discoverPeers() kills service discovery
     private var serviceUpdateTimer: Timer? = null
     private var socketServer: SocketServerManager? = null
     
     private var isServiceRegistered = false
     private var isDiscoveryActive = false
+    // Guard: only one connectAndSend can be in-flight at a time
+    private var isConnecting = false
+    // Guard: prevent duplicate startMeshNode calls from Flutter
+    private var isMeshNodeRunning = false
     private var currentServiceInfo: WifiP2pDnsSdServiceInfo? = null
     private var currentMetadata: Map<String, String> = emptyMap()
     
@@ -94,6 +102,27 @@ class WifiP2pHandler(
         Log.d(TAG, "✅ Socket server started")
     }
 
+    /**
+     * FIX B-7: Returns real Wi-Fi RSSI in dBm.
+     * Wi-Fi Direct doesn't expose per-peer RSSI, but the underlying 
+     * Wi-Fi interface RSSI is a reasonable proxy — when P2P is active, 
+     * the chipset uses the same radio. Falls back to -70 (moderate) if unavailable.
+     */
+    @Suppress("DEPRECATION")
+    private fun getWifiRssi(): Int {
+        return try {
+            val wifiManager = context.applicationContext
+                .getSystemService(Context.WIFI_SERVICE) as WifiManager
+            val connectionInfo = wifiManager.connectionInfo
+            val rssi = connectionInfo.rssi
+            // Sanity check: valid RSSI typically between -100 and 0
+            if (rssi in -100..0) rssi else -70
+        } catch (e: Exception) {
+            Log.w(TAG, "⚠️ Could not read RSSI: ${e.message}")
+            -70
+        }
+    }
+
     @SuppressLint("MissingPermission")
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         Log.d(TAG, "📞 Method call: ${call.method}")
@@ -121,6 +150,14 @@ class WifiP2pHandler(
                     result.error("INVALID_ARGS", "Missing deviceAddress or packet", null)
                     return
                 }
+
+                // Prevent concurrent connection attempts — only one at a time
+                if (isConnecting) {
+                    Log.w(TAG, "⚠️ connectAndSend skipped: connection already in progress")
+                    result.error("BUSY", "Connection already in progress", null)
+                    return
+                }
+                isConnecting = true
                 
                 connectAndSendPacket(deviceAddress, packetJson, result)
             }
@@ -128,6 +165,18 @@ class WifiP2pHandler(
             "getDiagnostics" -> {
                 val diagnostics = DiagnosticUtils.checkWifiP2pReadiness(context)
                 result.success(diagnostics)
+            }
+
+            // FIX B-7: Return real Wi-Fi RSSI instead of hardcoded -50
+            "getSignalStrength" -> {
+                result.success(getWifiRssi())
+            }
+
+            // FIX D-4: Allow Flutter to adjust connection timeout at runtime
+            "setConnectionTimeout" -> {
+                val attempts = call.arguments as? Int ?: 10
+                ConnectionManager.setConnectionTimeout(attempts)
+                result.success(true)
             }
             
             else -> result.notImplemented()
@@ -150,6 +199,17 @@ class WifiP2pHandler(
         Log.d(TAG, "🚀 STARTING MESH NODE")
         Log.d(TAG, "   Metadata: $metadata")
         Log.d(TAG, "═══════════════════════════════════")
+        
+        // FIX DUPLICATE-START: If mesh node is already running, just update metadata
+        // and return success. Flutter can call startMeshNode multiple times (e.g. on
+        // screen re-entry or BLoC re-init). Re-registering service and discovery from
+        // scratch is wasteful and briefly interrupts DNS-SD scans.
+        if (isMeshNodeRunning) {
+            Log.w(TAG, "⚠️ Mesh node already running — updating metadata only")
+            currentMetadata = metadata
+            updateMetadata(metadata, result)
+            return
+        }
         
         DiagnosticUtils.logDiagnosticInfo(context, TAG)
         
@@ -191,6 +251,8 @@ class WifiP2pHandler(
                 Log.d(TAG, "   Service Registered: $serviceSuccess")
                 Log.d(TAG, "   Discovery Active: $discoverySuccess")
                 Log.d(TAG, "═══════════════════════════════════")
+                
+                isMeshNodeRunning = true
                 
                 mainHandler.post {
                     result.success(true)
@@ -271,37 +333,50 @@ class WifiP2pHandler(
     private fun startDiscoveryPersistent(onComplete: (Boolean) -> Unit) {
         Log.d(TAG, "🔍 Starting discovery sequence...")
         
-        // Re-setup listeners to ensure they're active
-        setupDnsSdListeners()
+        // FIX BUG-01: Correct sequence is clearServiceRequests → addServiceRequest → discoverServices.
+        // discoverServices() internally triggers peer discovery.
+        // NEVER call discoverPeers() before discoverServices() — it holds the scan slot
+        // and causes discoverServices() to fail with BUSY (error code 2).
         
+        // FIX A-6: Always clear service requests before re-adding to prevent duplicates
+        manager.clearServiceRequests(channel, object : WifiP2pManager.ActionListener {
+            override fun onSuccess() {
+                Log.d(TAG, "✅ Service requests cleared")
+                addServiceRequestAndDiscover(onComplete)
+            }
+            override fun onFailure(code: Int) {
+                Log.w(TAG, "⚠️ clearServiceRequests failed (code: $code), proceeding anyway...")
+                addServiceRequestAndDiscover(onComplete)
+            }
+        })
+    }
+    
+    @SuppressLint("MissingPermission")
+    private fun addServiceRequestAndDiscover(onComplete: (Boolean) -> Unit) {
+        // Use unfiltered DNS-SD request so ALL services are received.
+        // We already filter by instanceName/domain in the DnsSdServiceResponseListener
+        // and DnsSdTxtRecordListener callbacks. Type-filtered requests have been observed
+        // to silently drop records on some Android versions when the type string is not an
+        // exact match to what the framework stored internally.
         val serviceRequest = WifiP2pDnsSdServiceRequest.newInstance()
         
         manager.addServiceRequest(channel, serviceRequest, object : WifiP2pManager.ActionListener {
             override fun onSuccess() {
-                Log.d(TAG, "✅ Service request added")
+                Log.d(TAG, "✅ Service request added (unfiltered, filtering in callback)")
                 
-                // Start peer discovery first
-                manager.discoverPeers(channel, object : WifiP2pManager.ActionListener {
+                // FIX BUG-01: Go directly to discoverServices — NO discoverPeers() call!
+                // discoverServices() internally triggers the peer scan needed for DNS-SD.
+                manager.discoverServices(channel, object : WifiP2pManager.ActionListener {
                     override fun onSuccess() {
-                        Log.d(TAG, "✅ Peer discovery started")
-                        
-                        // Then start service discovery
-                        manager.discoverServices(channel, object : WifiP2pManager.ActionListener {
-                            override fun onSuccess() {
-                                Log.d(TAG, "═══════════════════════════════════")
-                                Log.d(TAG, "✅ SERVICE DISCOVERY STARTED")
-                                Log.d(TAG, "═══════════════════════════════════")
-                                isDiscoveryActive = true
-                                onComplete(true)
-                            }
-                            override fun onFailure(code: Int) {
-                                Log.e(TAG, "❌ discoverServices failed (code: $code)")
-                                onComplete(false)
-                            }
-                        })
+                        Log.d(TAG, "═══════════════════════════════════")
+                        Log.d(TAG, "✅ SERVICE DISCOVERY STARTED")
+                        Log.d(TAG, "═══════════════════════════════════")
+                        isDiscoveryActive = true
+                        onComplete(true)
                     }
                     override fun onFailure(code: Int) {
-                        Log.e(TAG, "❌ discoverPeers failed (code: $code)")
+                        Log.e(TAG, "❌ discoverServices failed (code: $code)")
+                        isDiscoveryActive = false
                         onComplete(false)
                     }
                 })
@@ -381,24 +456,47 @@ class WifiP2pHandler(
         Log.d(TAG, "✅ DNS-SD listeners registered")
     }
 
+    @SuppressLint("MissingPermission")
     private fun startAllRefreshTimers() {
-        Log.d(TAG, "⏰ Starting refresh timers...")
-        
-        // Discovery refresh timer
+        Log.d(TAG, "⏰ Starting consolidated discovery refresh timer (${DISCOVERY_REFRESH_INTERVAL_MS}ms)...")
+
+        // FIX TIMER-LEAK: Always cancel the existing timer before creating a new one.
+        // Without this, every call to startMeshNode() stacks a new timer on top of the
+        // old one. Two overlapping 30s timers fire every ~10s and constantly call
+        // clearServiceRequests(), aborting DNS-SD before it can ever deliver results.
+        discoveryRefreshTimer?.cancel()
+        discoveryRefreshTimer = null
+        serviceUpdateTimer?.cancel()
+        serviceUpdateTimer = null
+
+        // FIX A-3: Only ONE timer. peerDiscoveryTimer is REMOVED entirely.
+        // FIX A-4: Do NOT call setupDnsSdListeners() in the refresh — listeners are
+        //          set once in setup() and must NOT be overwritten mid-discovery.
+        // FIX D-1: Single consolidated timer replaces all three old timers.
+        // FIX DISCOVERY: On refresh, call discoverServices() ONLY — do NOT clear and
+        //                re-add the service request. clearServiceRequests kills the active
+        //                DNS-SD session mid-scan. The service request is already in place;
+        //                just nudge the scan engine again. Full reset only on failure.
         discoveryRefreshTimer = Timer("DiscoveryRefresh", true).apply {
             scheduleAtFixedRate(object : TimerTask() {
                 @SuppressLint("MissingPermission")
                 override fun run() {
                     mainHandler.post {
                         if (isDiscoveryActive) {
-                            Log.d(TAG, "🔄 Refreshing service discovery...")
-                            setupDnsSdListeners()
+                            Log.d(TAG, "🔄 Refreshing service discovery (lightweight nudge)...")
+                            // Lightweight refresh: just call discoverServices() again.
+                            // The service request is already registered; no need to clear it.
+                            // This keeps DNS-SD alive without resetting the scan session.
                             manager.discoverServices(channel, object : WifiP2pManager.ActionListener {
                                 override fun onSuccess() {
-                                    Log.d(TAG, "✅ Service discovery refresh succeeded")
+                                    Log.d(TAG, "✅ Discovery nudge succeeded")
                                 }
                                 override fun onFailure(code: Int) {
-                                    Log.w(TAG, "⚠️ Service discovery refresh failed (code: $code)")
+                                    Log.w(TAG, "⚠️ Discovery nudge failed (code: $code) — doing full reset")
+                                    // Only on failure do a full clear → add → discover reset
+                                    addServiceRequestAndDiscover { success ->
+                                        Log.d(TAG, "🔄 Full reset: ${if (success) "✅" else "❌"}")
+                                    }
                                 }
                             })
                         }
@@ -406,23 +504,8 @@ class WifiP2pHandler(
                 }
             }, DISCOVERY_REFRESH_INTERVAL_MS, DISCOVERY_REFRESH_INTERVAL_MS)
         }
-        
-        // Peer discovery timer
-        peerDiscoveryTimer = Timer("PeerRefresh", true).apply {
-            scheduleAtFixedRate(object : TimerTask() {
-                @SuppressLint("MissingPermission")
-                override fun run() {
-                    mainHandler.post {
-                        if (isDiscoveryActive) {
-                            Log.d(TAG, "🔄 Refreshing peer discovery...")
-                            manager.discoverPeers(channel, null)
-                        }
-                    }
-                }
-            }, PEER_DISCOVERY_INTERVAL_MS, PEER_DISCOVERY_INTERVAL_MS)
-        }
-        
-        Log.d(TAG, "✅ Refresh timers started")
+
+        Log.d(TAG, "✅ Refresh timer started (consolidated, ${DISCOVERY_REFRESH_INTERVAL_MS}ms interval)")
     }
 
     @SuppressLint("MissingPermission")
@@ -461,8 +544,6 @@ class WifiP2pHandler(
         // Cancel timers
         discoveryRefreshTimer?.cancel()
         discoveryRefreshTimer = null
-        peerDiscoveryTimer?.cancel()
-        peerDiscoveryTimer = null
         serviceUpdateTimer?.cancel()
         serviceUpdateTimer = null
         
@@ -498,6 +579,8 @@ class WifiP2pHandler(
         
         isServiceRegistered = false
         isDiscoveryActive = false
+        isConnecting = false
+        isMeshNodeRunning = false
         
         Log.d(TAG, "✅ Mesh node stopped")
         result.success(true)
@@ -558,10 +641,17 @@ class WifiP2pHandler(
                         val outputStream = DataOutputStream(socket.getOutputStream())
                         val inputStream = DataInputStream(socket.getInputStream())
 
-                        // Send packet size (4 bytes, big-endian)
+                        // FIX D-8: Send packet with CRC32 integrity check.
+                        // Wire format: [4-byte size][4-byte CRC32][data]
                         val dataBytes = packetJson.toByteArray(Charsets.UTF_8)
-                        val sizeBuffer = ByteBuffer.allocate(4).putInt(dataBytes.size)
-                        outputStream.write(sizeBuffer.array())
+                        val crc = CRC32()
+                        crc.update(dataBytes)
+                        val crcValue = crc.value.toInt()
+
+                        val header = ByteBuffer.allocate(8)
+                            .putInt(dataBytes.size)
+                            .putInt(crcValue)
+                        outputStream.write(header.array())
                         outputStream.write(dataBytes)
                         outputStream.flush()
                         
@@ -574,6 +664,11 @@ class WifiP2pHandler(
                         if (ack == 0x06.toByte()) {
                             Log.d(TAG, "✅ ACK received, disconnecting...")
                             connectionManager.disconnect {
+                                isConnecting = false
+                                // FIX D-5: Re-discover after successful send.
+                                // P2P disconnect clears channel state; without immediate
+                                // re-discovery, peers take 15-30s to reappear.
+                                restartDiscoveryAfterSend()
                                 mainHandler.post {
                                     result.success(true)
                                 }
@@ -581,6 +676,8 @@ class WifiP2pHandler(
                         } else {
                             Log.e(TAG, "❌ NAK received ($ack)")
                             connectionManager.disconnect {
+                                isConnecting = false
+                                restartDiscoveryAfterSend()
                                 mainHandler.post {
                                     result.error("NAK", "Packet rejected by receiver", null)
                                 }
@@ -589,6 +686,8 @@ class WifiP2pHandler(
                     } catch (e: Exception) {
                         Log.e(TAG, "❌ Socket error: ${e.message}", e)
                         connectionManager.disconnect {
+                            isConnecting = false
+                            restartDiscoveryAfterSend()
                             mainHandler.post {
                                 result.error("SOCKET_ERROR", e.message, null)
                             }
@@ -598,6 +697,8 @@ class WifiP2pHandler(
             },
             onFailure = { error ->
                 Log.e(TAG, "❌ Connection failed: $error")
+                isConnecting = false
+                restartDiscoveryAfterSend()
                 mainHandler.post {
                     result.error("CONNECTION_FAILED", error, null)
                 }
@@ -605,13 +706,39 @@ class WifiP2pHandler(
         )
     }
 
+    /**
+     * FIX D-5: Restart service discovery after a connect-and-send cycle.
+     * P2P disconnect clears the Wi-Fi P2P channel state. Without immediate
+     * re-discovery, new peers won't be found for 15-30 seconds. This keeps
+     * the mesh alive between transmissions.
+     */
+    @SuppressLint("MissingPermission")
+    private fun restartDiscoveryAfterSend() {
+        if (!isDiscoveryActive) return
+        
+        mainHandler.postDelayed({
+            Log.d(TAG, "🔄 Restarting discovery after send...")
+            manager.clearServiceRequests(channel, object : WifiP2pManager.ActionListener {
+                override fun onSuccess() {
+                    addServiceRequestAndDiscover { success ->
+                        Log.d(TAG, "🔄 Post-send discovery restart: ${if (success) "✅" else "❌"}")
+                    }
+                }
+                override fun onFailure(code: Int) {
+                    Log.w(TAG, "⚠️ Post-send clearServiceRequests failed (code: $code)")
+                    addServiceRequestAndDiscover { success ->
+                        Log.d(TAG, "🔄 Post-send discovery restart (after failed clear): ${if (success) "✅" else "❌"}")
+                    }
+                }
+            })
+        }, 2000) // 2 second delay to let P2P channel stabilize after disconnect
+    }
+
     fun cleanup() {
         Log.d(TAG, "🧹 Cleaning up WifiP2pHandler...")
         
         discoveryRefreshTimer?.cancel()
         discoveryRefreshTimer = null
-        peerDiscoveryTimer?.cancel()
-        peerDiscoveryTimer = null
         serviceUpdateTimer?.cancel()
         serviceUpdateTimer = null
         

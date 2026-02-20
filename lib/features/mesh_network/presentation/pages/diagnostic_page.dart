@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/mesh_bloc.dart';
 
 /// Diagnostic page for Wi-Fi Direct troubleshooting.
 /// 
@@ -183,6 +185,11 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
         }),
         
         const SizedBox(height: 24),
+
+        // FIX E-2: Live mesh network status
+        _buildLiveMeshStatus(theme),
+
+        const SizedBox(height: 24),
         
         // Test Button
         if (allPassed)
@@ -195,6 +202,82 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
             ),
           ),
       ],
+    );
+  }
+
+  /// FIX E-2: Live mesh status showing discovery, outbox, relay stats in real time.
+  Widget _buildLiveMeshStatus(ThemeData theme) {
+    return BlocBuilder<MeshBloc, MeshState>(
+      builder: (context, state) {
+        final isActive = state is MeshActive;
+        final neighbors = isActive ? state.neighbors : [];
+        final relayStats = isActive ? state.relayStats : null;
+
+        return Card(
+          color: const Color(0xFF111827),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.cell_tower,
+                      color: isActive ? Colors.green : Colors.grey,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Live Mesh Status',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: isActive ? Colors.green.withOpacity(0.2) : Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        isActive ? 'ACTIVE' : state.runtimeType.toString(),
+                        style: TextStyle(
+                          color: isActive ? Colors.green : Colors.grey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(color: Colors.white24, height: 24),
+                _buildLiveRow('Node Cache', '${neighbors.length} peers'),
+                _buildLiveRow('Outbox Pending', '${relayStats?.pendingCount ?? 0}'),
+                _buildLiveRow('Packets Sent', '${relayStats?.packetsSent ?? 0}'),
+                _buildLiveRow('Packets Failed', '${relayStats?.packetsFailed ?? 0}'),
+                _buildLiveRow('Consecutive Failures', '${relayStats?.consecutiveFailures ?? 0}'),
+                _buildLiveRow('Relay Running', '${relayStats?.isRunning ?? false}'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLiveRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+          Text(value, style: const TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: 'monospace')),
+        ],
+      ),
     );
   }
 

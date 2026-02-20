@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
 
     if (!status.allGranted && mounted) {
       // Show explanation dialog
+      bool userRequestedPermissions = false;
       await showDialog(
         context: context,
         barrierDismissible: false,
@@ -74,14 +75,30 @@ class _HomePageState extends State<HomePage> {
           actions: [
             TextButton(
               onPressed: () {
+                userRequestedPermissions = true;
                 Navigator.pop(context);
-                permissionManager.requestPermissions();
               },
               child: const Text('Grant Access', style: TextStyle(color: Color(0xFF10B981))),
             ),
           ],
         ),
       );
+
+      if (userRequestedPermissions && mounted) {
+        // Await the permission request so we know when the user has responded
+        await permissionManager.requestPermissions();
+
+        // CRITICAL FIX: If the mesh was not yet initialized (e.g., permissions
+        // were missing on first launch), re-trigger MeshInitialize now so the
+        // app doesn't silently stay in MeshError/MeshInitial forever.
+        // Previously the user had to fully restart the app after granting perms.
+        if (mounted) {
+          final bloc = context.read<MeshBloc>();
+          if (bloc.state is MeshError || bloc.state is MeshInitial) {
+            bloc.add(const MeshInitialize());
+          }
+        }
+      }
     }
   }
 
@@ -129,31 +146,149 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }
+            // FIX C-3: Auto-start mesh once initialized.
+            // As soon as MeshReady fires, dispatch MeshStart so that discovery
+            // begins immediately for ALL roles (relay, responder, SOS sender).
+            // This matches real-world behavior where devices should always be
+            // discovering neighbors the moment the app opens.
+            if (state is MeshReady) {
+              context.read<MeshBloc>().add(const MeshStart());
+            }
           },
           builder: (context, state) {
-            return Column(
+            return Stack(
               children: [
-                const Spacer(flex: 1),
-                // Logo
-                _buildLogo(),
-                const SizedBox(height: 16),
-                // Title
-                _buildTitle(),
-                const Spacer(flex: 1),
-                // Role Selection
-                _buildRoleSection(context, state),
-                const Spacer(flex: 1),
-                // Tagline
-                _buildTagline(),
-                const SizedBox(height: 24),
-                // Bottom Status Bar
-                _buildStatusBar(state),
-                const SizedBox(height: 16),
+                Column(
+                  children: [
+                    const Spacer(flex: 1),
+                    // Logo
+                    _buildLogo(),
+                    const SizedBox(height: 16),
+                    // Title
+                    _buildTitle(),
+                    const Spacer(flex: 1),
+                    // Role Selection
+                    _buildRoleSection(context, state),
+                    const Spacer(flex: 1),
+                    // Tagline
+                    _buildTagline(),
+                    const SizedBox(height: 24),
+                    // Bottom Status Bar
+                    _buildStatusBar(state),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+                // Node role badge — top-right corner
+                Positioned(
+                  top: 12,
+                  right: 16,
+                  child: _buildNodeStatusBadge(state),
+                ),
               ],
             );
           },
         ),
       ),
+    );
+  }
+
+  /// Node role badge shown in the top-right corner.
+  /// Shows GOAL (green, cloud icon) when this device has internet, RELAY (blue,
+  /// hub icon) otherwise. Goal nodes display a red count bubble for unread SOS.
+  Widget _buildNodeStatusBadge(MeshState state) {
+    final isActive = state is MeshActive;
+    if (!isActive) {
+      // Mesh not running yet — show a neutral 'Offline' chip
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.15),
+            width: 1,
+          ),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.circle, color: Colors.grey, size: 8),
+            SizedBox(width: 6),
+            Text(
+              'OFFLINE',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.8,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final activeState = state as MeshActive;
+    final isGoal = activeState.hasInternet;
+    final sosCount = isGoal ? activeState.recentSosAlerts.length : 0;
+    final color = isGoal ? const Color(0xFF10B981) : const Color(0xFF3B82F6);
+    final icon = isGoal ? Icons.cloud_done : Icons.hub;
+    final label = isGoal ? 'GOAL' : 'RELAY';
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: color.withValues(alpha: 0.5),
+              width: 1,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, color: color, size: 14),
+              const SizedBox(width: 5),
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.8,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Red SOS count bubble — only on goal nodes with pending alerts
+        if (isGoal && sosCount > 0)
+          Positioned(
+            top: -6,
+            right: -6,
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              decoration: const BoxDecoration(
+                color: Color(0xFFEF4444),
+                shape: BoxShape.circle,
+              ),
+              constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
+              child: Text(
+                sosCount > 99 ? '99+' : '$sosCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+      ],
     );
   }
 

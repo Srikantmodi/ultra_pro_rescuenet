@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
+import '../../../../core/platform/device_info_provider.dart';
 import '../../domain/entities/node_info.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../data/repositories/mesh_repository_impl.dart';
@@ -277,8 +277,11 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   ) async {
     emit(const MeshLoading(message: 'Initializing mesh network...'));
 
-    // Generate node ID
-    final nodeId = const Uuid().v4();
+    // FIX BUG-11: Use persistent device ID instead of random UUID.
+    // The old code generated a new UUID on every restart, meaning relay nodes
+    // could never recognise a previously-seen device. DeviceInfoProvider stores
+    // the ID in Hive so it survives restarts.
+    final nodeId = await DeviceInfoProvider.getDeviceId();
 
     // Wire the node ID into the relay orchestrator
     _relayOrchestrator.setNodeId(nodeId);
@@ -335,6 +338,10 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   }
 
   /// Handles sending an SOS.
+  ///
+  /// FIX BUG-02: Previously, if state was not MeshActive, the SOS was silently
+  /// dropped. Survivors never open Relay Mode, so they stay in MeshReady forever.
+  /// Now we auto-start the mesh if the state is MeshReady, then proceed with send.
   Future<void> _onSendSos(
     MeshSendSos event,
     Emitter<MeshState> emit,
@@ -343,8 +350,53 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     final currentState = state;
     print('🚨 MeshBloc: Current state is ${currentState.runtimeType}');
     
+    // FIX BUG-02: Auto-start mesh if in MeshReady state (survivor path)
+    if (currentState is MeshReady) {
+      print('🚨 MeshBloc: State is MeshReady — auto-starting mesh for SOS sender...');
+      emit(const MeshLoading(message: 'Starting mesh for SOS...'));
+      
+      final startResult = await _repository.startMesh();
+      
+      final startFailed = startResult.fold(
+        (failure) {
+          print('🚨 MeshBloc: Auto-start mesh failed: ${failure.message}');
+          emit(MeshError('Failed to start mesh: ${failure.message}'));
+          return true;
+        },
+        (_) => false,
+      );
+      
+      if (startFailed) return;
+      
+      // Start relay orchestrator
+      _relayOrchestrator.start();
+      
+      // Emit MeshActive, then proceed to send
+      final activeState = MeshActive(
+        nodeId: _repository.nodeId,
+        hasInternet: _internetProbe.hasInternet,
+        isRelaying: true,
+      );
+      emit(activeState);
+      
+      print('🚨 MeshBloc: Auto-started mesh, now sending SOS...');
+      
+      // Now send from the active state
+      final result = await _repository.sendSos(event.sos);
+      result.fold(
+        (failure) {
+          print('🚨 MeshBloc: Failed to send SOS: ${failure.message}');
+        },
+        (sosId) {
+          print('🚨 MeshBloc: SOS sent successfully, ID: $sosId');
+          emit(activeState.copyWith(activeSosId: sosId));
+        },
+      );
+      return;
+    }
+    
     if (currentState is! MeshActive) {
-      print('🚨 MeshBloc: State is NOT MeshActive, ignoring SOS');
+      print('🚨 MeshBloc: State is ${currentState.runtimeType} — cannot send SOS (not Ready or Active)');
       return;
     }
 
@@ -433,13 +485,23 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   }
 
   /// Handles connectivity change.
-  void _onConnectivityChanged(
+  ///
+  /// FIX BUG-03 + BUG-08: When connectivity changes, we MUST re-broadcast our
+  /// metadata so other nodes learn our updated internet status. Without this,
+  /// a node that gains internet (becoming a Goal Node) never propagates its
+  /// `net=1` / `rol=g` values — other relay nodes keep routing with the old
+  /// `net=0` value and the Goal Node is never selected for delivery.
+  Future<void> _onConnectivityChanged(
     _ConnectivityChanged event,
     Emitter<MeshState> emit,
-  ) {
+  ) async {
     final currentState = state;
     if (currentState is MeshActive) {
       emit(currentState.copyWith(hasInternet: event.hasInternet));
+      
+      // FIX BUG-03: Trigger metadata re-broadcast to propagate new internet status
+      print('🌐 Connectivity changed: hasInternet=${event.hasInternet} — updating metadata');
+      await _repository.updateMetadata();
     }
   }
 

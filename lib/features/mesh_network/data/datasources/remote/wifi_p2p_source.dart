@@ -203,6 +203,18 @@ class WifiP2pSource {
     }
   }
 
+  /// FIX B-7: Gets real Wi-Fi RSSI from native layer.
+  /// Returns signal strength in dBm (e.g. -45), or -70 as fallback.
+  Future<int> getSignalStrength() async {
+    try {
+      final result = await _discoveryChannel.invokeMethod<int>('getSignalStrength');
+      return result ?? -70;
+    } on PlatformException catch (e) {
+      print('⚠️ getSignalStrength error: ${e.message}');
+      return -70;
+    }
+  }
+
   // ═══════════════════════════════════════════════════════════════════
   // BACKWARD-COMPAT WRAPPERS
   //
@@ -414,7 +426,9 @@ class WifiP2pSource {
   void cleanStaleNodes() {
     final before = _nodeCache.length;
     final now = DateTime.now();
-    _nodeCache.removeWhere((id, node) => now.difference(node.lastSeen).inSeconds > 60);
+    // FIX B-5: Aligned to 120s to match NodeInfo.staleTimeoutMinutes = 2
+    // Previous 60s was too aggressive — nodes were evicted between discovery refresh cycles
+    _nodeCache.removeWhere((id, node) => now.difference(node.lastSeen).inSeconds > 120);
     if (_nodeCache.length != before) {
       print('🧹 Cleaned ${before - _nodeCache.length} stale nodes');
       _discoveredNodesController.add(_nodeCache.values.toList());

@@ -1,0 +1,553 @@
+﻿--------- beginning of main
+02-20 12:28:07.082 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.082 D/RescueNet(19000): ≡ƒÜÇ CONFIGURING FLUTTER ENGINE
+02-20 12:28:07.082 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.085 D/RescueNet(19000): Γ£à WifiP2pManager initialized
+02-20 12:28:07.088 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.088 D/WifiP2pHandler(19000): ≡ƒöº SETTING UP WIFI P2P HANDLER
+02-20 12:28:07.088 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.088 D/WifiP2pHandler(19000): ≡ƒÄº Setting up DNS-SD response listeners...
+02-20 12:28:07.088 D/WifiP2pHandler(19000): Γ£à DNS-SD listeners registered
+02-20 12:28:07.090 D/WifiP2pHandler(19000): Γ£à Socket server started
+02-20 12:28:07.090 D/WifiP2pHandler(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:28:07.090 D/RescueNet(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:28:07.090 D/GeneralHandler(19000): Γ£à GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:28:07.090 D/RescueNet(19000): Γ£à GeneralHandler setup complete
+02-20 12:28:07.092 D/SocketServer(19000): ≡ƒöù Binding to all interfaces (0.0.0.0)
+02-20 12:28:07.093 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.093 D/SocketServer(19000): Γ£à SERVER STARTED ON PORT 8888
+02-20 12:28:07.093 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:07.133 D/RescueNet(19000): Γ£à BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:28:07.178 D/RescueNet(19000): ΓÜí P2P State Changed: ENABLED
+02-20 12:28:07.478 D/GeneralHandler(19000): ≡ƒô₧ Method call: initialize
+02-20 12:28:07.480 D/WifiP2pHandler(19000): ≡ƒôí Event stream listener attached
+02-20 12:28:07.912 D/GeneralHandler(19000): ≡ƒô₧ Method call: checkPermissions
+02-20 12:28:07.914 D/GeneralHandler(19000): Permissions check: missing=0, needsBgLocation=false
+02-20 12:28:09.359 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:09.379 D/GeneralHandler(19000): ≡ƒô₧ Method call: startMeshService
+02-20 12:28:09.402 D/MeshService(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.402 D/MeshService(19000): ≡ƒÜÇ MeshService onCreate
+02-20 12:28:09.402 D/MeshService(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.455 D/MeshService(19000): Γ£à WifiP2pManager + Channel initialised (service-level)
+02-20 12:28:09.460 D/MeshService(19000): Γ£à Wake lock acquired (timeout: 4h)
+02-20 12:28:09.463 D/MeshService(19000): Γ£à P2P BroadcastReceiver registered in Service
+02-20 12:28:09.464 D/MeshService(19000): Γä╣∩╕Å MeshService onStartCommand
+02-20 12:28:09.464 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: startMeshNode
+02-20 12:28:09.464 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.465 D/WifiP2pHandler(19000): ≡ƒÜÇ STARTING MESH NODE
+02-20 12:28:09.465 D/WifiP2pHandler(19000):    Metadata: {sig=-85, bat=88, lng=78.721221, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.469866, rol=r}
+02-20 12:28:09.465 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.471 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.471 D/WifiP2pHandler(19000): Wi-Fi P2P Diagnostics:
+02-20 12:28:09.471 D/WifiP2pHandler(19000):   Wi-Fi Enabled: true
+02-20 12:28:09.471 D/WifiP2pHandler(19000):   Location Enabled: true
+02-20 12:28:09.471 D/WifiP2pHandler(19000):   Permissions Granted: true
+02-20 12:28:09.471 D/WifiP2pHandler(19000):   P2P Manager Exists: true
+02-20 12:28:09.471 D/WifiP2pHandler(19000):   Overall Ready: true
+02-20 12:28:09.471 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.474 D/WifiP2pHandler(19000): ≡ƒöä Clearing existing local services...
+02-20 12:28:09.475 D/MeshService(19000): ΓÜí [Service] P2P State: ENABLED
+02-20 12:28:09.478 D/WifiP2pHandler(19000): Γ£à Local services cleared, attempting registration...
+02-20 12:28:09.479 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:09.495 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.495 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:09.495 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:28:09.495 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:28:09.495 D/WifiP2pHandler(19000):    Metadata: {sig=-85, bat=88, lng=78.721221, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.469866, rol=r}
+02-20 12:28:09.495 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.495 D/WifiP2pHandler(19000): ≡ƒöì Starting discovery sequence...
+02-20 12:28:09.498 D/WifiP2pHandler(19000): Γ£à Service requests cleared
+02-20 12:28:09.502 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:28:09.509 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.509 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:28:09.509 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.510 D/WifiP2pHandler(19000): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:28:09.511 D/WifiP2pHandler(19000): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-20 12:28:09.511 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:09.511 D/WifiP2pHandler(19000): Γ£à MESH NODE OPERATIONAL
+02-20 12:28:09.511 D/WifiP2pHandler(19000):    Service Registered: true
+02-20 12:28:09.511 D/WifiP2pHandler(19000):    Discovery Active: true
+02-20 12:28:09.511 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:19.401 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:19.408 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:28:19.409 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-88, bat=88, lng=78.721221, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469866, rol=g}
+02-20 12:28:19.418 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:19.428 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:19.428 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:19.428 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:28:19.428 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:28:19.429 D/WifiP2pHandler(19000):    Metadata: {sig=-88, bat=88, lng=78.721221, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469866, rol=g}
+02-20 12:28:19.429 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:21.855 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:28:21.856 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:28:21.862 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:21.863 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:28:21.863 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:28:21.863 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:44.656 D/RescueNet(19000): ≡ƒ¢æ MainActivity onDestroy
+02-20 12:28:44.656 D/WifiP2pHandler(19000): ≡ƒº╣ Cleaning up WifiP2pHandler...
+02-20 12:28:44.657 D/SocketServer(19000): Stopping server...
+02-20 12:28:44.659 D/SocketServer(19000): Γ£à Server stopped
+02-20 12:28:44.659 D/WifiP2pHandler(19000): Γ£à Cleanup complete
+02-20 12:28:44.661 D/RescueNet(19000): Γ£à BroadcastReceiver unregistered
+02-20 12:28:44.744 D/MeshService(19000): ΓÜá∩╕Å MeshService onTaskRemoved
+02-20 12:28:44.745 D/MeshService(19000): Γ£à Wake lock released
+02-20 12:28:48.168 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.169 D/RescueNet(19000): ≡ƒÜÇ CONFIGURING FLUTTER ENGINE
+02-20 12:28:48.169 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.172 D/RescueNet(19000): Γ£à WifiP2pManager initialized
+02-20 12:28:48.172 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.172 D/WifiP2pHandler(19000): ≡ƒöº SETTING UP WIFI P2P HANDLER
+02-20 12:28:48.172 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.172 D/WifiP2pHandler(19000): ≡ƒÄº Setting up DNS-SD response listeners...
+02-20 12:28:48.172 D/WifiP2pHandler(19000): Γ£à DNS-SD listeners registered
+02-20 12:28:48.172 D/WifiP2pHandler(19000): Γ£à Socket server started
+02-20 12:28:48.173 D/WifiP2pHandler(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:28:48.173 D/RescueNet(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:28:48.173 D/GeneralHandler(19000): Γ£à GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:28:48.173 D/RescueNet(19000): Γ£à GeneralHandler setup complete
+02-20 12:28:48.185 D/SocketServer(19000): ≡ƒöù Binding to all interfaces (0.0.0.0)
+02-20 12:28:48.186 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.186 D/SocketServer(19000): Γ£à SERVER STARTED ON PORT 8888
+02-20 12:28:48.186 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.191 D/RescueNet(19000): Γ£à BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:28:48.227 D/RescueNet(19000): ΓÜí P2P State Changed: ENABLED
+02-20 12:28:48.492 D/GeneralHandler(19000): ≡ƒô₧ Method call: initialize
+02-20 12:28:48.493 D/WifiP2pHandler(19000): ≡ƒôí Event stream listener attached
+02-20 12:28:48.925 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:48.928 D/GeneralHandler(19000): ≡ƒô₧ Method call: startMeshService
+02-20 12:28:48.945 D/MeshService(19000): Γä╣∩╕Å MeshService onStartCommand
+02-20 12:28:48.945 D/GeneralHandler(19000): ≡ƒô₧ Method call: checkPermissions
+02-20 12:28:48.955 D/GeneralHandler(19000): Permissions check: missing=0, needsBgLocation=false
+02-20 12:28:48.956 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: startMeshNode
+02-20 12:28:48.956 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.956 D/WifiP2pHandler(19000): ≡ƒÜÇ STARTING MESH NODE
+02-20 12:28:48.956 D/WifiP2pHandler(19000):    Metadata: {sig=-86, bat=88, lng=78.721581, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.470612, rol=r}
+02-20 12:28:48.956 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.967 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.967 D/WifiP2pHandler(19000): Wi-Fi P2P Diagnostics:
+02-20 12:28:48.967 D/WifiP2pHandler(19000):   Wi-Fi Enabled: true
+02-20 12:28:48.967 D/WifiP2pHandler(19000):   Location Enabled: true
+02-20 12:28:48.967 D/WifiP2pHandler(19000):   Permissions Granted: true
+02-20 12:28:48.967 D/WifiP2pHandler(19000):   P2P Manager Exists: true
+02-20 12:28:48.968 D/WifiP2pHandler(19000):   Overall Ready: true
+02-20 12:28:48.968 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:48.968 D/WifiP2pHandler(19000): ≡ƒöä Clearing existing local services...
+02-20 12:28:48.976 D/WifiP2pHandler(19000): Γ£à Local services cleared, attempting registration...
+02-20 12:28:48.977 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:49.005 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:49.005 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:49.005 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:28:49.005 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:28:49.005 D/WifiP2pHandler(19000):    Metadata: {sig=-86, bat=88, lng=78.721581, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.470612, rol=r}
+02-20 12:28:49.005 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:49.005 D/WifiP2pHandler(19000): ≡ƒöì Starting discovery sequence...
+02-20 12:28:49.027 D/WifiP2pHandler(19000): Γ£à Service requests cleared
+02-20 12:28:49.072 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:28:49.104 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:49.104 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:28:49.104 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:49.104 D/WifiP2pHandler(19000): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:28:49.105 D/WifiP2pHandler(19000): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-20 12:28:49.105 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:49.105 D/WifiP2pHandler(19000): Γ£à MESH NODE OPERATIONAL
+02-20 12:28:49.105 D/WifiP2pHandler(19000):    Service Registered: true
+02-20 12:28:49.105 D/WifiP2pHandler(19000):    Discovery Active: true
+02-20 12:28:49.105 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:51.216 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:51.225 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:28:51.225 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-86, bat=88, lng=78.721581, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.470612, rol=g}
+02-20 12:28:51.235 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:51.246 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:51.246 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:51.246 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:28:51.246 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:28:51.246 D/WifiP2pHandler(19000):    Metadata: {sig=-86, bat=88, lng=78.721581, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.470612, rol=g}
+02-20 12:28:51.247 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.835 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.836 D/WifiP2pHandler(19000): ≡ƒôï TXT RECORD RECEIVED
+02-20 12:28:52.836 D/WifiP2pHandler(19000):    Domain: rescuenet._rescuenet._tcp.local.
+02-20 12:28:52.836 D/WifiP2pHandler(19000):    Device: OPPO A78 5G
+02-20 12:28:52.836 D/WifiP2pHandler(19000):    Address: 9e:56:a1:e8:e9:44
+02-20 12:28:52.836 D/WifiP2pHandler(19000):    Data: {sig=-75, bat=100, lng=78.721263, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469926, rol=g}
+02-20 12:28:52.836 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.838 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.838 D/WifiP2pHandler(19000): ≡ƒôï TXT RECORD RECEIVED
+02-20 12:28:52.838 D/WifiP2pHandler(19000):    Domain: rescuenet._rescuenet._tcp.local.
+02-20 12:28:52.838 D/WifiP2pHandler(19000):    Device: OPPO A78 5G
+02-20 12:28:52.838 D/WifiP2pHandler(19000):    Address: 9e:56:a1:e8:e9:44
+02-20 12:28:52.838 D/WifiP2pHandler(19000):    Data: {sig=-75, bat=100, lng=78.721263, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469926, rol=g}
+02-20 12:28:52.839 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.839 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.839 D/WifiP2pHandler(19000): ≡ƒôí SERVICE FOUND (Name callback)
+02-20 12:28:52.839 D/WifiP2pHandler(19000):    Instance: RescueNet
+02-20 12:28:52.839 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp.local.
+02-20 12:28:52.839 D/WifiP2pHandler(19000):    Device: OPPO A78 5G
+02-20 12:28:52.839 D/WifiP2pHandler(19000):    Address: 9e:56:a1:e8:e9:44
+02-20 12:28:52.839 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.841 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.841 D/WifiP2pHandler(19000): ≡ƒôí SERVICE FOUND (Name callback)
+02-20 12:28:52.841 D/WifiP2pHandler(19000):    Instance: RescueNet
+02-20 12:28:52.842 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp.local.
+02-20 12:28:52.842 D/WifiP2pHandler(19000):    Device: OPPO A78 5G
+02-20 12:28:52.842 D/WifiP2pHandler(19000):    Address: 9e:56:a1:e8:e9:44
+02-20 12:28:52.842 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:53.535 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:28:53.536 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:28:53.543 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:53.543 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:28:53.543 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:28:53.543 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.156 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:20.159 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:20.159 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:20.160 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:20.165 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.165 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:20.165 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:20.165 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:20.165 D/WifiP2pHandler(19000):    Metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:20.165 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.172 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:20.172 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.172 D/WifiP2pHandler(19000): ≡ƒôñ CONNECT AND SEND
+02-20 12:29:20.172 D/WifiP2pHandler(19000):    Target: 9e:56:a1:e8:e9:44
+02-20 12:29:20.172 D/WifiP2pHandler(19000):    Packet size: 638 chars
+02-20 12:29:20.172 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.173 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:20.173 D/ConnectionManager(19000): CONNECTING TO: 9e:56:a1:e8:e9:44
+02-20 12:29:20.173 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:20.174 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-20 12:29:20.922 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:20.927 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:20.927 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:20.929 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:20.934 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.934 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:20.934 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:20.934 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:20.934 D/WifiP2pHandler(19000):    Metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:20.934 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:20.935 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:20.936 W/WifiP2pHandler(19000): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-20 12:29:22.680 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-20 12:29:22.728 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:22.729 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:22.731 D/ConnectionManager(19000): ├ó┼ôΓÇª Connection initiated (attempt 1, intent=0), waiting for group...
+02-20 12:29:22.746 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:29:22.747 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:29:22.752 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:22.752 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:22.752 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:29:22.752 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:22.752 D/RescueNet(19000):    Group Formed: false
+02-20 12:29:22.752 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:29:22.752 D/RescueNet(19000):    Group Owner Address: null
+02-20 12:29:23.734 D/ConnectionManager(19000): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 1):
+02-20 12:29:23.734 D/ConnectionManager(19000):    Group Formed: ${info.groupFormed}
+02-20 12:29:23.734 D/ConnectionManager(19000):    Is Group Owner: ${info.isGroupOwner}
+02-20 12:29:23.734 D/ConnectionManager(19000):    Group Owner Address: ${info.groupOwnerAddress?.hostAddress}
+02-20 12:29:23.734 D/ConnectionManager(19000): ├ó┬Å┬│ Group not formed yet, retrying (1/15)...
+02-20 12:29:24.297 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:24.297 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.326 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:24.328 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.334 D/MeshService(19000): ΓÜí [Service] This Device Changed
+02-20 12:29:24.335 D/RescueNet(19000): ΓÜí This Device Changed Intent Received
+02-20 12:29:24.352 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.352 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:24.352 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:29:24.352 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.353 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.353 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:24.353 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:29:24.353 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.478 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:29:24.479 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:29:24.486 D/MeshService(19000):    [Service] Group formed, GO=false, addr=192.168.49.1
+02-20 12:29:24.486 D/RescueNet(19000):    Group Formed: true
+02-20 12:29:24.486 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:29:24.486 D/RescueNet(19000):    Group Owner Address: 192.168.49.1
+02-20 12:29:24.738 D/ConnectionManager(19000): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 2):
+02-20 12:29:24.738 D/ConnectionManager(19000):    Group Formed: ${info.groupFormed}
+02-20 12:29:24.738 D/ConnectionManager(19000):    Is Group Owner: ${info.isGroupOwner}
+02-20 12:29:24.738 D/ConnectionManager(19000):    Group Owner Address: ${info.groupOwnerAddress?.hostAddress}
+02-20 12:29:24.738 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:24.738 D/ConnectionManager(19000): ├ó┼ôΓÇª CONNECTED (client mode) - Target IP: 192.168.49.1
+02-20 12:29:24.739 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:24.739 D/WifiP2pHandler(19000): Γ£à Connected, sending to IP: 192.168.49.1
+02-20 12:29:24.743 D/WifiP2pHandler(19000): ≡ƒöù Binding socket to P2P Interface: p2p-p2p0-8 (/192.168.49.82)
+02-20 12:29:24.751 D/WifiP2pHandler(19000): ≡ƒôñ Sent 638 bytes, waiting for ACK...
+02-20 12:29:24.760 D/WifiP2pHandler(19000): Γ£à ACK received, disconnecting...
+02-20 12:29:24.760 D/ConnectionManager(19000): Disconnecting P2P group...
+02-20 12:29:24.763 D/ConnectionManager(19000): ├ó┼ôΓÇª P2P group removed
+02-20 12:29:24.842 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:24.842 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.848 D/MeshService(19000): ΓÜí [Service] This Device Changed
+02-20 12:29:24.849 D/RescueNet(19000): ΓÜí This Device Changed Intent Received
+02-20 12:29:24.860 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:29:24.861 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:29:24.874 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.874 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:29:24.874 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.875 D/RescueNet(19000):    Group Formed: false
+02-20 12:29:24.875 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:29:24.875 D/RescueNet(19000):    Group Owner Address: null
+02-20 12:29:26.766 D/WifiP2pHandler(19000): ≡ƒöä Restarting discovery after send...
+02-20 12:29:26.773 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:29:26.781 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:26.781 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:29:26.781 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:26.781 D/WifiP2pHandler(19000): ≡ƒöä Post-send discovery restart: Γ£à
+02-20 12:29:35.340 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:35.342 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:35.342 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-88, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:35.346 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:35.350 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.350 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:35.350 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:35.350 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:35.350 D/WifiP2pHandler(19000):    Metadata: {sig=-88, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:35.350 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.352 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:35.352 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.352 D/WifiP2pHandler(19000): ≡ƒôñ CONNECT AND SEND
+02-20 12:29:35.352 D/WifiP2pHandler(19000):    Target: 9e:56:a1:e8:e9:44
+02-20 12:29:35.352 D/WifiP2pHandler(19000):    Packet size: 641 chars
+02-20 12:29:35.352 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.352 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:35.352 D/ConnectionManager(19000): CONNECTING TO: 9e:56:a1:e8:e9:44
+02-20 12:29:35.352 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:35.353 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-20 12:29:35.931 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:35.933 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:35.933 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-88, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:35.936 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:35.941 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.941 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:35.941 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:35.941 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:35.941 D/WifiP2pHandler(19000):    Metadata: {sig=-88, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:35.941 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:35.943 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:35.943 W/WifiP2pHandler(19000): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-20 12:29:37.855 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-20 12:29:37.861 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å connect() returned ERROR (attempt 1/5), cleaning up before retry...
+02-20 12:29:37.864 D/ConnectionManager(19000): ├óΓÇ₧┬╣├»┬╕┬Å Cleanup removeGroup: BUSY, retrying anyway
+02-20 12:29:39.867 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 2/5 (GO intent=0)
+02-20 12:29:39.874 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å connect() returned ERROR (attempt 2/5), cleaning up before retry...
+02-20 12:29:39.878 D/ConnectionManager(19000): ├óΓÇ₧┬╣├»┬╕┬Å Cleanup removeGroup: BUSY, retrying anyway
+02-20 12:29:41.881 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 3/5 (GO intent=15)
+02-20 12:29:41.887 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å connect() returned ERROR (attempt 3/5), cleaning up before retry...
+02-20 12:29:41.890 D/ConnectionManager(19000): ├óΓÇ₧┬╣├»┬╕┬Å Cleanup removeGroup: BUSY, retrying anyway
+02-20 12:29:43.893 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 4/5 (GO intent=15)
+02-20 12:29:43.898 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å connect() returned ERROR (attempt 4/5), cleaning up before retry...
+02-20 12:29:43.900 D/ConnectionManager(19000): ├óΓÇ₧┬╣├»┬╕┬Å Cleanup removeGroup: BUSY, retrying anyway
+02-20 12:29:45.903 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 5/5 (GO intent=15)
+02-20 12:29:45.908 E/ConnectionManager(19000): ├ó┬¥┼Æ Connection failed: ERROR (after 5 attempt(s))
+02-20 12:29:45.908 E/WifiP2pHandler(19000): Γ¥î Connection failed: Connection failed: ERROR
+02-20 12:29:47.910 D/WifiP2pHandler(19000): ≡ƒöä Restarting discovery after send...
+02-20 12:29:47.916 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:29:47.922 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:47.922 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:29:47.922 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:47.922 D/WifiP2pHandler(19000): ≡ƒöä Post-send discovery restart: Γ£à
+02-20 12:29:49.106 D/WifiP2pHandler(19000): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-20 12:29:49.112 D/WifiP2pHandler(19000): Γ£à Discovery nudge succeeded
+02-20 12:29:56.030 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:56.036 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:56.036 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:56.039 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:56.044 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:56.044 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:56.044 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:56.044 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:56.044 D/WifiP2pHandler(19000):    Metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:56.044 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:56.046 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:56.046 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:56.046 D/WifiP2pHandler(19000): ≡ƒôñ CONNECT AND SEND
+02-20 12:29:56.046 D/WifiP2pHandler(19000):    Target: 9e:56:a1:e8:e9:44
+02-20 12:29:56.046 D/WifiP2pHandler(19000):    Packet size: 612 chars
+02-20 12:29:56.046 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:56.046 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:56.046 D/ConnectionManager(19000): CONNECTING TO: 9e:56:a1:e8:e9:44
+02-20 12:29:56.046 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:29:56.047 W/ConnectionManager(19000): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-20 12:29:57.433 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:29:57.435 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:29:57.435 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:57.437 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:29:57.441 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:57.441 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:29:57.441 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:29:57.441 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:29:57.442 D/WifiP2pHandler(19000):    Metadata: {sig=-89, bat=88, lng=78.721210, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469842, rol=g}
+02-20 12:29:57.442 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:57.443 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: connectAndSend
+02-20 12:29:57.443 W/WifiP2pHandler(19000): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-20 12:29:58.097 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:58.098 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:58.103 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:58.103 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:58.103 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:29:58.103 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:58.549 D/ConnectionManager(19000): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-20 12:29:58.581 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:29:58.582 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:29:58.586 D/ConnectionManager(19000): ├ó┼ôΓÇª Connection initiated (attempt 1, intent=0), waiting for group...
+02-20 12:29:58.598 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:29:58.599 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:29:58.605 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:58.605 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:58.606 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:29:58.606 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:58.606 D/RescueNet(19000):    Group Formed: false
+02-20 12:29:58.607 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:29:58.607 D/RescueNet(19000):    Group Owner Address: null
+02-20 12:29:59.591 D/ConnectionManager(19000): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 1):
+02-20 12:29:59.591 D/ConnectionManager(19000):    Group Formed: ${info.groupFormed}
+02-20 12:29:59.591 D/ConnectionManager(19000):    Is Group Owner: ${info.isGroupOwner}
+02-20 12:29:59.591 D/ConnectionManager(19000):    Group Owner Address: ${info.groupOwnerAddress?.hostAddress}
+02-20 12:29:59.591 D/ConnectionManager(19000): ├ó┬Å┬│ Group not formed yet, retrying (1/15)...
+02-20 12:30:00.596 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:30:00.597 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:30:00.616 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:30:00.616 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:30:00.622 D/MeshService(19000): ΓÜí [Service] This Device Changed
+02-20 12:30:00.622 D/RescueNet(19000): ΓÜí This Device Changed Intent Received
+02-20 12:30:00.623 D/ConnectionManager(19000): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 2):
+02-20 12:30:00.623 D/ConnectionManager(19000):    Group Formed: ${info.groupFormed}
+02-20 12:30:00.623 D/ConnectionManager(19000):    Is Group Owner: ${info.isGroupOwner}
+02-20 12:30:00.623 D/ConnectionManager(19000):    Group Owner Address: ${info.groupOwnerAddress?.hostAddress}
+02-20 12:30:00.623 D/ConnectionManager(19000): ├ó┬Å┬│ Group not formed yet, retrying (2/15)...
+02-20 12:30:00.625 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.625 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:30:00.625 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:30:00.625 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.627 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.628 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:30:00.628 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:30:00.628 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.673 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:30:00.673 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:30:00.677 D/MeshService(19000):    [Service] Group formed, GO=false, addr=192.168.49.1
+02-20 12:30:00.678 D/RescueNet(19000):    Group Formed: true
+02-20 12:30:00.678 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:30:00.678 D/RescueNet(19000):    Group Owner Address: 192.168.49.1
+02-20 12:30:01.628 D/ConnectionManager(19000): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 3):
+02-20 12:30:01.628 D/ConnectionManager(19000):    Group Formed: ${info.groupFormed}
+02-20 12:30:01.628 D/ConnectionManager(19000):    Is Group Owner: ${info.isGroupOwner}
+02-20 12:30:01.628 D/ConnectionManager(19000):    Group Owner Address: ${info.groupOwnerAddress?.hostAddress}
+02-20 12:30:01.628 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:30:01.628 D/ConnectionManager(19000): ├ó┼ôΓÇª CONNECTED (client mode) - Target IP: 192.168.49.1
+02-20 12:30:01.629 D/ConnectionManager(19000): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-20 12:30:01.629 D/WifiP2pHandler(19000): Γ£à Connected, sending to IP: 192.168.49.1
+02-20 12:30:01.635 D/WifiP2pHandler(19000): ≡ƒöù Binding socket to P2P Interface: p2p-p2p0-9 (/192.168.49.30)
+02-20 12:30:01.816 D/WifiP2pHandler(19000): ≡ƒôñ Sent 612 bytes, waiting for ACK...
+02-20 12:30:01.827 D/WifiP2pHandler(19000): Γ£à ACK received, disconnecting...
+02-20 12:30:01.827 D/ConnectionManager(19000): Disconnecting P2P group...
+02-20 12:30:01.833 D/ConnectionManager(19000): ├ó┼ôΓÇª P2P group removed
+02-20 12:30:01.891 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:30:01.892 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:30:01.897 D/MeshService(19000): ΓÜí [Service] This Device Changed
+02-20 12:30:01.897 D/RescueNet(19000): ΓÜí This Device Changed Intent Received
+02-20 12:30:01.903 D/MeshService(19000): ΓÜí [Service] Connection Changed
+02-20 12:30:01.904 D/RescueNet(19000): ΓÜí Connection Changed Intent Received
+02-20 12:30:01.907 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.907 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:30:01.907 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.911 D/RescueNet(19000):    Group Formed: false
+02-20 12:30:01.911 D/RescueNet(19000):    Is Group Owner: false
+02-20 12:30:01.911 D/RescueNet(19000):    Group Owner Address: null
+02-20 12:30:03.833 D/WifiP2pHandler(19000): ≡ƒöä Restarting discovery after send...
+02-20 12:30:03.841 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:30:03.848 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:03.848 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:30:03.848 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:03.848 D/WifiP2pHandler(19000): ≡ƒöä Post-send discovery restart: Γ£à
+02-20 12:30:09.257 D/RescueNet(19000): ≡ƒ¢æ MainActivity onDestroy
+02-20 12:30:09.258 D/WifiP2pHandler(19000): ≡ƒº╣ Cleaning up WifiP2pHandler...
+02-20 12:30:09.258 D/SocketServer(19000): Stopping server...
+02-20 12:30:09.259 D/SocketServer(19000): Γ£à Server stopped
+02-20 12:30:09.259 D/WifiP2pHandler(19000): Γ£à Cleanup complete
+02-20 12:30:09.261 D/RescueNet(19000): Γ£à BroadcastReceiver unregistered
+02-20 12:30:09.344 D/MeshService(19000): ΓÜá∩╕Å MeshService onTaskRemoved
+02-20 12:30:22.193 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.193 D/RescueNet(19000): ≡ƒÜÇ CONFIGURING FLUTTER ENGINE
+02-20 12:30:22.193 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.196 D/RescueNet(19000): Γ£à WifiP2pManager initialized
+02-20 12:30:22.196 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.196 D/WifiP2pHandler(19000): ≡ƒöº SETTING UP WIFI P2P HANDLER
+02-20 12:30:22.196 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.196 D/WifiP2pHandler(19000): ≡ƒÄº Setting up DNS-SD response listeners...
+02-20 12:30:22.196 D/WifiP2pHandler(19000): Γ£à DNS-SD listeners registered
+02-20 12:30:22.197 D/WifiP2pHandler(19000): Γ£à Socket server started
+02-20 12:30:22.197 D/WifiP2pHandler(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:30:22.197 D/RescueNet(19000): Γ£à WifiP2pHandler setup complete
+02-20 12:30:22.197 D/GeneralHandler(19000): Γ£à GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:30:22.197 D/RescueNet(19000): Γ£à GeneralHandler setup complete
+02-20 12:30:22.200 D/SocketServer(19000): ≡ƒöù Binding to all interfaces (0.0.0.0)
+02-20 12:30:22.200 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.200 D/SocketServer(19000): Γ£à SERVER STARTED ON PORT 8888
+02-20 12:30:22.200 D/SocketServer(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:22.212 D/RescueNet(19000): Γ£à BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:30:22.245 D/RescueNet(19000): ΓÜí P2P State Changed: ENABLED
+02-20 12:30:22.484 D/GeneralHandler(19000): ≡ƒô₧ Method call: initialize
+02-20 12:30:22.485 D/WifiP2pHandler(19000): ≡ƒôí Event stream listener attached
+02-20 12:30:22.889 D/GeneralHandler(19000): ≡ƒô₧ Method call: checkPermissions
+02-20 12:30:22.890 D/GeneralHandler(19000): Permissions check: missing=0, needsBgLocation=false
+02-20 12:30:24.444 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:30:24.447 D/GeneralHandler(19000): ≡ƒô₧ Method call: startMeshService
+02-20 12:30:24.456 D/MeshService(19000): Γä╣∩╕Å MeshService onStartCommand
+02-20 12:30:24.456 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: startMeshNode
+02-20 12:30:24.456 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.456 D/WifiP2pHandler(19000): ≡ƒÜÇ STARTING MESH NODE
+02-20 12:30:24.457 D/WifiP2pHandler(19000):    Metadata: {sig=-90, bat=88, lng=78.721191, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.469904, rol=r}
+02-20 12:30:24.457 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.466 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.466 D/WifiP2pHandler(19000): Wi-Fi P2P Diagnostics:
+02-20 12:30:24.466 D/WifiP2pHandler(19000):   Wi-Fi Enabled: true
+02-20 12:30:24.466 D/WifiP2pHandler(19000):   Location Enabled: true
+02-20 12:30:24.466 D/WifiP2pHandler(19000):   Permissions Granted: true
+02-20 12:30:24.466 D/WifiP2pHandler(19000):   P2P Manager Exists: true
+02-20 12:30:24.466 D/WifiP2pHandler(19000):   Overall Ready: true
+02-20 12:30:24.466 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.467 D/WifiP2pHandler(19000): ≡ƒöä Clearing existing local services...
+02-20 12:30:24.483 D/WifiP2pHandler(19000): Γ£à Local services cleared, attempting registration...
+02-20 12:30:24.483 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:30:24.493 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.493 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:30:24.493 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:30:24.493 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:30:24.493 D/WifiP2pHandler(19000):    Metadata: {sig=-90, bat=88, lng=78.721191, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=0, lat=17.469904, rol=r}
+02-20 12:30:24.494 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.494 D/WifiP2pHandler(19000): ≡ƒöì Starting discovery sequence...
+02-20 12:30:24.496 D/WifiP2pHandler(19000): Γ£à Service requests cleared
+02-20 12:30:24.501 D/WifiP2pHandler(19000): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:30:24.510 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.510 D/WifiP2pHandler(19000): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:30:24.510 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.510 D/WifiP2pHandler(19000): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:30:24.510 D/WifiP2pHandler(19000): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-20 12:30:24.510 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.510 D/WifiP2pHandler(19000): Γ£à MESH NODE OPERATIONAL
+02-20 12:30:24.510 D/WifiP2pHandler(19000):    Service Registered: true
+02-20 12:30:24.510 D/WifiP2pHandler(19000):    Discovery Active: true
+02-20 12:30:24.510 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.649 D/MeshService(19000): ΓÜí [Service] Peers Changed
+02-20 12:30:24.650 D/RescueNet(19000): ΓÜí Peers Changed Intent Received
+02-20 12:30:24.665 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:24.665 D/RescueNet(19000): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:30:24.665 D/RescueNet(19000):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:30:24.665 D/RescueNet(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:29.448 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:30:29.456 D/WifiP2pHandler(19000): ≡ƒô₧ Method call: updateMetadata
+02-20 12:30:29.457 D/WifiP2pHandler(19000): ≡ƒô¥ Updating metadata: {sig=-88, bat=88, lng=78.721191, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469904, rol=g}
+02-20 12:30:29.474 D/WifiP2pHandler(19000): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:30:29.484 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:29.484 D/WifiP2pHandler(19000): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:30:29.484 D/WifiP2pHandler(19000):    Name: RescueNet
+02-20 12:30:29.484 D/WifiP2pHandler(19000):    Type: _rescuenet._tcp
+02-20 12:30:29.484 D/WifiP2pHandler(19000):    Metadata: {sig=-88, bat=88, lng=78.721191, rel=1, tri=n, id=6380e8f4-21b4-49e1-aa31-3408f2946173, net=1, lat=17.469904, rol=g}
+02-20 12:30:29.484 D/WifiP2pHandler(19000): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ

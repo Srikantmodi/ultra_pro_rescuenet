@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../domain/entities/mesh_packet.dart';
 
 /// Settings page.
 class SettingsPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _discoveryEnabled = true;
   bool _highAccuracyGps = false;
   bool _debugMode = false;
+  bool _ttlTestMode = false; // FIX E-3: TTL test mode toggle
   double _batteryThreshold = 20;
 
   @override
@@ -67,6 +69,16 @@ class _SettingsPageState extends State<SettingsPage> {
               'Show debug information and logs',
               _debugMode,
               (v) => setState(() => _debugMode = v),
+            ),
+            // FIX E-3: TTL test mode — sets defaultTtl to 3 for multi-hop testing
+            _buildSwitch(
+              'TTL Test Mode',
+              'Set packet TTL to 3 hops (default: 20)',
+              _ttlTestMode,
+              (v) {
+                setState(() => _ttlTestMode = v);
+                MeshPacket.defaultTtl = v ? 3 : 20;
+              },
             ),
             _buildAction(
               'Clear Cache',

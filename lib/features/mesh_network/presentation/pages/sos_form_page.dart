@@ -45,6 +45,10 @@ class _SosFormPageState extends State<SosFormPage> {
   NodeInfo? _selectedDevice;
   int? _aiPickIndex;
 
+  // FIX: Track when WE dispatched a MeshSendSos event so the BlocListener
+  // only acts on our own SOS confirmation, not a pre-existing activeSosId.
+  bool _awaitingSosConfirmation = false;
+
   @override
   void initState() {
     super.initState();
@@ -131,6 +135,7 @@ class _SosFormPageState extends State<SosFormPage> {
   Widget build(BuildContext context) {
     return BlocListener<MeshBloc, MeshState>(
       listener: (context, state) {
+        // Update neighbours display regardless of SOS state
         if (state is MeshActive) {
           setState(() {
             _nearbyDevices = state.neighbors;
@@ -139,6 +144,37 @@ class _SosFormPageState extends State<SosFormPage> {
               _selectedDevice = _nearbyDevices[_aiPickIndex!];
             }
           });
+        }
+
+        // CRITICAL FIX: Only confirm SOS after BLoC actually queues it.
+        // Previously SnackBar + Navigator.pop() fired immediately after
+        // add(MeshSendSos(...)), before the async BLoC handler finished —
+        // giving false confirmation even when the send failed.
+        if (_awaitingSosConfirmation) {
+          if (state is MeshActive && state.activeSosId != null) {
+            _awaitingSosConfirmation = false;
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('🆘 SOS Alert Sent! Broadcasting to mesh network...'),
+                  backgroundColor: Color(0xFFE53935),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+              Navigator.of(context).pop();
+            }
+          } else if (state is MeshError) {
+            _awaitingSosConfirmation = false;
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('❌ Failed to send SOS: ${state.message}'),
+                  backgroundColor: Colors.orange,
+                  duration: const Duration(seconds: 5),
+                ),
+              );
+            }
+          }
         }
       },
       child: Scaffold(
@@ -608,7 +644,25 @@ class _SosFormPageState extends State<SosFormPage> {
   }
 
   Widget _buildMeshNetworkStatus() {
-    return Container(
+    // FIX C-1: Make mesh network status fully BLoC-driven.
+    // Shows loading indicator during MeshLoading, live neighbor count
+    // during MeshActive, and scanning prompt otherwise.
+    return BlocBuilder<MeshBloc, MeshState>(
+      builder: (context, state) {
+        final isMeshActive = state is MeshActive;
+        final isLoading = state is MeshLoading;
+        final neighbors = isMeshActive ? state.neighbors : <NodeInfo>[];
+
+        // Sync local cache so _sendSos and _findBestDevice still work
+        if (isMeshActive && neighbors.isNotEmpty) {
+          _nearbyDevices = neighbors;
+          if (_selectedDevice == null) {
+            _aiPickIndex = _findBestDevice();
+            _selectedDevice = _nearbyDevices[_aiPickIndex!];
+          }
+        }
+
+        return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF111827),
         borderRadius: BorderRadius.circular(16),
@@ -621,9 +675,11 @@ class _SosFormPageState extends State<SosFormPage> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.cell_tower,
-                  color: Color(0xFF10B981),
+                  color: isLoading
+                      ? const Color(0xFF6B7280)
+                      : const Color(0xFF10B981),
                   size: 24,
                 ),
                 const SizedBox(width: 8),
@@ -639,13 +695,19 @@ class _SosFormPageState extends State<SosFormPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF10B981).withValues(alpha: 0.2),
+                    color: isLoading
+                        ? const Color(0xFF6B7280).withValues(alpha: 0.2)
+                        : const Color(0xFF10B981).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '${_nearbyDevices.length} nodes found',
-                    style: const TextStyle(
-                      color: Color(0xFF10B981),
+                    isLoading
+                        ? 'Connecting...'
+                        : '${neighbors.length} nodes found',
+                    style: TextStyle(
+                      color: isLoading
+                          ? const Color(0xFF6B7280)
+                          : const Color(0xFF10B981),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -654,8 +716,25 @@ class _SosFormPageState extends State<SosFormPage> {
               ],
             ),
           ),
-          // Device List
-          if (_nearbyDevices.isEmpty)
+          // Device List or Loading indicator
+          if (isLoading)
+            const Padding(
+              padding: EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  CircularProgressIndicator(
+                    color: Color(0xFF3B82F6),
+                    strokeWidth: 2,
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    'Setting up mesh network...',
+                    style: TextStyle(color: Color(0xFF6B7280)),
+                  ),
+                ],
+              ),
+            )
+          else if (neighbors.isEmpty)
             Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
@@ -670,8 +749,8 @@ class _SosFormPageState extends State<SosFormPage> {
               ),
             )
           else
-            ...List.generate(_nearbyDevices.length, (index) {
-              final device = _nearbyDevices[index];
+            ...List.generate(neighbors.length, (index) {
+              final device = neighbors[index];
               final isAiPick = index == _aiPickIndex;
               final isSelected = _selectedDevice == device;
               
@@ -765,46 +844,88 @@ class _SosFormPageState extends State<SosFormPage> {
           const SizedBox(height: 12),
         ],
       ),
-    );
+    );  // Close Container
+      },  // Close BlocBuilder builder
+    );  // Close BlocBuilder
   }
 
   Widget _buildSosButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _sendSos,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFE53935),
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 0,
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.send, size: 20),
-            SizedBox(width: 8),
-            Text(
-              'SEND EMERGENCY SOS',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
+    // FIX C-2: Make SOS button state-aware.
+    // Button is always enabled (B-1 auto-starts mesh if needed) but shows
+    // different label depending on mesh state so users know what will happen.
+    return BlocBuilder<MeshBloc, MeshState>(
+      builder: (context, state) {
+        final isMeshActive = state is MeshActive;
+        final isLoading = state is MeshLoading;
+
+        String buttonLabel;
+        Color buttonColor;
+        if (isLoading) {
+          buttonLabel = 'CONNECTING TO MESH...';
+          buttonColor = const Color(0xFF6B7280);
+        } else if (isMeshActive) {
+          buttonLabel = 'SEND EMERGENCY SOS';
+          buttonColor = const Color(0xFFE53935);
+        } else {
+          // MeshReady or MeshInitial — will auto-start via B-1 fix
+          buttonLabel = 'SEND SOS (will auto-connect)';
+          buttonColor = const Color(0xFFE53935).withValues(alpha: 0.8);
+        }
+
+        return SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: isLoading ? null : _sendSos,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: buttonColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
+              elevation: 0,
             ),
-          ],
-        ),
-      ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (isLoading)
+                  const SizedBox(
+                    width: 20, height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2, color: Colors.white,
+                    ),
+                  )
+                else
+                  const Icon(Icons.send, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  buttonLabel,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   void _sendSos() {
+    // Resolve the real node ID from the current BLoC state.
+    // CRITICAL FIX: 'current_node' was hardcoded before, making every device
+    // appear identical to the cloud and to other relay nodes.  Using the actual
+    // nodeId (set during MeshInitialize via DeviceInfoProvider) makes each SOS
+    // uniquely attributable to its originating device.
+    final bloc = context.read<MeshBloc>();
+    final senderId = bloc.state.nodeId ?? 'unknown_node';
+
     final sos = SosPayload(
       sosId: const Uuid().v4(),
-      senderId: 'current_node',
+      senderId: senderId,
       senderName: _nameController.text.isEmpty ? 'Anonymous' : _nameController.text,
       latitude: _latitude,
       longitude: _longitude,
@@ -818,16 +939,9 @@ class _SosFormPageState extends State<SosFormPage> {
       timestamp: DateTime.now().millisecondsSinceEpoch,
     );
 
-    context.read<MeshBloc>().add(MeshSendSos(sos));
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('🆘 SOS Alert Sent! Broadcasting to mesh network...'),
-        backgroundColor: Color(0xFFE53935),
-        duration: Duration(seconds: 3),
-      ),
-    );
-
-    Navigator.of(context).pop();
+    _awaitingSosConfirmation = true;
+    bloc.add(MeshSendSos(sos));
+    // SnackBar and Navigator.pop() are handled by the BlocListener above,
+    // only after MeshActive(activeSosId != null) — or MeshError on failure.
   }
 }

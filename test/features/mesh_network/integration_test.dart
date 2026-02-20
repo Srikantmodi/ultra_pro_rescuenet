@@ -53,7 +53,7 @@ class MockMeshRepositoryImpl implements MeshRepositoryImpl {
   }
 
   @override
-  Future<Either<Failure, String>> sendSos(SosPayload sos) async {
+  Future<Either<Failure, String>> sendSos(dynamic sos) async {
     sendSosCalled = true;
     if (sendSosException != null) {
       throw sendSosException!;

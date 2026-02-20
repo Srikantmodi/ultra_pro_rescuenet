@@ -1,0 +1,284 @@
+﻿--------- beginning of main
+02-20 12:28:33.062 D/WifiP2pHandler(15734): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-20 12:28:33.071 D/WifiP2pHandler(15734): Γ£à Discovery nudge succeeded
+02-20 12:28:41.062 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:28:41.064 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:28:41.080 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:41.081 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:28:41.081 D/RescueNet(15734):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:28:41.081 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:50.041 D/RescueNet(15734): ≡ƒ¢æ MainActivity onDestroy
+02-20 12:28:50.041 D/WifiP2pHandler(15734): ≡ƒº╣ Cleaning up WifiP2pHandler...
+02-20 12:28:50.041 D/SocketServer(15734): Stopping server...
+02-20 12:28:50.043 D/SocketServer(15734): Γ£à Server stopped
+02-20 12:28:50.043 D/WifiP2pHandler(15734): Γ£à Cleanup complete
+02-20 12:28:50.048 D/RescueNet(15734): Γ£à BroadcastReceiver unregistered
+02-20 12:28:50.183 D/MeshService(15734): ΓÜá∩╕Å MeshService onTaskRemoved
+02-20 12:28:50.194 D/MeshService(15734): Γ£à Wake lock released
+02-20 12:28:52.313 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.313 D/RescueNet(15734): ≡ƒÜÇ CONFIGURING FLUTTER ENGINE
+02-20 12:28:52.313 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.315 D/RescueNet(15734): Γ£à WifiP2pManager initialized
+02-20 12:28:52.315 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.315 D/WifiP2pHandler(15734): ≡ƒöº SETTING UP WIFI P2P HANDLER
+02-20 12:28:52.315 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.315 D/WifiP2pHandler(15734): ≡ƒÄº Setting up DNS-SD response listeners...
+02-20 12:28:52.315 D/WifiP2pHandler(15734): Γ£à DNS-SD listeners registered
+02-20 12:28:52.316 D/WifiP2pHandler(15734): Γ£à Socket server started
+02-20 12:28:52.316 D/WifiP2pHandler(15734): Γ£à WifiP2pHandler setup complete
+02-20 12:28:52.316 D/RescueNet(15734): Γ£à WifiP2pHandler setup complete
+02-20 12:28:52.316 D/GeneralHandler(15734): Γ£à GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:28:52.316 D/RescueNet(15734): Γ£à GeneralHandler setup complete
+02-20 12:28:52.325 D/SocketServer(15734): ≡ƒöù Binding to all interfaces (0.0.0.0)
+02-20 12:28:52.326 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.326 D/SocketServer(15734): Γ£à SERVER STARTED ON PORT 8888
+02-20 12:28:52.326 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.335 D/RescueNet(15734): Γ£à BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:28:52.458 D/RescueNet(15734): ΓÜí P2P State Changed: ENABLED
+02-20 12:28:52.501 D/GeneralHandler(15734): ≡ƒô₧ Method call: initialize
+02-20 12:28:52.502 D/WifiP2pHandler(15734): ≡ƒôí Event stream listener attached
+02-20 12:28:52.584 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:52.587 D/GeneralHandler(15734): ≡ƒô₧ Method call: startMeshService
+02-20 12:28:52.592 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: startMeshNode
+02-20 12:28:52.592 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.592 D/WifiP2pHandler(15734): ≡ƒÜÇ STARTING MESH NODE
+02-20 12:28:52.592 D/WifiP2pHandler(15734):    Metadata: {sig=-79, bat=100, lng=78.721209, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=0, lat=17.469947, rol=r}
+02-20 12:28:52.592 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.594 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.594 D/WifiP2pHandler(15734): Wi-Fi P2P Diagnostics:
+02-20 12:28:52.594 D/WifiP2pHandler(15734):   Wi-Fi Enabled: true
+02-20 12:28:52.594 D/WifiP2pHandler(15734):   Location Enabled: true
+02-20 12:28:52.594 D/WifiP2pHandler(15734):   Permissions Granted: true
+02-20 12:28:52.594 D/WifiP2pHandler(15734):   P2P Manager Exists: true
+02-20 12:28:52.594 D/WifiP2pHandler(15734):   Overall Ready: true
+02-20 12:28:52.594 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.595 D/WifiP2pHandler(15734): ≡ƒöä Clearing existing local services...
+02-20 12:28:52.596 D/MeshService(15734): Γä╣∩╕Å MeshService onStartCommand
+02-20 12:28:52.607 D/WifiP2pHandler(15734): Γ£à Local services cleared, attempting registration...
+02-20 12:28:52.607 D/WifiP2pHandler(15734): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:52.662 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.662 D/WifiP2pHandler(15734): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:52.662 D/WifiP2pHandler(15734):    Name: RescueNet
+02-20 12:28:52.663 D/WifiP2pHandler(15734):    Type: _rescuenet._tcp
+02-20 12:28:52.663 D/WifiP2pHandler(15734):    Metadata: {sig=-79, bat=100, lng=78.721209, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=0, lat=17.469947, rol=r}
+02-20 12:28:52.663 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.663 D/WifiP2pHandler(15734): ≡ƒöì Starting discovery sequence...
+02-20 12:28:52.690 D/WifiP2pHandler(15734): Γ£à Service requests cleared
+02-20 12:28:52.702 D/WifiP2pHandler(15734): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:28:52.713 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.714 D/WifiP2pHandler(15734): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:28:52.714 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.714 D/WifiP2pHandler(15734): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:28:52.714 D/WifiP2pHandler(15734): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-20 12:28:52.714 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.714 D/WifiP2pHandler(15734): Γ£à MESH NODE OPERATIONAL
+02-20 12:28:52.714 D/WifiP2pHandler(15734):    Service Registered: true
+02-20 12:28:52.714 D/WifiP2pHandler(15734):    Discovery Active: true
+02-20 12:28:52.714 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.940 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:28:52.940 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:28:52.945 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.945 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:28:52.945 D/RescueNet(15734):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:28:52.945 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:52.968 D/GeneralHandler(15734): ≡ƒô₧ Method call: checkPermissions
+02-20 12:28:52.968 D/GeneralHandler(15734): Permissions check: missing=0, needsBgLocation=false
+02-20 12:28:58.268 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:28:58.277 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: updateMetadata
+02-20 12:28:58.278 D/WifiP2pHandler(15734): ≡ƒô¥ Updating metadata: {sig=-78, bat=100, lng=78.721209, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469947, rol=g}
+02-20 12:28:58.299 D/WifiP2pHandler(15734): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:28:58.307 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:28:58.307 D/WifiP2pHandler(15734): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:28:58.307 D/WifiP2pHandler(15734):    Name: RescueNet
+02-20 12:28:58.307 D/WifiP2pHandler(15734):    Type: _rescuenet._tcp
+02-20 12:28:58.307 D/WifiP2pHandler(15734):    Metadata: {sig=-78, bat=100, lng=78.721209, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469947, rol=g}
+02-20 12:28:58.307 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:23.810 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:29:23.811 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:29:23.833 D/MeshService(15734):    [Service] Group formed, GO=true, addr=null
+02-20 12:29:23.833 D/RescueNet(15734):    Group Formed: true
+02-20 12:29:23.833 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:29:23.833 D/RescueNet(15734):    Group Owner Address: null
+02-20 12:29:23.896 D/MeshService(15734): ΓÜí [Service] This Device Changed
+02-20 12:29:23.898 D/RescueNet(15734): ΓÜí This Device Changed Intent Received
+02-20 12:29:24.016 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:29:24.017 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.031 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:29:24.032 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:29:24.037 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.037 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:29:24.037 D/RescueNet(15734):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:29:24.037 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.037 D/MeshService(15734):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:29:24.037 D/RescueNet(15734):    Group Formed: true
+02-20 12:29:24.037 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:29:24.037 D/RescueNet(15734):    Group Owner Address: 192.168.49.1
+02-20 12:29:24.160 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:29:24.160 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:29:24.161 D/MeshService(15734):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:29:24.161 D/RescueNet(15734):    Group Formed: true
+02-20 12:29:24.161 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:29:24.161 D/RescueNet(15734):    Group Owner Address: 192.168.49.1
+02-20 12:29:24.469 D/SocketServer(15734): ≡ƒôÑ Client connected: 192.168.49.82
+02-20 12:29:24.471 D/SocketServer(15734): ≡ƒôª Expecting packet size: 638 bytes, CRC32: 119280724
+02-20 12:29:24.472 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.472 D/SocketServer(15734): Γ£à PACKET RECEIVED
+02-20 12:29:24.472 D/SocketServer(15734):    Size: 638 bytes
+02-20 12:29:24.473 D/SocketServer(15734):    Data: {"id":"1771570760166-501572639","originatorId":"6380e8f4-21b4-49e1-aa31-3408f2946173","payload":"{\"sosId\":\"2e8ae9e4-fb15-48b1-aa7a-9dd953d780bd\",\"senderId\":\"6380e8f4-21b4-49e1-aa31-3408f2946173...
+02-20 12:29:24.473 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.477 D/WifiP2pHandler(15734): ≡ƒôÑ Packet received from socket, forwarding to Flutter...
+02-20 12:29:24.501 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:29:24.502 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.512 D/MeshService(15734): ΓÜí [Service] This Device Changed
+02-20 12:29:24.512 D/RescueNet(15734): ΓÜí This Device Changed Intent Received
+02-20 12:29:24.533 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:29:24.533 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:29:24.545 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:29:24.545 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:29:24.550 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.550 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:29:24.550 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.553 D/RescueNet(15734):    Group Formed: false
+02-20 12:29:24.553 D/RescueNet(15734):    Is Group Owner: false
+02-20 12:29:24.553 D/RescueNet(15734):    Group Owner Address: null
+02-20 12:29:24.555 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:24.555 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:29:24.555 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:29:52.714 D/WifiP2pHandler(15734): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-20 12:29:52.724 D/WifiP2pHandler(15734): Γ£à Discovery nudge succeeded
+02-20 12:29:59.985 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:29:59.987 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:30:00.032 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:30:00.032 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:30:00.051 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.051 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:30:00.051 D/RescueNet(15734):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:30:00.051 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.055 D/MeshService(15734):    [Service] Group formed, GO=true, addr=null
+02-20 12:30:00.055 D/RescueNet(15734):    Group Formed: true
+02-20 12:30:00.055 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:30:00.055 D/RescueNet(15734):    Group Owner Address: null
+02-20 12:30:00.088 D/MeshService(15734): ΓÜí [Service] This Device Changed
+02-20 12:30:00.088 D/RescueNet(15734): ΓÜí This Device Changed Intent Received
+02-20 12:30:00.314 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:30:00.315 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:30:00.340 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:30:00.341 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:30:00.351 D/MeshService(15734):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:30:00.351 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.351 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 1 devices
+02-20 12:30:00.351 D/RescueNet(15734):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-20 12:30:00.351 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:00.351 D/RescueNet(15734):    Group Formed: true
+02-20 12:30:00.351 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:30:00.351 D/RescueNet(15734):    Group Owner Address: 192.168.49.1
+02-20 12:30:00.382 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:30:00.383 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:30:00.391 D/MeshService(15734):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-20 12:30:00.391 D/RescueNet(15734):    Group Formed: true
+02-20 12:30:00.391 D/RescueNet(15734):    Is Group Owner: true
+02-20 12:30:00.391 D/RescueNet(15734):    Group Owner Address: 192.168.49.1
+02-20 12:30:01.537 D/SocketServer(15734): ≡ƒôÑ Client connected: 192.168.49.30
+02-20 12:30:01.538 D/SocketServer(15734): ≡ƒôª Expecting packet size: 612 bytes, CRC32: 70477766
+02-20 12:30:01.539 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.539 D/SocketServer(15734): Γ£à PACKET RECEIVED
+02-20 12:30:01.539 D/SocketServer(15734):    Size: 612 bytes
+02-20 12:30:01.539 D/SocketServer(15734):    Data: {"id":"1771570796044-501572639","originatorId":"6380e8f4-21b4-49e1-aa31-3408f2946173","payload":"{\"sosId\":\"070ba1d0-4a55-48ba-8971-e877fe20db82\",\"senderId\":\"6380e8f4-21b4-49e1-aa31-3408f2946173...
+02-20 12:30:01.539 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.540 D/WifiP2pHandler(15734): ≡ƒôÑ Packet received from socket, forwarding to Flutter...
+02-20 12:30:01.577 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:30:01.578 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:30:01.591 D/MeshService(15734): ΓÜí [Service] This Device Changed
+02-20 12:30:01.592 D/RescueNet(15734): ΓÜí This Device Changed Intent Received
+02-20 12:30:01.617 D/MeshService(15734): ΓÜí [Service] Connection Changed
+02-20 12:30:01.618 D/RescueNet(15734): ΓÜí Connection Changed Intent Received
+02-20 12:30:01.636 D/MeshService(15734): ΓÜí [Service] Peers Changed
+02-20 12:30:01.636 D/RescueNet(15734): ΓÜí Peers Changed Intent Received
+02-20 12:30:01.640 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.640 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:30:01.640 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.641 D/RescueNet(15734):    Group Formed: false
+02-20 12:30:01.641 D/RescueNet(15734):    Is Group Owner: false
+02-20 12:30:01.641 D/RescueNet(15734):    Group Owner Address: null
+02-20 12:30:01.644 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:01.644 D/RescueNet(15734): ≡ƒô▒ Physical Device List: 0 devices
+02-20 12:30:01.644 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:12.545 D/RescueNet(15734): ≡ƒ¢æ MainActivity onDestroy
+02-20 12:30:12.545 D/WifiP2pHandler(15734): ≡ƒº╣ Cleaning up WifiP2pHandler...
+02-20 12:30:12.545 D/SocketServer(15734): Stopping server...
+02-20 12:30:12.550 D/SocketServer(15734): Γ£à Server stopped
+02-20 12:30:12.550 D/WifiP2pHandler(15734): Γ£à Cleanup complete
+02-20 12:30:12.552 D/RescueNet(15734): Γ£à BroadcastReceiver unregistered
+02-20 12:30:12.736 D/MeshService(15734): ΓÜá∩╕Å MeshService onTaskRemoved
+02-20 12:30:18.969 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.969 D/RescueNet(15734): ≡ƒÜÇ CONFIGURING FLUTTER ENGINE
+02-20 12:30:18.969 D/RescueNet(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.970 D/RescueNet(15734): Γ£à WifiP2pManager initialized
+02-20 12:30:18.970 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.970 D/WifiP2pHandler(15734): ≡ƒöº SETTING UP WIFI P2P HANDLER
+02-20 12:30:18.970 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.970 D/WifiP2pHandler(15734): ≡ƒÄº Setting up DNS-SD response listeners...
+02-20 12:30:18.970 D/WifiP2pHandler(15734): Γ£à DNS-SD listeners registered
+02-20 12:30:18.971 D/WifiP2pHandler(15734): Γ£à Socket server started
+02-20 12:30:18.971 D/WifiP2pHandler(15734): Γ£à WifiP2pHandler setup complete
+02-20 12:30:18.971 D/RescueNet(15734): Γ£à WifiP2pHandler setup complete
+02-20 12:30:18.971 D/GeneralHandler(15734): Γ£à GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:30:18.971 D/RescueNet(15734): Γ£à GeneralHandler setup complete
+02-20 12:30:18.972 D/SocketServer(15734): ≡ƒöù Binding to all interfaces (0.0.0.0)
+02-20 12:30:18.973 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.973 D/SocketServer(15734): Γ£à SERVER STARTED ON PORT 8888
+02-20 12:30:18.973 D/SocketServer(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:18.980 D/RescueNet(15734): Γ£à BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:30:18.991 D/RescueNet(15734): ΓÜí P2P State Changed: ENABLED
+02-20 12:30:19.100 D/GeneralHandler(15734): ≡ƒô₧ Method call: initialize
+02-20 12:30:19.101 D/WifiP2pHandler(15734): ≡ƒôí Event stream listener attached
+02-20 12:30:19.568 D/GeneralHandler(15734): ≡ƒô₧ Method call: checkPermissions
+02-20 12:30:19.570 D/GeneralHandler(15734): Permissions check: missing=0, needsBgLocation=false
+02-20 12:30:20.727 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:30:20.732 D/GeneralHandler(15734): ≡ƒô₧ Method call: startMeshService
+02-20 12:30:20.739 D/MeshService(15734): Γä╣∩╕Å MeshService onStartCommand
+02-20 12:30:20.740 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: startMeshNode
+02-20 12:30:20.740 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.740 D/WifiP2pHandler(15734): ≡ƒÜÇ STARTING MESH NODE
+02-20 12:30:20.740 D/WifiP2pHandler(15734):    Metadata: {sig=-76, bat=100, lng=78.721227, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=0, lat=17.469826, rol=r}
+02-20 12:30:20.740 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.742 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.742 D/WifiP2pHandler(15734): Wi-Fi P2P Diagnostics:
+02-20 12:30:20.742 D/WifiP2pHandler(15734):   Wi-Fi Enabled: true
+02-20 12:30:20.742 D/WifiP2pHandler(15734):   Location Enabled: true
+02-20 12:30:20.742 D/WifiP2pHandler(15734):   Permissions Granted: true
+02-20 12:30:20.742 D/WifiP2pHandler(15734):   P2P Manager Exists: true
+02-20 12:30:20.742 D/WifiP2pHandler(15734):   Overall Ready: true
+02-20 12:30:20.742 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.742 D/WifiP2pHandler(15734): ≡ƒöä Clearing existing local services...
+02-20 12:30:20.746 D/WifiP2pHandler(15734): Γ£à Local services cleared, attempting registration...
+02-20 12:30:20.746 D/WifiP2pHandler(15734): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:30:20.756 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.756 D/WifiP2pHandler(15734): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:30:20.756 D/WifiP2pHandler(15734):    Name: RescueNet
+02-20 12:30:20.756 D/WifiP2pHandler(15734):    Type: _rescuenet._tcp
+02-20 12:30:20.756 D/WifiP2pHandler(15734):    Metadata: {sig=-76, bat=100, lng=78.721227, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=0, lat=17.469826, rol=r}
+02-20 12:30:20.756 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.756 D/WifiP2pHandler(15734): ≡ƒöì Starting discovery sequence...
+02-20 12:30:20.761 D/WifiP2pHandler(15734): Γ£à Service requests cleared
+02-20 12:30:20.765 D/WifiP2pHandler(15734): Γ£à Service request added (unfiltered, filtering in callback)
+02-20 12:30:20.773 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.773 D/WifiP2pHandler(15734): Γ£à SERVICE DISCOVERY STARTED
+02-20 12:30:20.773 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.773 D/WifiP2pHandler(15734): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:30:20.773 D/WifiP2pHandler(15734): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-20 12:30:20.773 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:20.773 D/WifiP2pHandler(15734): Γ£à MESH NODE OPERATIONAL
+02-20 12:30:20.773 D/WifiP2pHandler(15734):    Service Registered: true
+02-20 12:30:20.773 D/WifiP2pHandler(15734):    Discovery Active: true
+02-20 12:30:20.773 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:21.814 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: getSignalStrength
+02-20 12:30:21.818 D/WifiP2pHandler(15734): ≡ƒô₧ Method call: updateMetadata
+02-20 12:30:21.818 D/WifiP2pHandler(15734): ≡ƒô¥ Updating metadata: {sig=-76, bat=100, lng=78.721227, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469826, rol=g}
+02-20 12:30:21.826 D/WifiP2pHandler(15734): ≡ƒô¥ Registering service (attempts left: 3)
+02-20 12:30:21.830 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-20 12:30:21.830 D/WifiP2pHandler(15734): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-20 12:30:21.830 D/WifiP2pHandler(15734):    Name: RescueNet
+02-20 12:30:21.830 D/WifiP2pHandler(15734):    Type: _rescuenet._tcp
+02-20 12:30:21.830 D/WifiP2pHandler(15734):    Metadata: {sig=-76, bat=100, lng=78.721227, rel=1, tri=n, id=44cf54a5-2a8b-45ae-bda5-374e5f44f479, net=1, lat=17.469826, rol=g}
+02-20 12:30:21.830 D/WifiP2pHandler(15734): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ

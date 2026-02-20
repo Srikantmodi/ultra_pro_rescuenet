@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import '../bloc/mesh/mesh_bloc.dart';
 import '../bloc/mesh/mesh_state.dart';
 import '../widgets/lists/packet_log_item.dart';
+import '../../data/services/relay_orchestrator.dart';
 
 /// Debug console page for viewing logs and packets.
 class DebugConsolePage extends StatefulWidget {
@@ -16,15 +19,38 @@ class _DebugConsolePageState extends State<DebugConsolePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<String> _logs = [];
+  StreamSubscription<RelayActivity>? _activitySubscription;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+
+    // FIX C-6: Wire RelayOrchestrator.activity stream to debug console.
+    // Every relay attempt, route selection, send result now appears in real time —
+    // enables field testing without ADB.
+    try {
+      final orchestrator = GetIt.instance<RelayOrchestrator>();
+      _activitySubscription = orchestrator.activity.listen((event) {
+        if (mounted) {
+          setState(() {
+            final timestamp = DateTime.now().toString().substring(11, 19);
+            _logs.add('[$timestamp] ${event.type.name}: ${event.message}');
+            // Keep last 500 entries to avoid memory bloat
+            if (_logs.length > 500) {
+              _logs.removeRange(0, _logs.length - 500);
+            }
+          });
+        }
+      });
+    } catch (_) {
+      // Orchestrator not yet registered - will start receiving once mesh starts
+    }
   }
 
   @override
   void dispose() {
+    _activitySubscription?.cancel();
     _tabController.dispose();
     super.dispose();
   }

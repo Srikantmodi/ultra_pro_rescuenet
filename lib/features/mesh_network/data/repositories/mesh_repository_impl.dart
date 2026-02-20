@@ -40,6 +40,9 @@ class MeshRepositoryImpl {
   // Node ID for this device
   String? _nodeId;
 
+  // FIX B-2: Track current role for metadata broadcast
+  String _currentRole = 'r'; // Default: relay. Set to 's' for SOS sender, 'g' for goal
+
   // Streams
   final _meshStateController = BehaviorSubject<RepositoryState>.seeded(RepositoryState.idle);
   final _sosReceivedController = StreamController<ReceivedSos>.broadcast();
@@ -227,6 +230,11 @@ class MeshRepositoryImpl {
       print('🚨 Repository: sendSos called');
       print('🚨 Repository: sos type is ${sos.runtimeType}');
 
+      // FIX B-2: Mark this node as SOS sender so metadata advertises role='s'
+      _currentRole = 's';
+      // Re-broadcast metadata immediately so neighbors know we're a sender
+      await updateMetadata();
+
       // Handle potential String/SosPayload confusion
       String payloadString;
       if (sos is String) {
@@ -325,40 +333,70 @@ class MeshRepositoryImpl {
   }
 
   /// Handles forwarding or delivering a packet.
+  ///
+  /// FIX BUG-06: Incoming relay packets are now persisted to the outbox BEFORE
+  /// attempting to forward. If _forwardPacket() fails (e.g., no neighbors),
+  /// the packet remains in the outbox and the RelayOrchestrator will retry it
+  /// on its next 10-second cycle. Previously, a single Wi-Fi scan gap meant
+  /// permanent packet loss for transit packets.
+  ///
+  /// CRITICAL FIX (double-hop): Store the ORIGINAL packet (without this node's
+  /// hop) in the outbox.  The hop is appended only at actual send time so that
+  /// both the immediate-forward path and every orchestrator retry add exactly
+  /// one hop, not two.
   Future<void> _handleForwardOrDeliver(MeshPacket packet, String senderIp) async {
-    // Add our hop to the packet
-    final updatedPacket = packet.addHop(nodeId);
-
     // If packet is expired, don't forward
-    if (!updatedPacket.isAlive) {
+    if (!packet.isAlive) {
+      print('⏰ Packet ${packet.id} expired (TTL exhausted), dropping');
       return;
     }
 
-
-    // TODO: Check if we have internet and should deliver
-    // For now, always forward
-    
     // Check if we have internet (Goal Node)
     if (_internetProbe.hasInternet && packet.isSos) {
       // We are the goal! Deliver to cloud.
       try {
         final sosPayload = SosPayload.fromJsonString(packet.payload);
         final result = await _cloudDeliveryService.uploadSos(
-          sosPayload, 
+          sosPayload,
           packet.originatorId
         );
         
         if (result.isRight()) {
           // Delivery successful! We stop forwarding.
-          // Ideally we should broadcast a "Delivery Confirmation" back to the mesh.
+          print('✅ Cloud delivery successful for packet ${packet.id}');
           return;
         }
       } catch (e) {
+        print('⚠️ Cloud delivery failed, falling back to relay: $e');
         // Parsing failed or upload failed, fall back to forwarding
       }
     }
 
-    await _forwardPacket(updatedPacket);
+    // FIX BUG-06 + double-hop fix:
+    // Persist the ORIGINAL packet (no hop added yet) to outbox so that the
+    // RelayOrchestrator retry path adds exactly one hop via _attemptSend.
+    // The immediate-forward path below also adds one hop via _forwardPacket.
+    print('📦 Persisting relay packet ${packet.id} to outbox before forward attempt');
+    await _outbox.addPacket(packet);
+
+    // Mark as seen to prevent re-processing our own forwarded packet
+    _seenCache.markAsSeen(packet.id);
+
+    // Add hop NOW only for the immediate send attempt
+    final hopAddedPacket = packet.addHop(nodeId);
+
+    // Attempt immediate forward
+    final forwarded = await _forwardPacket(hopAddedPacket);
+    
+    if (forwarded) {
+      // Forward succeeded — mark as sent in outbox so orchestrator skips it
+      print('✅ Relay packet ${packet.id} forwarded immediately, marking sent');
+      await _outbox.markSent(packet.id);
+    } else {
+      // Forward failed — packet stays in outbox. RelayOrchestrator will pick it up
+      // on the next 10-second cycle when neighbors become available.
+      print('⏳ Relay packet ${packet.id} forward failed — queued for retry in outbox');
+    }
   }
 
   /// Forwards a packet to the best available neighbor using connect-and-send.
@@ -414,6 +452,8 @@ class MeshRepositoryImpl {
     final location = _locationManager.lastKnownLocation;
     final batteryLevel = await _battery.batteryLevel;
     final hasInternet = _internetProbe.hasInternet;
+    // FIX B-7: Read real RSSI from native Wi-Fi interface
+    final rssi = await _wifiP2pSource.getSignalStrength();
     
     return {
       'id': _nodeId!,
@@ -421,9 +461,10 @@ class MeshRepositoryImpl {
       'net': hasInternet ? '1' : '0',
       'lat': location?.latitude.toStringAsFixed(6) ?? '0.0',
       'lng': location?.longitude.toStringAsFixed(6) ?? '0.0',
-      'sig': '-50', // Still approximated, but we can't easily get this from P2P group owner
+      'sig': rssi.toString(),
       'tri': 'n',  // no triage
-      'rol': hasInternet ? 'g' : 'r',  // 'g' for goal (internet), 'r' for relay
+      // FIX B-2: Priority: goal (internet) > sender (SOS) > relay
+      'rol': hasInternet ? 'g' : _currentRole,
       'rel': batteryLevel > 15 ? '1' : '0',  // available for relay if battery > 15%
     };
   }

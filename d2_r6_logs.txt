@@ -1,0 +1,329 @@
+--------- beginning of main
+02-20 12:51:32.834 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:51:32.834 28829 28829 D RescueNet: 🚀 CONFIGURING FLUTTER ENGINE
+02-20 12:51:32.834 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:51:32.839 28829 28829 D RescueNet: ✅ WifiP2pManager initialized
+02-20 12:51:32.841 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:32.841 28829 28829 D WifiP2pHandler: 🔧 SETTING UP WIFI P2P HANDLER
+02-20 12:51:32.841 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:32.841 28829 28829 D WifiP2pHandler: 🎧 Setting up DNS-SD response listeners...
+02-20 12:51:32.842 28829 28829 D WifiP2pHandler: ✅ DNS-SD listeners registered
+02-20 12:51:32.844 28829 28829 D WifiP2pHandler: ✅ Socket server started
+02-20 12:51:32.844 28829 28829 D WifiP2pHandler: ✅ WifiP2pHandler setup complete
+02-20 12:51:32.844 28829 28829 D RescueNet: ✅ WifiP2pHandler setup complete
+02-20 12:51:32.844 28829 28829 D GeneralHandler: ✅ GeneralHandler setup on channel: com.rescuenet/wifi_p2p
+02-20 12:51:32.844 28829 28829 D RescueNet: ✅ GeneralHandler setup complete
+02-20 12:51:32.845 28829 28900 D SocketServer: 🔗 Binding to all interfaces (0.0.0.0)
+02-20 12:51:32.846 28829 28900 D SocketServer: ═══════════════════════════════════
+02-20 12:51:32.846 28829 28900 D SocketServer: ✅ SERVER STARTED ON PORT 8888
+02-20 12:51:32.846 28829 28900 D SocketServer: ═══════════════════════════════════
+02-20 12:51:32.885 28829 28829 D RescueNet: ✅ BroadcastReceiver registered (with RECEIVER_EXPORTED)
+02-20 12:51:33.276 28829 28829 D RescueNet: ⚡ P2P State Changed: ENABLED
+02-20 12:51:33.358 28829 28829 D GeneralHandler: 📞 Method call: initialize
+02-20 12:51:33.360 28829 28829 D WifiP2pHandler: 📡 Event stream listener attached
+02-20 12:51:33.751 28829 28829 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:51:33.767 28829 28829 D GeneralHandler: 📞 Method call: startMeshService
+02-20 12:51:33.787 28829 28829 D MeshService: ═══════════════════════════════════
+02-20 12:51:33.787 28829 28829 D MeshService: 🚀 MeshService onCreate
+02-20 12:51:33.787 28829 28829 D MeshService: ═══════════════════════════════════
+02-20 12:51:33.814 28829 28829 D MeshService: ✅ WifiP2pManager + Channel initialised (service-level)
+02-20 12:51:33.817 28829 28829 D MeshService: ✅ Wake lock acquired (timeout: 4h)
+02-20 12:51:33.819 28829 28829 D MeshService: ✅ P2P BroadcastReceiver registered in Service
+02-20 12:51:33.824 28829 28829 D MeshService: ℹ️ MeshService onStartCommand
+02-20 12:51:33.825 28829 28829 D WifiP2pHandler: 📞 Method call: startMeshNode
+02-20 12:51:33.825 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.826 28829 28829 D WifiP2pHandler: 🚀 STARTING MESH NODE
+02-20 12:51:33.826 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721196, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=0, lat=17.469877, rol=r}
+02-20 12:51:33.826 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler: Wi-Fi P2P Diagnostics:
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler:   Wi-Fi Enabled: true
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler:   Location Enabled: true
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler:   Permissions Granted: true
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler:   P2P Manager Exists: true
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler:   Overall Ready: true
+02-20 12:51:33.832 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.833 28829 28829 D WifiP2pHandler: 🔄 Clearing existing local services...
+02-20 12:51:33.835 28829 28829 D GeneralHandler: 📞 Method call: checkPermissions
+02-20 12:51:33.836 28829 28829 D GeneralHandler: Permissions check: missing=0, needsBgLocation=false
+02-20 12:51:33.837 28829 28829 D MeshService: ⚡ [Service] P2P State: ENABLED
+02-20 12:51:33.837 28829 28829 D WifiP2pHandler: ✅ Local services cleared, attempting registration...
+02-20 12:51:33.837 28829 28829 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler:    Name: RescueNet
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721196, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=0, lat=17.469877, rol=r}
+02-20 12:51:33.845 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.846 28829 28829 D WifiP2pHandler: 🔍 Starting discovery sequence...
+02-20 12:51:33.847 28829 28829 D WifiP2pHandler: ✅ Service requests cleared
+02-20 12:51:33.850 28829 28829 D WifiP2pHandler: ✅ Service request added (unfiltered, filtering in callback)
+02-20 12:51:33.856 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.856 28829 28829 D WifiP2pHandler: ✅ SERVICE DISCOVERY STARTED
+02-20 12:51:33.856 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.856 28829 28829 D WifiP2pHandler: ⏰ Starting consolidated discovery refresh timer (60000ms)...
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler: ✅ Refresh timer started (consolidated, 60000ms interval)
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler: ✅ MESH NODE OPERATIONAL
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler:    Service Registered: true
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler:    Discovery Active: true
+02-20 12:51:33.857 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:38.053 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:51:38.054 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:51:38.060 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:51:38.060 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:51:38.060 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:51:38.060 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:51:44.045 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:44.045 28829 28829 D WifiP2pHandler: 📋 TXT RECORD RECEIVED
+02-20 12:51:44.045 28829 28829 D WifiP2pHandler:    Domain: rescuenet._rescuenet._tcp.local.
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Device: OPPO A78 5G
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Address: 9e:56:a1:e8:e9:44
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Data: {sig=-78, bat=100, lng=78.721222, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469849, rol=g}
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler: 📡 SERVICE FOUND (Name callback)
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Instance: RescueNet
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp.local.
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Device: OPPO A78 5G
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler:    Address: 9e:56:a1:e8:e9:44
+02-20 12:51:44.046 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:33.859 28829 28829 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:52:33.874 28829 28829 D WifiP2pHandler: ✅ Discovery nudge succeeded
+02-20 12:52:37.532 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:52:37.533 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:52:37.537 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:52:37.537 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:52:37.537 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:52:37.537 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler: 📋 TXT RECORD RECEIVED
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler:    Domain: rescuenet._rescuenet._tcp.local.
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler:    Device: OPPO A78 5G
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler:    Address: 9e:56:a1:e8:e9:44
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler:    Data: {sig=-76, bat=100, lng=78.721247, rel=1, tri=n, id=f294e3c6-bc33-4557-a01a-60f6af14e430, net=1, lat=17.469832, rol=g}
+02-20 12:52:37.563 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:37.564 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:52:37.564 28829 28829 D WifiP2pHandler: 📡 SERVICE FOUND (Name callback)
+02-20 12:52:37.564 28829 28829 D WifiP2pHandler:    Instance: RescueNet
+02-20 12:52:37.564 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp.local.
+02-20 12:52:37.564 28829 28829 D WifiP2pHandler:    Device: OPPO A78 5G
+02-20 12:52:37.565 28829 28829 D WifiP2pHandler:    Address: 9e:56:a1:e8:e9:44
+02-20 12:52:37.565 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:33.858 28829 28829 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:53:33.865 28829 28829 D WifiP2pHandler: ✅ Discovery nudge succeeded
+02-20 12:53:34.680 28829 28829 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:53:34.682 28829 28829 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:53:34.682 28829 28829 D WifiP2pHandler: 📝 Updating metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:53:34.684 28829 28829 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler:    Name: RescueNet
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:53:34.687 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler: 📞 Method call: connectAndSend
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler: 📤 CONNECT AND SEND
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler:    Target: 9e:56:a1:e8:e9:44
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler:    Packet size: 640 chars
+02-20 12:53:34.692 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:34.692 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:53:34.692 28829 28829 D ConnectionManager: CONNECTING TO: 9e:56:a1:e8:e9:44
+02-20 12:53:34.692 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:53:34.694 28829 28829 W ConnectionManager: âš ï¸ removeGroup returned BUSY â€” waiting 2500ms
+02-20 12:53:36.395 28829 28829 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:53:36.398 28829 28829 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:53:36.398 28829 28829 D WifiP2pHandler: 📝 Updating metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:53:36.399 28829 28829 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:53:36.402 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:36.402 28829 28829 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:53:36.402 28829 28829 D WifiP2pHandler:    Name: RescueNet
+02-20 12:53:36.402 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:53:36.402 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:53:36.403 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:36.404 28829 28829 D WifiP2pHandler: 📞 Method call: connectAndSend
+02-20 12:53:36.404 28829 28829 W WifiP2pHandler: ⚠️ connectAndSend skipped: connection already in progress
+02-20 12:53:37.199 28829 28829 D ConnectionManager: âž¡ï¸ connect() attempt 1/5 (GO intent=0)
+02-20 12:53:37.240 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:37.242 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:37.244 28829 28829 D ConnectionManager: âœ… Connection initiated (attempt 1, intent=0), waiting for group...
+02-20 12:53:37.269 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:37.269 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:37.281 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:37.281 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:53:37.281 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:53:37.281 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:37.282 28829 28829 D RescueNet:    Group Formed: false
+02-20 12:53:37.282 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:53:37.282 28829 28829 D RescueNet:    Group Owner Address: null
+02-20 12:53:38.247 28829 28829 D ConnectionManager: ðŸ“‹ Connection Info (Attempt 1):
+02-20 12:53:38.247 28829 28829 D ConnectionManager:    Group Formed: false
+02-20 12:53:38.247 28829 28829 D ConnectionManager:    Is Group Owner: false
+02-20 12:53:38.247 28829 28829 D ConnectionManager:    Group Owner Address: null
+02-20 12:53:38.247 28829 28829 D ConnectionManager: â³ Group not formed yet, retrying (1/15)...
+02-20 12:53:38.377 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:38.378 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:38.404 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:38.404 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:38.412 28829 28829 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:53:38.413 28829 28829 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:53:38.419 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.419 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:53:38.419 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:53:38.419 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.421 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.421 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:53:38.422 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:53:38.422 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:38.555 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:38.557 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:38.559 28829 28829 D RescueNet:    Group Formed: true
+02-20 12:53:38.559 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:53:38.559 28829 28829 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:53:38.567 28829 28829 D MeshService:    [Service] Group formed, GO=false, addr=192.168.49.1
+02-20 12:53:39.251 28829 28829 D ConnectionManager: ðŸ“‹ Connection Info (Attempt 2):
+02-20 12:53:39.251 28829 28829 D ConnectionManager:    Group Formed: true
+02-20 12:53:39.251 28829 28829 D ConnectionManager:    Is Group Owner: false
+02-20 12:53:39.251 28829 28829 D ConnectionManager:    Group Owner Address: 192.168.49.1
+02-20 12:53:39.251 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:53:39.251 28829 28829 D ConnectionManager: âœ… CONNECTED (client mode) - Target IP: 192.168.49.1
+02-20 12:53:39.251 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:53:39.251 28829 28829 D WifiP2pHandler: ✅ Connected, sending to IP: 192.168.49.1
+02-20 12:53:39.255 28829 28902 D WifiP2pHandler: 🔗 Binding socket to P2P Interface: p2p-p2p0-11 (/192.168.49.91)
+02-20 12:53:39.264 28829 28902 D WifiP2pHandler: 📤 Sent 640 bytes, waiting for ACK...
+02-20 12:53:39.272 28829 28902 D WifiP2pHandler: ✅ ACK received, disconnecting...
+02-20 12:53:39.272 28829 28902 D ConnectionManager: Disconnecting P2P group...
+02-20 12:53:39.275 28829 28829 D ConnectionManager: âœ… P2P group removed
+02-20 12:53:39.334 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:53:39.335 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:53:39.341 28829 28829 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:53:39.341 28829 28829 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:53:39.352 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:53:39.354 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:53:39.360 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:39.360 28829 28829 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:53:39.360 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:53:39.361 28829 28829 D RescueNet:    Group Formed: false
+02-20 12:53:39.361 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:53:39.361 28829 28829 D RescueNet:    Group Owner Address: null
+02-20 12:53:41.277 28829 28829 D WifiP2pHandler: 🔄 Restarting discovery after send...
+02-20 12:53:41.282 28829 28829 D WifiP2pHandler: ✅ Service request added (unfiltered, filtering in callback)
+02-20 12:53:41.287 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:41.287 28829 28829 D WifiP2pHandler: ✅ SERVICE DISCOVERY STARTED
+02-20 12:53:41.287 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:53:41.287 28829 28829 D WifiP2pHandler: 🔄 Post-send discovery restart: ✅
+02-20 12:54:06.567 28829 28829 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:54:06.569 28829 28829 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:54:06.569 28829 28829 D WifiP2pHandler: 📝 Updating metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:54:06.573 28829 28829 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler:    Name: RescueNet
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:54:06.577 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler: 📞 Method call: connectAndSend
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler: 📤 CONNECT AND SEND
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler:    Target: 9e:56:a1:e8:e9:44
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler:    Packet size: 611 chars
+02-20 12:54:06.580 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:06.580 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:06.580 28829 28829 D ConnectionManager: CONNECTING TO: 9e:56:a1:e8:e9:44
+02-20 12:54:06.580 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:06.581 28829 28829 W ConnectionManager: âš ï¸ removeGroup returned BUSY â€” waiting 2500ms
+02-20 12:54:07.533 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:07.535 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:07.540 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:07.540 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:07.540 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:54:07.540 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:08.401 28829 28829 D WifiP2pHandler: 📞 Method call: getSignalStrength
+02-20 12:54:08.404 28829 28829 D WifiP2pHandler: 📞 Method call: updateMetadata
+02-20 12:54:08.404 28829 28829 D WifiP2pHandler: 📝 Updating metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:54:08.406 28829 28829 D WifiP2pHandler: 📝 Registering service (attempts left: 3)
+02-20 12:54:08.415 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:08.416 28829 28829 D WifiP2pHandler: ✅ SERVICE REGISTERED SUCCESSFULLY
+02-20 12:54:08.416 28829 28829 D WifiP2pHandler:    Name: RescueNet
+02-20 12:54:08.416 28829 28829 D WifiP2pHandler:    Type: _rescuenet._tcp
+02-20 12:54:08.416 28829 28829 D WifiP2pHandler:    Metadata: {sig=-70, bat=89, lng=78.721181, rel=1, tri=n, id=42bdad83-9cf4-420a-ab86-344b764586ad, net=1, lat=17.469881, rol=g}
+02-20 12:54:08.416 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:08.418 28829 28829 D WifiP2pHandler: 📞 Method call: connectAndSend
+02-20 12:54:08.418 28829 28829 W WifiP2pHandler: ⚠️ connectAndSend skipped: connection already in progress
+02-20 12:54:09.083 28829 28829 D ConnectionManager: âž¡ï¸ connect() attempt 1/5 (GO intent=0)
+02-20 12:54:09.097 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:09.098 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:09.099 28829 28829 D ConnectionManager: âœ… Connection initiated (attempt 1, intent=0), waiting for group...
+02-20 12:54:09.106 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:09.108 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:09.112 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:09.112 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:09.112 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:54:09.112 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:09.113 28829 28829 D RescueNet:    Group Formed: false
+02-20 12:54:09.113 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:54:09.113 28829 28829 D RescueNet:    Group Owner Address: null
+02-20 12:54:10.103 28829 28829 D ConnectionManager: ðŸ“‹ Connection Info (Attempt 1):
+02-20 12:54:10.103 28829 28829 D ConnectionManager:    Group Formed: false
+02-20 12:54:10.103 28829 28829 D ConnectionManager:    Is Group Owner: false
+02-20 12:54:10.103 28829 28829 D ConnectionManager:    Group Owner Address: null
+02-20 12:54:10.103 28829 28829 D ConnectionManager: â³ Group not formed yet, retrying (1/15)...
+02-20 12:54:11.108 28829 28829 D ConnectionManager: ðŸ“‹ Connection Info (Attempt 2):
+02-20 12:54:11.108 28829 28829 D ConnectionManager:    Group Formed: false
+02-20 12:54:11.108 28829 28829 D ConnectionManager:    Is Group Owner: false
+02-20 12:54:11.108 28829 28829 D ConnectionManager:    Group Owner Address: null
+02-20 12:54:11.108 28829 28829 D ConnectionManager: â³ Group not formed yet, retrying (2/15)...
+02-20 12:54:11.521 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:11.522 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:11.539 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:11.540 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:11.545 28829 28829 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:54:11.545 28829 28829 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:54:11.551 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.552 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:11.552 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:54:11.552 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.557 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.557 28829 28829 D RescueNet: 📱 Physical Device List: 1 devices
+02-20 12:54:11.557 28829 28829 D RescueNet:    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-20 12:54:11.557 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:11.595 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:11.596 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:11.598 28829 28829 D RescueNet:    Group Formed: true
+02-20 12:54:11.598 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:54:11.598 28829 28829 D RescueNet:    Group Owner Address: 192.168.49.1
+02-20 12:54:11.598 28829 28829 D MeshService:    [Service] Group formed, GO=false, addr=192.168.49.1
+02-20 12:54:12.111 28829 28829 D ConnectionManager: ðŸ“‹ Connection Info (Attempt 3):
+02-20 12:54:12.111 28829 28829 D ConnectionManager:    Group Formed: true
+02-20 12:54:12.111 28829 28829 D ConnectionManager:    Is Group Owner: false
+02-20 12:54:12.111 28829 28829 D ConnectionManager:    Group Owner Address: 192.168.49.1
+02-20 12:54:12.111 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:12.111 28829 28829 D ConnectionManager: âœ… CONNECTED (client mode) - Target IP: 192.168.49.1
+02-20 12:54:12.111 28829 28829 D ConnectionManager: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+02-20 12:54:12.111 28829 28829 D WifiP2pHandler: ✅ Connected, sending to IP: 192.168.49.1
+02-20 12:54:12.114 28829 28901 D WifiP2pHandler: 🔗 Binding socket to P2P Interface: p2p-p2p0-12 (/192.168.49.32)
+02-20 12:54:12.122 28829 28901 D WifiP2pHandler: 📤 Sent 611 bytes, waiting for ACK...
+02-20 12:54:12.130 28829 28901 D WifiP2pHandler: ✅ ACK received, disconnecting...
+02-20 12:54:12.130 28829 28901 D ConnectionManager: Disconnecting P2P group...
+02-20 12:54:12.133 28829 28829 D ConnectionManager: âœ… P2P group removed
+02-20 12:54:12.188 28829 28829 D RescueNet: ⚡ Peers Changed Intent Received
+02-20 12:54:12.189 28829 28829 D MeshService: ⚡ [Service] Peers Changed
+02-20 12:54:12.192 28829 28829 D RescueNet: ⚡ This Device Changed Intent Received
+02-20 12:54:12.193 28829 28829 D MeshService: ⚡ [Service] This Device Changed
+02-20 12:54:12.201 28829 28829 D RescueNet: ⚡ Connection Changed Intent Received
+02-20 12:54:12.202 28829 28829 D MeshService: ⚡ [Service] Connection Changed
+02-20 12:54:12.207 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:12.207 28829 28829 D RescueNet: 📱 Physical Device List: 0 devices
+02-20 12:54:12.208 28829 28829 D RescueNet: ═══════════════════════════════════
+02-20 12:54:12.208 28829 28829 D RescueNet:    Group Formed: false
+02-20 12:54:12.208 28829 28829 D RescueNet:    Is Group Owner: false
+02-20 12:54:12.208 28829 28829 D RescueNet:    Group Owner Address: null
+02-20 12:54:14.133 28829 28829 D WifiP2pHandler: 🔄 Restarting discovery after send...
+02-20 12:54:14.139 28829 28829 D WifiP2pHandler: ✅ Service request added (unfiltered, filtering in callback)
+02-20 12:54:14.143 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:14.143 28829 28829 D WifiP2pHandler: ✅ SERVICE DISCOVERY STARTED
+02-20 12:54:14.143 28829 28829 D WifiP2pHandler: ═══════════════════════════════════
+02-20 12:54:14.143 28829 28829 D WifiP2pHandler: 🔄 Post-send discovery restart: ✅
+02-20 12:54:33.857 28829 28829 D WifiP2pHandler: 🔄 Refreshing service discovery (lightweight nudge)...
+02-20 12:54:33.874 28829 28829 D WifiP2pHandler: ✅ Discovery nudge succeeded

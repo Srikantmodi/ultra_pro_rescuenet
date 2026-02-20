@@ -100,7 +100,14 @@ class InternetProbe {
   /// Probes a single endpoint.
   Future<bool> _probeEndpoint(String endpoint) async {
     try {
-      // Try DNS lookup first (faster)
+      // FIX D-7: Try HTTP HEAD first for reliable captive-portal detection.
+      // DNS lookups can return cached/stale results and don't prove real
+      // internet connectivity. HTTP 204 from Google's connectivity check
+      // definitively confirms internet access.
+      final httpResult = await _tryHttpHead();
+      if (httpResult) return true;
+
+      // Try DNS lookup (faster than socket but can be cached)
       final dnsResult = await _tryDnsLookup(endpoint);
       if (dnsResult) return true;
 
@@ -108,6 +115,26 @@ class InternetProbe {
       return await _trySocketConnection(endpoint);
     } catch (e) {
       return false;
+    }
+  }
+
+  /// FIX D-7: HTTP HEAD to Google's connectivity check endpoint.
+  /// Returns true only if we get HTTP 204, which means real internet.
+  /// This catches captive portal and cached-DNS false positives.
+  Future<bool> _tryHttpHead() async {
+    HttpClient? client;
+    try {
+      client = HttpClient()
+        ..connectionTimeout = _probeTimeout;
+      final request = await client.headUrl(
+        Uri.parse('http://connectivitycheck.gstatic.com/generate_204'),
+      ).timeout(_probeTimeout);
+      final response = await request.close().timeout(_probeTimeout);
+      return response.statusCode == 204;
+    } catch (e) {
+      return false;
+    } finally {
+      client?.close();
     }
   }
 
