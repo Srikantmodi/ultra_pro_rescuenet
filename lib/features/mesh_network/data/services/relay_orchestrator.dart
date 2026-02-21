@@ -24,6 +24,12 @@ class RelayOrchestrator {
   final AiRouter _aiRouter;
   String _nodeId;
 
+  /// Optional callback that checks whether this node can now deliver a packet
+  /// locally (e.g., node gained internet since the packet was stored in the
+  /// outbox).  Returns true if it handled the packet, false to proceed with
+  /// normal relay forwarding.
+  Future<bool> Function(MeshPacket)? onLocalDelivery;
+
   // Relay loop control
   Timer? _relayTimer;
   bool _isRunning = false;
@@ -180,6 +186,25 @@ class RelayOrchestrator {
       _emitActivity(RelayActivityType.expired, 'Packet expired (TTL=0)');
       await _outbox.removePacket(packet.id);
       return false;
+    }
+
+    // CHECK: Has this node gained internet since the packet was stored?
+    // If so, deliver SOS locally (Goal path) instead of wasting a P2P
+    // connection attempt to relay it to another node.
+    if (onLocalDelivery != null) {
+      try {
+        final delivered = await onLocalDelivery!(packet);
+        if (delivered) {
+          _emitActivity(
+            RelayActivityType.sent,
+            'Delivered locally (this node is now a Goal)',
+          );
+          await _outbox.markSent(packet.id);
+          return true;
+        }
+      } catch (e) {
+        _emitActivity(RelayActivityType.error, 'Local delivery check error: $e');
+      }
     }
 
     // Loop detection is handled per-target inside makeRoutingDecision

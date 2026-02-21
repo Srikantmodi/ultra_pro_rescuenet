@@ -304,6 +304,10 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     // Wire the node ID into the relay orchestrator
     _relayOrchestrator.setNodeId(nodeId);
 
+    // Wire local delivery callback so the orchestrator can deliver SOS locally
+    // when this node gains internet while packets are still in the outbox.
+    _relayOrchestrator.onLocalDelivery = _repository.tryDeliverLocally;
+
     // Initialize repository
     final result = await _repository.initialize(nodeId: nodeId);
 

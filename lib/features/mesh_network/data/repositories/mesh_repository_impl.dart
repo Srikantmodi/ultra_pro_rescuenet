@@ -89,6 +89,34 @@ class MeshRepositoryImpl {
   /// Stream of packet IDs that were forwarded immediately (bypassing orchestrator).
   Stream<String> get immediateForwards => _immediateForwardController.stream;
 
+  /// Checks if this node can now deliver a packet locally (Goal path).
+  ///
+  /// Called by the RelayOrchestrator before it attempts to forward a packet.
+  /// If this node has gained internet since the packet was stored, and the
+  /// packet is SOS, we deliver it to the Goal stream here and return true.
+  /// The orchestrator then marks it as sent instead of wasting a P2P connection.
+  Future<bool> tryDeliverLocally(MeshPacket packet) async {
+    if (!packet.isSos) return false;
+
+    final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
+    if (!hasInternet) return false;
+
+    // We are now a Goal node — deliver the SOS locally.
+    print('\u2705 Orchestrator→Repository: Delivering SOS ${packet.id} locally (this node gained internet)');
+    try {
+      final sosPayload = SosPayload.fromJsonString(packet.payload);
+      _sosReceivedController.add(ReceivedSos(
+        packet: packet,
+        sos: sosPayload,
+        receivedAt: DateTime.now(),
+        senderIp: 'local-goal-delivery',
+      ));
+    } catch (e) {
+      print('\u26a0\ufe0f Failed to parse SOS payload for local delivery: $e');
+    }
+    return true;
+  }
+
   /// Stream of discovered neighbor nodes.
   Stream<List<NodeInfo>> get neighbors => _neighborController.stream;
 
