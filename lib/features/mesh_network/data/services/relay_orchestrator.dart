@@ -231,8 +231,14 @@ class RelayOrchestrator {
   /// connectAndSendPacket (hit-and-run) flow.
   Future<bool> _attemptSend(MeshPacket packet, NodeInfo target) async {
     try {
-      // Add our hop to the packet
-      final updatedPacket = packet.addHop(_nodeId);
+      // If we are the originator retrying our own packet, our node ID is
+      // already in the trace (placed there by MeshPacket.create).  Calling
+      // addHop would throw a StateError and silently burn all retries,
+      // permanently losing the SOS.  Skip the hop — the next relay node
+      // will add its own hop when it receives the packet.
+      final updatedPacket = packet.hasVisited(_nodeId)
+          ? packet
+          : packet.addHop(_nodeId);
 
       _emitActivity(
         RelayActivityType.connecting,

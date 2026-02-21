@@ -51,7 +51,10 @@ class InternetProbe {
   bool _hasInternet = false;
   DateTime? _lastProbeTime;
   Timer? _probeTimer;
-  bool _isProbing = false;
+
+  /// When non-null, a probe is in flight.  Concurrent callers await
+  /// this completer instead of returning a stale cached value.
+  Completer<bool>? _activeProbe;
 
   // Platform connectivity listener (connectivity_plus v5.x returns single ConnectivityResult)
   StreamSubscription<ConnectivityResult>? _platformConnectivitySub;
@@ -102,22 +105,35 @@ class InternetProbe {
   /// Checks connectivity and returns the result.
   ///
   /// Uses cached result if still valid, unless forceRefresh is true.
+  /// If a probe is already in flight, concurrent callers **await** the same
+  /// result instead of returning a stale cached value.
   Future<bool> checkConnectivity({bool forceRefresh = false}) async {
     // Return cached result if valid and not forcing refresh
     if (!forceRefresh && _isCacheValid) {
       return _hasInternet;
     }
 
-    // Prevent concurrent probes (e.g., timer + platform event firing together)
-    if (_isProbing) return _hasInternet;
+    // If a probe is already in flight, await its result — never return stale data.
+    if (_activeProbe != null) {
+      return _activeProbe!.future;
+    }
 
-    _isProbing = true;
+    _activeProbe = Completer<bool>();
     try {
       final result = await _probeConnectivity();
       _updateConnectivity(result);
+      _activeProbe!.complete(result);
       return result;
+    } catch (e) {
+      // On error, treat as offline and still complete the completer
+      // so awaiting callers aren't stuck forever.
+      _updateConnectivity(false);
+      if (!_activeProbe!.isCompleted) {
+        _activeProbe!.complete(false);
+      }
+      return false;
     } finally {
-      _isProbing = false;
+      _activeProbe = null;
     }
   }
 
@@ -179,10 +195,14 @@ class InternetProbe {
       _hasInternet = hasInternet;
       _connectivityController.add(hasInternet);
       print('🌐 InternetProbe: Connectivity CHANGED → hasInternet=$hasInternet');
-
-      // Reschedule probe with appropriate interval
-      _scheduleNextProbe();
     }
+
+    // ALWAYS reschedule the next probe regardless of state change.
+    // _scheduleNextProbe() creates a single-shot Timer — if it was only
+    // called on state changes, probing would stop permanently the moment
+    // two consecutive probes return the same result (e.g. relay node stays
+    // offline).  That node would then NEVER discover it gained internet.
+    _scheduleNextProbe();
   }
 
   /// Force-mark as offline (e.g., when cloud delivery fails despite probe

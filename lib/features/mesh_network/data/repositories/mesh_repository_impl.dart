@@ -314,15 +314,16 @@ class MeshRepositoryImpl {
         return;
       }
 
+      // CRITICAL FIX: Force-refresh internet probe BEFORE deciding GOAL vs RELAY.
+      // Declared at method scope so _handleForwardOrDeliver can reuse the result
+      // (eliminates a redundant ~4s HTTP-timeout round on offline nodes).
+      bool? freshConnectivity;
+
       // Process based on packet type
       if (packet.isSos) {
         print('🚨 Repository: Received SOS packet from ${received.senderIp}');
-        // CRITICAL FIX: Force-refresh internet probe BEFORE deciding GOAL vs RELAY.
-        // The cached `hasInternet` getter was permanently true due to
-        // InternetAddress.lookup() false positives on IP literals.
-        // A real-time HTTP check is the ONLY reliable authority here.
-        final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
-        print('🚨 Repository: Real-time internet check → hasInternet=$hasInternet');
+        freshConnectivity = await _internetProbe.checkConnectivity(forceRefresh: true);
+        print('🚨 Repository: Real-time internet check → hasInternet=$freshConnectivity');
 
         // Emit SOS to the correct stream based on REAL internet status
         try {
@@ -334,7 +335,7 @@ class MeshRepositoryImpl {
             senderIp: received.senderIp,
           );
 
-          if (hasInternet) {
+          if (freshConnectivity) {
             // Goal node: show in "I Can Help" responder UI
             _sosReceivedController.add(receivedSos);
             print('🚨 Repository: SOS emitted to GOAL stream (verified internet)');
@@ -349,8 +350,11 @@ class MeshRepositoryImpl {
         }
       }
 
-      // Forward or deliver the packet
-      await _handleForwardOrDeliver(packet, received.senderIp);
+      // Forward or deliver the packet.
+      // For SOS: reuse the FRESH probe result (freshConnectivity != null).
+      // For non-SOS (future): freshConnectivity is null → _handleForwardOrDeliver
+      // does its own force-refresh.
+      await _handleForwardOrDeliver(packet, received.senderIp, knownConnectivity: freshConnectivity);
     } catch (e) {
       // Log error but don't crash
     }
@@ -368,16 +372,23 @@ class MeshRepositoryImpl {
   /// hop) in the outbox.  The hop is appended only at actual send time so that
   /// both the immediate-forward path and every orchestrator retry add exactly
   /// one hop, not two.
-  Future<void> _handleForwardOrDeliver(MeshPacket packet, String senderIp) async {
+  /// [knownConnectivity] — when provided by the caller (e.g., _processIncomingPacket
+  /// already did a force-refresh), we reuse that result instead of probing again.
+  /// This eliminates a redundant ~4 s HTTP-timeout round on offline nodes.
+  Future<void> _handleForwardOrDeliver(
+    MeshPacket packet,
+    String senderIp, {
+    bool? knownConnectivity,
+  }) async {
     // If packet is expired, don't forward
     if (!packet.isAlive) {
       print('⏰ Packet ${packet.id} expired (TTL exhausted), dropping');
       return;
     }
 
-    // CRITICAL FIX: Force-refresh internet probe before forwarding decision.
-    // Do NOT trust the cached hasInternet — it may be stale.
-    final hasInternetNow = await _internetProbe.checkConnectivity(forceRefresh: true);
+    // Use the already-verified result when available; otherwise force-refresh.
+    final hasInternetNow = knownConnectivity ??
+        await _internetProbe.checkConnectivity(forceRefresh: true);
     if (hasInternetNow && packet.isSos) {
       // ✅ This node has VERIFIED real internet — it IS the Goal node.
       // The SOS was already emitted to the Goal stream (I Can Help UI) in
