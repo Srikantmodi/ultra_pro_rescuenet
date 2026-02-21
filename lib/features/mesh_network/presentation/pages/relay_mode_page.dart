@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:battery_plus/battery_plus.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../bloc/mesh_bloc.dart';
 import '../../domain/entities/node_info.dart';
 import '../../data/services/relay_orchestrator.dart';
@@ -49,7 +50,7 @@ class _RelayModePageState extends State<RelayModePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppTheme.backgroundPrimary,
       appBar: _buildAppBar(),
       body: BlocBuilder<MeshBloc, MeshState>(
         builder: (context, state) {
@@ -90,46 +91,50 @@ class _RelayModePageState extends State<RelayModePage> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppTheme.backgroundPrimary,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
+        icon: Icon(Icons.arrow_back, color: AppTheme.textPrimary),
         onPressed: () => Navigator.of(context).pop(),
+        tooltip: 'Go back',
       ),
-      title: const Text(
+      title: Text(
         'Relay Mode',
         style: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
       ),
       actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 16),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: _getBatteryColor().withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                _getBatteryIcon(),
-                color: _getBatteryColor(),
-                size: 16,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '$_batteryLevel%',
-                style: TextStyle(
+        Semantics(
+          label: 'Battery level $_batteryLevel percent',
+          child: Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: _getBatteryColor().withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  _getBatteryIcon(),
                   color: _getBatteryColor(),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+                  size: 16,
                 ),
-              ),
-            ],
+                const SizedBox(width: 4),
+                Text(
+                  '$_batteryLevel%',
+                  style: TextStyle(
+                    color: _getBatteryColor(),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -137,96 +142,103 @@ class _RelayModePageState extends State<RelayModePage> {
   }
 
   Widget _buildStatusCard(String nodeId) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: _isRelaying
-              ? const Color(0xFF10B981)
-              : const Color(0xFF334155),
-          width: _isRelaying ? 2 : 1,
+    return Semantics(
+      label: _isRelaying ? 'Relay is active' : 'Relay is inactive',
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(32),
+        decoration: BoxDecoration(
+          color: AppTheme.surfacePrimary,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: _isRelaying
+                ? AppTheme.success
+                : AppTheme.borderSubtle,
+            width: _isRelaying ? 2 : 1,
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          // Router icon
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: _isRelaying
-                    ? const Color(0xFF10B981)
-                    : const Color(0xFF475569),
-                width: 3,
-              ),
-              color: _isRelaying
-                  ? const Color(0xFF10B981).withValues(alpha: 0.1)
-                  : Colors.transparent,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.router,
-                color: _isRelaying
-                    ? const Color(0xFF10B981)
-                    : const Color(0xFF64748B),
-                size: 48,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            _isRelaying ? 'RELAY ACTIVE' : 'RELAY INACTIVE',
-            style: TextStyle(
-              color: _isRelaying
-                  ? const Color(0xFF10B981)
-                  : const Color(0xFF94A3B8),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Node ID: $nodeId',
-            style: const TextStyle(
-              color: Color(0xFF64748B),
-              fontSize: 14,
-              fontFamily: 'monospace',
-            ),
-          ),
-          const SizedBox(height: 24),
-          // Start/Stop Relay Button
-          SizedBox(
-            width: double.infinity,
-            height: 52,
-            child: ElevatedButton(
-              onPressed: _toggleRelay,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _isRelaying
-                    ? const Color(0xFFEF4444)
-                    : const Color(0xFF10B981),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+        child: Column(
+          children: [
+            // Router icon
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _isRelaying
+                      ? AppTheme.success
+                      : AppTheme.textTertiary,
+                  width: 3,
                 ),
-                elevation: 0,
+                color: _isRelaying
+                    ? AppTheme.success.withValues(alpha: 0.1)
+                    : Colors.transparent,
               ),
-              child: Text(
-                _isRelaying ? 'STOP RELAY' : 'START RELAY',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
+              child: Center(
+                child: Icon(
+                  Icons.router,
+                  color: _isRelaying
+                      ? AppTheme.success
+                      : AppTheme.textTertiary,
+                  size: 48,
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Text(
+              _isRelaying ? 'RELAY ACTIVE' : 'RELAY INACTIVE',
+              style: TextStyle(
+                color: _isRelaying
+                    ? AppTheme.success
+                    : AppTheme.textSecondary,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Node ID: $nodeId',
+              style: TextStyle(
+                color: AppTheme.textTertiary,
+                fontSize: 14,
+                fontFamily: 'monospace',
+              ),
+            ),
+            const SizedBox(height: 24),
+            // Start/Stop Relay Button
+            SizedBox(
+              width: double.infinity,
+              height: AppTheme.minTouchTarget,
+              child: Semantics(
+                button: true,
+                label: _isRelaying ? 'Stop relay' : 'Start relay',
+                child: ElevatedButton(
+                  onPressed: _toggleRelay,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _isRelaying
+                        ? AppTheme.error
+                        : AppTheme.success,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    _isRelaying ? 'STOP RELAY' : 'START RELAY',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -244,16 +256,16 @@ class _RelayModePageState extends State<RelayModePage> {
           children: [
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.cell_tower,
-                  color: Colors.white,
+                  color: AppTheme.textPrimary,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
-                const Text(
+                Text(
                   'Forward Targets',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppTheme.textPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -264,27 +276,30 @@ class _RelayModePageState extends State<RelayModePage> {
               children: [
                 if (_isRelaying)
                   IconButton(
-                    icon: const Icon(Icons.refresh, color: Color(0xFF10B981), size: 20),
+                    icon: Icon(Icons.refresh, color: AppTheme.success, size: 20),
                     onPressed: () {
                       _addLogEntry('Refreshing scan...', true);
                       context.read<MeshBloc>().add(const MeshStart());
                     },
                     tooltip: 'Refresh Scan',
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                    constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
                   ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF10B981).withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    '${sortedNeighbors.length} nodes',
-                    style: const TextStyle(
-                      color: Color(0xFF10B981),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                Semantics(
+                  label: '${sortedNeighbors.length} nodes available',
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppTheme.success.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      '${sortedNeighbors.length} nodes',
+                      style: TextStyle(
+                        color: AppTheme.success,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
@@ -294,11 +309,7 @@ class _RelayModePageState extends State<RelayModePage> {
         ),
         const SizedBox(height: 12),
         Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E293B),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFF334155)),
-          ),
+          decoration: AppTheme.cardDecoration,
           child: sortedNeighbors.isEmpty
               ? Padding(
                   padding: const EdgeInsets.all(32),
@@ -306,19 +317,19 @@ class _RelayModePageState extends State<RelayModePage> {
                     child: Column(
                       children: [
                         if (_isRelaying) ...[
-                          const SizedBox(
+                          SizedBox(
                             width: 32,
                             height: 32,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
+                              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.success),
                             ),
                           ),
                           const SizedBox(height: 12),
-                          const Text(
+                          Text(
                             'Scanning for nearby nodes...',
                             style: TextStyle(
-                              color: Color(0xFF94A3B8),
+                              color: AppTheme.textSecondary,
                               fontSize: 14,
                             ),
                           ),
@@ -326,7 +337,7 @@ class _RelayModePageState extends State<RelayModePage> {
                           Text(
                             'Ensure nearby devices have WiFi Direct enabled',
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: AppTheme.textTertiary,
                               fontSize: 12,
                             ),
                             textAlign: TextAlign.center,
@@ -334,14 +345,14 @@ class _RelayModePageState extends State<RelayModePage> {
                         ] else ...[
                           Icon(
                             Icons.wifi_off,
-                            color: Colors.grey[600],
+                            color: AppTheme.textTertiary,
                             size: 32,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'Start relay to scan for nodes',
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: AppTheme.textTertiary,
                               fontSize: 14,
                             ),
                           ),
@@ -380,130 +391,133 @@ class _RelayModePageState extends State<RelayModePage> {
     required bool showBorder,
     required bool isAiPick,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        border: showBorder
-            ? const Border(top: BorderSide(color: Color(0xFF334155)))
-            : null,
-        color: isAiPick
-            ? const Color(0xFF10B981).withValues(alpha: 0.1)
-            : null,
-        borderRadius: isAiPick ? BorderRadius.circular(8) : null,
-      ),
-      child: Row(
-        children: [
-          // Icon
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: isGoal
-                  ? const Color(0xFF10B981).withValues(alpha: 0.2)
-                  : const Color(0xFF334155),
-              borderRadius: BorderRadius.circular(8),
+    return Semantics(
+      label: '${node.displayName}, ${isGoal ? "has internet access" : "relay node"}, ${node.batteryLevel} percent battery',
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          border: showBorder
+              ? Border(top: BorderSide(color: AppTheme.borderSubtle))
+              : null,
+          color: isAiPick
+              ? AppTheme.success.withValues(alpha: 0.1)
+              : null,
+          borderRadius: isAiPick ? BorderRadius.circular(8) : null,
+        ),
+        child: Row(
+          children: [
+            // Icon
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: isGoal
+                    ? AppTheme.success.withValues(alpha: 0.2)
+                    : AppTheme.surfaceSecondary,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                isGoal ? Icons.cell_tower : Icons.smartphone,
+                color: isGoal ? AppTheme.success : AppTheme.textSecondary,
+                size: 20,
+              ),
             ),
-            child: Icon(
-              isGoal ? Icons.cell_tower : Icons.smartphone,
-              color: isGoal ? const Color(0xFF10B981) : const Color(0xFF94A3B8),
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        node.displayName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+            const SizedBox(width: 12),
+            // Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          node.displayName,
+                          style: TextStyle(
+                            color: AppTheme.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    if (isGoal) ...[
-                      const SizedBox(width: 6),
-                      const Icon(
-                        Icons.wifi,
-                        color: Color(0xFF10B981),
-                        size: 14,
-                      ),
+                      if (isGoal) ...[
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.wifi,
+                          color: AppTheme.success,
+                          size: 14,
+                        ),
+                      ],
                     ],
-                  ],
-                ),
-                const SizedBox(height: 2),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${node.deviceAddress} • 10m',
+                    style: TextStyle(
+                      color: AppTheme.textTertiary,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Signal & Battery
+            Row(
+              children: [
                 Text(
-                  '${node.deviceAddress} • 10m',
-                  style: const TextStyle(
-                    color: Color(0xFF64748B),
+                  '${((node.signalStrength + 90) / 60 * 100).clamp(0, 100).round()}%',
+                  style: TextStyle(
+                    color: AppTheme.textSecondary,
                     fontSize: 12,
-                    fontFamily: 'monospace',
                   ),
                 ),
+                const SizedBox(width: 8),
+                if (isGoal)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.success,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Text(
+                      'GOAL',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else if (isLowBattery)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.error,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Text(
+                      'LOW',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  Text(
+                    '${node.batteryLevel}%',
+                    style: TextStyle(
+                      color: AppTheme.textSecondary,
+                      fontSize: 12,
+                    ),
+                  ),
               ],
             ),
-          ),
-          // Signal & Battery
-          Row(
-            children: [
-              Text(
-                '${((node.signalStrength + 90) / 60 * 100).clamp(0, 100).round()}%',
-                style: const TextStyle(
-                  color: Color(0xFF94A3B8),
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(width: 8),
-              if (isGoal)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF10B981),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: const Text(
-                    'GOAL',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
-              else if (isLowBattery)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEF4444),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: const Text(
-                    'LOW',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
-              else
-                Text(
-                  '${node.batteryLevel}%',
-                  style: const TextStyle(
-                    color: Color(0xFF94A3B8),
-                    fontSize: 12,
-                  ),
-                ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -514,7 +528,7 @@ class _RelayModePageState extends State<RelayModePage> {
         Expanded(
           child: _buildStatCard(
             icon: Icons.check_circle,
-            iconColor: const Color(0xFF10B981),
+            iconColor: AppTheme.success,
             value: stats.packetsSent.toString(),
             label: 'Relayed',
           ),
@@ -523,7 +537,7 @@ class _RelayModePageState extends State<RelayModePage> {
         Expanded(
           child: _buildStatCard(
             icon: Icons.cancel,
-            iconColor: const Color(0xFFEF4444),
+            iconColor: AppTheme.error,
             value: stats.packetsFailed.toString(),
             label: 'Dropped',
           ),
@@ -532,7 +546,7 @@ class _RelayModePageState extends State<RelayModePage> {
         Expanded(
           child: _buildStatCard(
             icon: Icons.sync,
-            iconColor: const Color(0xFF3B82F6),
+            iconColor: AppTheme.info,
             value: _isRelaying ? 'Active' : 'Idle',
             label: 'Status',
           ),
@@ -547,34 +561,33 @@ class _RelayModePageState extends State<RelayModePage> {
     required String value,
     required String label,
   }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF334155)),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: iconColor, size: 28),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return Semantics(
+      label: '$label: $value',
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: AppTheme.cardDecoration,
+        child: Column(
+          children: [
+            Icon(icon, color: iconColor, size: 28),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: TextStyle(
+                color: AppTheme.textPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(
-              color: Color(0xFF64748B),
-              fontSize: 12,
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: AppTheme.textTertiary,
+                fontSize: 12,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -585,16 +598,16 @@ class _RelayModePageState extends State<RelayModePage> {
       children: [
         Row(
           children: [
-            const Icon(
+            Icon(
               Icons.history,
-              color: Colors.white,
+              color: AppTheme.textPrimary,
               size: 20,
             ),
             const SizedBox(width: 8),
-            const Text(
+            Text(
               'Packet Log',
               style: TextStyle(
-                color: Colors.white,
+                color: AppTheme.textPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -605,19 +618,15 @@ class _RelayModePageState extends State<RelayModePage> {
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E293B),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFF334155)),
-          ),
+          decoration: AppTheme.cardDecoration,
           child: _packetLog.isEmpty
               ? Center(
                   child: Text(
                     _isRelaying
                         ? 'Waiting for packets...'
                         : 'Start relay to see packet log',
-                    style: const TextStyle(
-                      color: Color(0xFF64748B),
+                    style: TextStyle(
+                      color: AppTheme.textTertiary,
                       fontSize: 14,
                     ),
                   ),
@@ -638,16 +647,16 @@ class _RelayModePageState extends State<RelayModePage> {
           Icon(
             entry.success ? Icons.check_circle : Icons.error,
             color: entry.success
-                ? const Color(0xFF10B981)
-                : const Color(0xFFEF4444),
+                ? AppTheme.success
+                : AppTheme.error,
             size: 16,
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               entry.message,
-              style: const TextStyle(
-                color: Color(0xFF94A3B8),
+              style: TextStyle(
+                color: AppTheme.textSecondary,
                 fontSize: 12,
                 fontFamily: 'monospace',
               ),
@@ -655,8 +664,8 @@ class _RelayModePageState extends State<RelayModePage> {
           ),
           Text(
             entry.timestamp,
-            style: const TextStyle(
-              color: Color(0xFF64748B),
+            style: TextStyle(
+              color: AppTheme.textTertiary,
               fontSize: 11,
             ),
           ),
@@ -718,19 +727,22 @@ class _RelayModePageState extends State<RelayModePage> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1E293B),
-        title: const Text(
-          'Permissions Required',
-          style: TextStyle(color: Colors.white),
+        backgroundColor: AppTheme.surfacePrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
-        content: const Text(
+        title: Text(
+          'Permissions Required',
+          style: TextStyle(color: AppTheme.textPrimary),
+        ),
+        content: Text(
           'Wi-Fi Direct requires Location and Wi-Fi permissions to discover nearby devices. Please grant all requested permissions.',
-          style: TextStyle(color: Color(0xFF94A3B8)),
+          style: TextStyle(color: AppTheme.textSecondary),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+            child: Text('Cancel', style: TextStyle(color: AppTheme.textSecondary)),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -738,7 +750,10 @@ class _RelayModePageState extends State<RelayModePage> {
               await _checkAndRequestPermissions();
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
+              backgroundColor: AppTheme.success,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: const Text('Grant Permissions', style: TextStyle(color: Colors.white)),
           ),
@@ -772,9 +787,9 @@ class _RelayModePageState extends State<RelayModePage> {
   }
 
   Color _getBatteryColor() {
-    if (_batteryLevel >= 50) return const Color(0xFF10B981);
-    if (_batteryLevel >= 20) return const Color(0xFFFBBF24);
-    return const Color(0xFFEF4444);
+    if (_batteryLevel >= 50) return AppTheme.success;
+    if (_batteryLevel >= 20) return AppTheme.warning;
+    return AppTheme.error;
   }
 
   IconData _getBatteryIcon() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../bloc/mesh_bloc.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../domain/entities/mesh_packet.dart';
@@ -23,7 +24,7 @@ class _ResponderModePageState extends State<ResponderModePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppTheme.background,
       appBar: _buildAppBar(),
       body: Column(
         children: [
@@ -40,10 +41,10 @@ class _ResponderModePageState extends State<ResponderModePage> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppTheme.background,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
+        icon: const Icon(Icons.arrow_back_rounded, color: AppTheme.textPrimary),
         onPressed: () {
           if (_selectedSos != null) {
             setState(() => _selectedSos = null);
@@ -51,11 +52,12 @@ class _ResponderModePageState extends State<ResponderModePage> {
             Navigator.of(context).pop();
           }
         },
+        tooltip: _selectedSos != null ? 'Back to list' : 'Go back',
       ),
       title: Text(
         _selectedSos != null ? 'Emergency Details' : 'Responder Mode',
         style: const TextStyle(
-          color: Colors.white,
+          color: AppTheme.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
@@ -66,18 +68,18 @@ class _ResponderModePageState extends State<ResponderModePage> {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             color: _isListening
-                ? const Color(0xFF10B981).withValues(alpha: 0.2)
-                : const Color(0xFF6B7280).withValues(alpha: 0.2),
+                ? AppTheme.success.withValues(alpha: 0.15)
+                : AppTheme.surfaceContainer,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                _isListening ? Icons.hearing : Icons.hearing_disabled,
+                _isListening ? Icons.hearing_rounded : Icons.hearing_disabled_rounded,
                 color: _isListening
-                    ? const Color(0xFF10B981)
-                    : const Color(0xFF6B7280),
+                    ? AppTheme.success
+                    : AppTheme.textDim,
                 size: 14,
               ),
               const SizedBox(width: 6),
@@ -85,8 +87,8 @@ class _ResponderModePageState extends State<ResponderModePage> {
                 _isListening ? 'Listening' : 'Idle',
                 style: TextStyle(
                   color: _isListening
-                      ? const Color(0xFF10B981)
-                      : const Color(0xFF6B7280),
+                      ? AppTheme.success
+                      : AppTheme.textDim,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -122,14 +124,7 @@ class _ResponderModePageState extends State<ResponderModePage> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFF334155),
-          width: 1,
-        ),
-      ),
+      decoration: AppTheme.cardDecoration,
       child: Column(
         children: [
           // Heart with hand icon
@@ -138,23 +133,27 @@ class _ResponderModePageState extends State<ResponderModePage> {
             height: 80,
             decoration: BoxDecoration(
               color: _isListening
-                  ? const Color(0xFF10B981).withValues(alpha: 0.1)
+                  ? AppTheme.success.withValues(alpha: 0.1)
                   : Colors.transparent,
               shape: BoxShape.circle,
+              border: Border.all(
+                color: AppTheme.success.withValues(alpha: 0.3),
+                width: 2,
+              ),
             ),
-            child: Icon(
-              Icons.volunteer_activism,
-              color: const Color(0xFF10B981),
-              size: 48,
+            child: const Icon(
+              Icons.volunteer_activism_rounded,
+              color: AppTheme.success,
+              size: 42,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           Text(
             _isListening ? 'Listening for SOS...' : 'Ready to Help',
             style: const TextStyle(
-              color: Colors.white,
+              color: AppTheme.textPrimary,
               fontSize: 22,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
@@ -163,12 +162,12 @@ class _ResponderModePageState extends State<ResponderModePage> {
                 ? 'Incoming emergencies will appear below'
                 : 'Start listening to receive emergency alerts',
             style: const TextStyle(
-              color: Color(0xFF94A3B8),
+              color: AppTheme.textSecondary,
               fontSize: 14,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
           // Start/Stop Listening Button
           SizedBox(
             width: double.infinity,
@@ -177,10 +176,10 @@ class _ResponderModePageState extends State<ResponderModePage> {
               onPressed: _toggleListening,
               style: ElevatedButton.styleFrom(
                 backgroundColor: _isListening
-                    ? const Color(0xFFEF4444)
-                    : const Color(0xFF10B981),
+                    ? AppTheme.danger
+                    : AppTheme.success,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
                 ),
                 elevation: 0,
               ),
@@ -189,7 +188,7 @@ class _ResponderModePageState extends State<ResponderModePage> {
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -230,16 +229,24 @@ class _ResponderModePageState extends State<ResponderModePage> {
       children: [
         Row(
           children: [
-            const Icon(
-              Icons.warning_amber_rounded,
-              color: Color(0xFFFBBF24),
-              size: 20,
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: AppTheme.warning.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.warning_amber_rounded,
+                color: AppTheme.warning,
+                size: 18,
+              ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 12),
             const Text(
               'Incoming Emergencies',
               style: TextStyle(
-                color: Colors.white,
+                color: AppTheme.textPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -254,8 +261,8 @@ class _ResponderModePageState extends State<ResponderModePage> {
             child: Column(
               children: [
                 Icon(
-                  _isListening ? Icons.radar : Icons.hearing_disabled,
-                  color: const Color(0xFF475569),
+                  _isListening ? Icons.radar : Icons.hearing_disabled_rounded,
+                  color: AppTheme.textDim,
                   size: 48,
                 ),
                 const SizedBox(height: 12),
@@ -264,7 +271,7 @@ class _ResponderModePageState extends State<ResponderModePage> {
                       ? 'No emergencies yet...'
                       : 'Start listening to receive alerts',
                   style: const TextStyle(
-                    color: Color(0xFF64748B),
+                    color: AppTheme.textSecondary,
                     fontSize: 14,
                   ),
                 ),
@@ -279,76 +286,80 @@ class _ResponderModePageState extends State<ResponderModePage> {
 
   Widget _buildSosCard(ReceivedSos receivedSos) {
     final payload = receivedSos.sos;
-    return GestureDetector(
-      onTap: () => setState(() => _selectedSos = receivedSos),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1E293B),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _getSeverityColor(payload.triageLevel),
-            width: 1,
+    return Semantics(
+      button: true,
+      label: '${payload.emergencyType.displayName} emergency from ${payload.senderName}',
+      child: GestureDetector(
+        onTap: () => setState(() => _selectedSos = receivedSos),
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppTheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
+            border: Border.all(
+              color: _getSeverityColor(payload.triageLevel).withValues(alpha: 0.5),
+              width: 1,
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            // Emergency Type Icon
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: _getSeverityColor(payload.triageLevel).withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(12),
+          child: Row(
+            children: [
+              // Emergency Type Icon
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: _getSeverityColor(payload.triageLevel).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(AppTheme.borderRadiusSmall),
+                ),
+                child: Center(
+                  child: Text(
+                    _getEmergencyEmoji(payload.emergencyType),
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                ),
               ),
-              child: Center(
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      payload.emergencyType.displayName,
+                      style: const TextStyle(
+                        color: AppTheme.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${payload.senderName} • ${payload.ageString}',
+                      style: const TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: _getSeverityColor(payload.triageLevel),
+                  borderRadius: BorderRadius.circular(6),
+                ),
                 child: Text(
-                  _getEmergencyEmoji(payload.emergencyType),
-                  style: const TextStyle(fontSize: 24),
+                  payload.triageLevel.displayName.split(' ').first.toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    payload.emergencyType.displayName,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${payload.senderName} • ${payload.ageString}',
-                    style: const TextStyle(
-                      color: Color(0xFF94A3B8),
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: _getSeverityColor(payload.triageLevel),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                payload.triageLevel.displayName.split(' ').first.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -550,15 +561,15 @@ class _ResponderModePageState extends State<ResponderModePage> {
   Widget _buildBottomStatusBar() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      color: const Color(0xFF10B981),
-      child: Row(
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      color: AppTheme.success,
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle, color: Colors.white, size: 18),
-          const SizedBox(width: 8),
-          const Text(
-            'Listening for emergency signals via Wi-Fi Direct',
+          Icon(Icons.wifi_tethering_rounded, color: Colors.white, size: 18),
+          SizedBox(width: 8),
+          Text(
+            'Listening for emergency signals',
             style: TextStyle(
               color: Colors.white,
               fontSize: 13,

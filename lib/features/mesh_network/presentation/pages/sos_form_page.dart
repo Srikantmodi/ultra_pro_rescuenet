@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/platform/location_manager.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../domain/entities/node_info.dart';
 import '../bloc/mesh_bloc.dart';
@@ -142,7 +143,7 @@ class _SosFormPageState extends State<SosFormPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF0A0E1A),
+        backgroundColor: AppTheme.background,
       appBar: _buildAppBar(),
       body: SingleChildScrollView(
         child: Padding(
@@ -201,16 +202,17 @@ class _SosFormPageState extends State<SosFormPage> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFF0A0E1A),
+      backgroundColor: AppTheme.background,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
+        icon: const Icon(Icons.arrow_back_rounded, color: AppTheme.textPrimary),
         onPressed: () => Navigator.of(context).pop(),
+        tooltip: 'Go back',
       ),
       title: const Text(
         'Emergency SOS',
         style: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
@@ -220,19 +222,18 @@ class _SosFormPageState extends State<SosFormPage> {
           margin: const EdgeInsets.only(right: 16),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: const Color(0xFF10B981).withValues(alpha: 0.2),
+            color: AppTheme.success.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFF10B981)),
           ),
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.psychology, color: Color(0xFF10B981), size: 16),
+              Icon(Icons.psychology_rounded, color: AppTheme.success, size: 16),
               SizedBox(width: 4),
               Text(
                 'AI Ready',
                 style: TextStyle(
-                  color: Color(0xFF10B981),
+                  color: AppTheme.success,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
@@ -246,11 +247,7 @@ class _SosFormPageState extends State<SosFormPage> {
 
   Widget _buildLocationCard() {
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF111827),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF1F2937)),
-      ),
+      decoration: AppTheme.cardDecoration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -259,30 +256,43 @@ class _SosFormPageState extends State<SosFormPage> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(
-                  Icons.my_location,
-                  color: Color(0xFF10B981),
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  'Your Location',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: AppTheme.success.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.my_location_rounded,
+                    color: AppTheme.success,
+                    size: 20,
                   ),
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    setState(() => _isLoadingLocation = true);
-                    _loadLocation();
-                  },
-                  child: Icon(
-                    Icons.refresh,
-                    color: _isLoadingLocation ? Colors.grey : const Color(0xFF3B82F6),
-                    size: 24,
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Your Location',
+                    style: TextStyle(
+                      color: AppTheme.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() => _isLoadingLocation = true);
+                      _loadLocation();
+                    },
+                    icon: Icon(
+                      Icons.refresh_rounded,
+                      color: _isLoadingLocation ? AppTheme.textDim : AppTheme.primary,
+                    ),
+                    tooltip: 'Refresh location',
                   ),
                 ),
               ],
@@ -385,12 +395,15 @@ class _SosFormPageState extends State<SosFormPage> {
   }
 
   Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: AppTheme.textPrimary,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -411,33 +424,39 @@ class _SosFormPageState extends State<SosFormPage> {
       runSpacing: 10,
       children: emergencyTypes.map((type) {
         final isSelected = _emergencyType == type.$1;
-        return GestureDetector(
-          onTap: () => setState(() => _emergencyType = type.$1),
-          child: Container(
-            width: 80,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF7F1D1D) : const Color(0xFF111827),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isSelected ? const Color(0xFFE53935) : const Color(0xFF1F2937),
-                width: isSelected ? 2 : 1,
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(type.$2, style: const TextStyle(fontSize: 28)),
-                const SizedBox(height: 4),
-                Text(
-                  type.$3,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : const Color(0xFF6B7280),
-                    fontSize: 11,
-                  ),
-                  textAlign: TextAlign.center,
+        return Semantics(
+          button: true,
+          selected: isSelected,
+          label: type.$3,
+          child: GestureDetector(
+            onTap: () => setState(() => _emergencyType = type.$1),
+            child: Container(
+              width: 80,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: isSelected ? AppTheme.danger.withValues(alpha: 0.15) : AppTheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
+                border: Border.all(
+                  color: isSelected ? AppTheme.danger : AppTheme.surfaceHighlight,
+                  width: isSelected ? 2 : 1,
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(type.$2, style: const TextStyle(fontSize: 28)),
+                  const SizedBox(height: 4),
+                  Text(
+                    type.$3,
+                    style: TextStyle(
+                      color: isSelected ? AppTheme.textPrimary : AppTheme.textSecondary,
+                      fontSize: 11,
+                      fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -447,57 +466,63 @@ class _SosFormPageState extends State<SosFormPage> {
 
   Widget _buildSeverityLevelRow() {
     final levels = [
-      (TriageLevel.critical, 'CRITICAL', const Color(0xFFE53935)),
-      (TriageLevel.high, 'High', const Color(0xFFEA580C)),
-      (TriageLevel.medium, 'Medium', const Color(0xFF6B7280)),
-      (TriageLevel.low, 'Low', const Color(0xFF6B7280)),
+      (TriageLevel.critical, 'CRITICAL', AppTheme.danger),
+      (TriageLevel.high, 'High', AppTheme.warning),
+      (TriageLevel.medium, 'Medium', AppTheme.textSecondary),
+      (TriageLevel.low, 'Low', AppTheme.textDim),
     ];
 
-    return Row(
-      children: levels.map((level) {
-        final isSelected = _triageLevel == level.$1;
-        return Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: GestureDetector(
-            onTap: () => setState(() => _triageLevel = level.$1),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: isSelected ? level.$3 : const Color(0xFF111827),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isSelected ? level.$3 : const Color(0xFF1F2937),
-                ),
-              ),
-              child: Text(
-                level.$2,
-                style: TextStyle(
-                  color: isSelected ? Colors.white : const Color(0xFF6B7280),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: levels.map((level) {
+          final isSelected = _triageLevel == level.$1;
+          return Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Semantics(
+              button: true,
+              selected: isSelected,
+              label: 'Severity: ${level.$2}',
+              child: GestureDetector(
+                onTap: () => setState(() => _triageLevel = level.$1),
+                child: Container(
+                  height: 44,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  decoration: BoxDecoration(
+                    color: isSelected ? level.$3 : AppTheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(22),
+                    border: Border.all(
+                      color: isSelected ? level.$3 : AppTheme.surfaceHighlight,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    level.$2,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : AppTheme.textSecondary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
   Widget _buildNameInput() {
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF111827),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF1F2937)),
-      ),
+      decoration: AppTheme.cardDecoration,
       child: TextField(
         controller: _nameController,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: AppTheme.textPrimary, fontSize: 16),
         decoration: InputDecoration(
           hintText: 'Enter your name',
-          hintStyle: TextStyle(color: Colors.grey[600]),
-          prefixIcon: Icon(Icons.person_outline, color: Colors.grey[600]),
+          hintStyle: const TextStyle(color: AppTheme.textDim),
+          prefixIcon: const Icon(Icons.person_outline_rounded, color: AppTheme.textDim),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         ),
@@ -522,30 +547,38 @@ class _SosFormPageState extends State<SosFormPage> {
       runSpacing: 8,
       children: conditions.map((condition) {
         final isSelected = _medicalConditions.contains(condition);
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              if (isSelected) {
-                _medicalConditions.remove(condition);
-              } else {
-                _medicalConditions.add(condition);
-              }
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF7F1D1D) : const Color(0xFF111827),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: isSelected ? const Color(0xFFE53935) : const Color(0xFF1F2937),
+        return Semantics(
+          button: true,
+          selected: isSelected,
+          label: condition.displayName,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (isSelected) {
+                  _medicalConditions.remove(condition);
+                } else {
+                  _medicalConditions.add(condition);
+                }
+              });
+            },
+            child: Container(
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: isSelected ? AppTheme.danger.withValues(alpha: 0.15) : AppTheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? AppTheme.danger : AppTheme.surfaceHighlight,
+                ),
               ),
-            ),
-            child: Text(
-              condition.displayName,
-              style: TextStyle(
-                color: isSelected ? Colors.white : const Color(0xFF6B7280),
-                fontSize: 13,
+              alignment: Alignment.center,
+              child: Text(
+                condition.displayName,
+                style: TextStyle(
+                  color: isSelected ? AppTheme.danger : AppTheme.textSecondary,
+                  fontSize: 13,
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                ),
               ),
             ),
           ),
@@ -575,30 +608,38 @@ class _SosFormPageState extends State<SosFormPage> {
       runSpacing: 8,
       children: supplies.map((supply) {
         final isSelected = _requiredSupplies.contains(supply);
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              if (isSelected) {
-                _requiredSupplies.remove(supply);
-              } else {
-                _requiredSupplies.add(supply);
-              }
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF134E4A) : const Color(0xFF111827),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: isSelected ? const Color(0xFF14B8A6) : const Color(0xFF1F2937),
+        return Semantics(
+          button: true,
+          selected: isSelected,
+          label: supply.displayName,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (isSelected) {
+                  _requiredSupplies.remove(supply);
+                } else {
+                  _requiredSupplies.add(supply);
+                }
+              });
+            },
+            child: Container(
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: isSelected ? AppTheme.success.withValues(alpha: 0.15) : AppTheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? AppTheme.success : AppTheme.surfaceHighlight,
+                ),
               ),
-            ),
-            child: Text(
-              supply.displayName,
-              style: TextStyle(
-                color: isSelected ? const Color(0xFF5EEAD4) : const Color(0xFF6B7280),
-                fontSize: 13,
+              alignment: Alignment.center,
+              child: Text(
+                supply.displayName,
+                style: TextStyle(
+                  color: isSelected ? AppTheme.success : AppTheme.textSecondary,
+                  fontSize: 13,
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                ),
               ),
             ),
           ),
@@ -609,11 +650,7 @@ class _SosFormPageState extends State<SosFormPage> {
 
   Widget _buildMeshNetworkStatus() {
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF111827),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF1F2937)),
-      ),
+      decoration: AppTheme.cardDecoration,
       child: Column(
         children: [
           // Header
@@ -621,16 +658,24 @@ class _SosFormPageState extends State<SosFormPage> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(
-                  Icons.cell_tower,
-                  color: Color(0xFF10B981),
-                  size: 24,
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: AppTheme.success.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.cell_tower_rounded,
+                    color: AppTheme.success,
+                    size: 20,
+                  ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 12),
                 const Text(
-                  'Mesh Network Status',
+                  'Mesh Network',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppTheme.textPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -769,33 +814,37 @@ class _SosFormPageState extends State<SosFormPage> {
   }
 
   Widget _buildSosButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _sendSos,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFE53935),
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 0,
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.send, size: 20),
-            SizedBox(width: 8),
-            Text(
-              'SEND EMERGENCY SOS',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-              ),
+    return Semantics(
+      button: true,
+      label: 'Send Emergency SOS',
+      child: SizedBox(
+        width: double.infinity,
+        height: 56,
+        child: ElevatedButton(
+          onPressed: _sendSos,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.danger,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
             ),
-          ],
+            elevation: 0,
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.send_rounded, size: 22),
+              SizedBox(width: 10),
+              Text(
+                'SEND EMERGENCY SOS',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
