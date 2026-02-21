@@ -74,7 +74,7 @@ class _SosFormPageState extends State<SosFormPage> {
           _accuracy = position.accuracy;
           _isLoadingLocation = false;
         });
-      } else {
+      } else if (mounted) {
         // Default to a sample location if GPS not available
         setState(() {
           _latitude = 17.47159;
@@ -85,6 +85,7 @@ class _SosFormPageState extends State<SosFormPage> {
       }
     } catch (e) {
       // Use default location on error
+      if (!mounted) return;
       setState(() {
         _latitude = 17.47159;
         _longitude = 78.72168;

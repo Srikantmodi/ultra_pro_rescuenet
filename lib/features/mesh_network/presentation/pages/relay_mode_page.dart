@@ -19,6 +19,7 @@ class RelayModePage extends StatefulWidget {
 class _RelayModePageState extends State<RelayModePage> {
   bool _isRelaying = false;
   int _batteryLevel = 87;
+  int _lastRelayedCount = 0;
   final List<PacketLogEntry> _packetLog = [];
   Timer? _scanTimer;
   
@@ -59,6 +60,12 @@ class _RelayModePageState extends State<RelayModePage> {
           if (_isRelaying != shouldBeRelaying) {
             setState(() => _isRelaying = shouldBeRelaying);
           }
+          
+          // Auto-add packet log entry when new SOS is relayed
+          if (state is MeshActive && state.relayedSosCount > _lastRelayedCount) {
+            _addLogEntry('SOS packet received & forwarding...', true);
+            _lastRelayedCount = state.relayedSosCount;
+          }
         },
         builder: (context, state) {
           final neighbors = state is MeshActive ? state.neighbors : <NodeInfo>[];
@@ -72,6 +79,7 @@ class _RelayModePageState extends State<RelayModePage> {
                   isRunning: false,
                   consecutiveFailures: 0,
                 );
+          final relayedSosCount = state is MeshActive ? state.relayedSosCount : 0;
           
           // Build UI based on state
           final currentNodeId = state.nodeId ?? 'Initializing...';
@@ -85,7 +93,7 @@ class _RelayModePageState extends State<RelayModePage> {
                 const SizedBox(height: 20),
                 _buildForwardTargetsSection(neighbors),
                 const SizedBox(height: 20),
-                _buildStatsRow(relayStats),
+                _buildStatsRow(relayStats, relayedSosCount),
                 const SizedBox(height: 20),
                 _buildPacketLogSection(),
               ],
@@ -516,15 +524,24 @@ class _RelayModePageState extends State<RelayModePage> {
     );
   }
 
-  Widget _buildStatsRow(RelayStats stats) {
+  Widget _buildStatsRow(RelayStats stats, int relayedSosCount) {
     return Row(
       children: [
+        Expanded(
+          child: _buildStatCard(
+            icon: Icons.sos,
+            iconColor: const Color(0xFFFBBF24),
+            value: relayedSosCount.toString(),
+            label: 'SOS Relayed',
+          ),
+        ),
+        const SizedBox(width: 12),
         Expanded(
           child: _buildStatCard(
             icon: Icons.check_circle,
             iconColor: const Color(0xFF10B981),
             value: stats.packetsSent.toString(),
-            label: 'Relayed',
+            label: 'Forwarded',
           ),
         ),
         const SizedBox(width: 12),
@@ -534,15 +551,6 @@ class _RelayModePageState extends State<RelayModePage> {
             iconColor: const Color(0xFFEF4444),
             value: stats.packetsFailed.toString(),
             label: 'Dropped',
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            icon: Icons.sync,
-            iconColor: const Color(0xFF3B82F6),
-            value: _isRelaying ? 'Active' : 'Idle',
-            label: 'Status',
           ),
         ),
       ],

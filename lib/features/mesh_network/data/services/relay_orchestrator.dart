@@ -290,6 +290,13 @@ class RelayOrchestrator {
     _statsController.close();
     _activityController.close();
   }
+
+  /// Notifies the orchestrator that a packet was forwarded outside its loop.
+  /// This keeps the stats counter accurate for immediate forwards in the repository.
+  void recordExternalForward() {
+    _packetsSent++;
+    _updateStats();
+  }
 }
 
 /// Statistics about relay operations.

@@ -46,6 +46,8 @@ class MeshRepositoryImpl {
   // Streams
   final _meshStateController = BehaviorSubject<RepositoryState>.seeded(RepositoryState.idle);
   final _sosReceivedController = StreamController<ReceivedSos>.broadcast();
+  final _relayedSosController = StreamController<ReceivedSos>.broadcast();
+  final _immediateForwardController = StreamController<String>.broadcast();
   final _neighborController = BehaviorSubject<List<NodeInfo>>.seeded([]);
 
   // Subscription management
@@ -77,8 +79,14 @@ class MeshRepositoryImpl {
   /// Current mesh network state.
   Stream<RepositoryState> get meshState => _meshStateController.stream;
 
-  /// Stream of received SOS alerts.
+  /// Stream of received SOS alerts (Goal nodes only — has internet).
   Stream<ReceivedSos> get sosAlerts => _sosReceivedController.stream;
+
+  /// Stream of relayed SOS alerts (Relay nodes only — no internet).
+  Stream<ReceivedSos> get relayedSosAlerts => _relayedSosController.stream;
+
+  /// Stream of packet IDs that were forwarded immediately (bypassing orchestrator).
+  Stream<String> get immediateForwards => _immediateForwardController.stream;
 
   /// Stream of discovered neighbor nodes.
   Stream<List<NodeInfo>> get neighbors => _neighborController.stream;
@@ -308,16 +316,25 @@ class MeshRepositoryImpl {
       // Process based on packet type
       if (packet.isSos) {
         print('🚨 Repository: Received SOS packet from ${received.senderIp}');
-        // Emit SOS to local stream
+        // Emit SOS to the correct stream based on internet status
         try {
           final sosPayload = SosPayload.fromJsonString(packet.payload);
-          _sosReceivedController.add(ReceivedSos(
+          final receivedSos = ReceivedSos(
             packet: packet,
             sos: sosPayload,
             receivedAt: DateTime.now(),
             senderIp: received.senderIp,
-          ));
-          print('🚨 Repository: SOS emitted to stream');
+          );
+
+          if (_internetProbe.hasInternet) {
+            // Goal node: show in "I Can Help" responder UI
+            _sosReceivedController.add(receivedSos);
+            print('🚨 Repository: SOS emitted to GOAL stream (has internet)');
+          } else {
+            // Relay node: emit to relay stream (shows in Relay Mode UI)
+            _relayedSosController.add(receivedSos);
+            print('🚨 Repository: SOS emitted to RELAY stream (no internet)');
+          }
         } catch (e) {
           print('🚨 Repository: Failed to parse SOS payload: $e');
           // Invalid SOS payload, but still try to forward
@@ -392,6 +409,7 @@ class MeshRepositoryImpl {
       // Forward succeeded — mark as sent in outbox so orchestrator skips it
       print('✅ Relay packet ${packet.id} forwarded immediately, marking sent');
       await _outbox.markSent(packet.id);
+      _immediateForwardController.add(packet.id);
     } else {
       // Forward failed — packet stays in outbox. RelayOrchestrator will pick it up
       // on the next 10-second cycle when neighbors become available.
@@ -515,6 +533,8 @@ class MeshRepositoryImpl {
 
     await _meshStateController.close();
     await _sosReceivedController.close();
+    await _relayedSosController.close();
+    await _immediateForwardController.close();
     await _neighborController.close();
   }
 }
