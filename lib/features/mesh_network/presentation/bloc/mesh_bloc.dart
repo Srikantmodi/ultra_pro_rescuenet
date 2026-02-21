@@ -82,6 +82,16 @@ class _SosReceived extends MeshEvent {
   List<Object?> get props => [sos];
 }
 
+/// Internal: SOS relayed through this node (no internet).
+class _RelayedSosReceived extends MeshEvent {
+  final ReceivedSos sos;
+
+  const _RelayedSosReceived(this.sos);
+
+  @override
+  List<Object?> get props => [sos];
+}
+
 /// Internal: Relay stats updated.
 class _RelayStatsUpdated extends MeshEvent {
   final RelayStats stats;
@@ -159,6 +169,7 @@ class MeshActive extends MeshState {
   final List<ReceivedSos> recentSosAlerts;
   final String? activeSosId;
   final bool isRelaying;
+  final int relayedSosCount;
 
   const MeshActive({
     required this.nodeId,
@@ -175,6 +186,7 @@ class MeshActive extends MeshState {
     this.recentSosAlerts = const [],
     this.activeSosId,
     this.isRelaying = false,
+    this.relayedSosCount = 0,
   });
 
   MeshActive copyWith({
@@ -185,6 +197,7 @@ class MeshActive extends MeshState {
     List<ReceivedSos>? recentSosAlerts,
     String? activeSosId,
     bool? isRelaying,
+    int? relayedSosCount,
   }) {
     return MeshActive(
       nodeId: nodeId ?? this.nodeId,
@@ -194,6 +207,7 @@ class MeshActive extends MeshState {
       recentSosAlerts: recentSosAlerts ?? this.recentSosAlerts,
       activeSosId: activeSosId,
       isRelaying: isRelaying ?? this.isRelaying,
+      relayedSosCount: relayedSosCount ?? this.relayedSosCount,
     );
   }
 
@@ -206,6 +220,7 @@ class MeshActive extends MeshState {
         recentSosAlerts,
         activeSosId,
         isRelaying,
+        relayedSosCount,
       ];
 
   /// Number of neighbors currently available.
@@ -240,6 +255,8 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   // Subscriptions
   StreamSubscription? _neighborsSubscription;
   StreamSubscription? _sosSubscription;
+  StreamSubscription? _relayedSosSubscription;
+  StreamSubscription? _immediateForwardSubscription;
   StreamSubscription? _relayStatsSubscription;
   StreamSubscription? _connectivitySubscription;
 
@@ -266,6 +283,7 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     on<MeshUpdateMetadata>(_onUpdateMetadata);
     on<_NeighborsUpdated>(_onNeighborsUpdated);
     on<_SosReceived>(_onSosReceived);
+    on<_RelayedSosReceived>(_onRelayedSosReceived);
     on<_RelayStatsUpdated>(_onRelayStatsUpdated);
     on<_ConnectivityChanged>(_onConnectivityChanged);
   }
@@ -285,6 +303,10 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
 
     // Wire the node ID into the relay orchestrator
     _relayOrchestrator.setNodeId(nodeId);
+
+    // Wire local delivery callback so the orchestrator can deliver SOS locally
+    // when this node gains internet while packets are still in the outbox.
+    _relayOrchestrator.onLocalDelivery = _repository.tryDeliverLocally;
 
     // Initialize repository
     final result = await _repository.initialize(nodeId: nodeId);
@@ -473,6 +495,19 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     ));
   }
 
+  /// Handles SOS that was received and relayed (not for local display as responder).
+  void _onRelayedSosReceived(
+    _RelayedSosReceived event,
+    Emitter<MeshState> emit,
+  ) {
+    final currentState = state;
+    if (currentState is! MeshActive) return;
+
+    emit(currentState.copyWith(
+      relayedSosCount: currentState.relayedSosCount + 1,
+    ));
+  }
+
   /// Handles relay stats update.
   void _onRelayStatsUpdated(
     _RelayStatsUpdated event,
@@ -491,16 +526,32 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   /// a node that gains internet (becoming a Goal Node) never propagates its
   /// `net=1` / `rol=g` values — other relay nodes keep routing with the old
   /// `net=0` value and the Goal Node is never selected for delivery.
+  ///
+  /// FIX: Internet Probe False-Positive — When connectivity transitions from
+  /// true → false (node loses internet), clear all stale "I Can Help" SOS
+  /// alerts. These alerts were routed to the GOAL stream when the node thought
+  /// it had internet. Now that it doesn't, they're invalid — this node can't
+  /// actually deliver them to the cloud.
   Future<void> _onConnectivityChanged(
     _ConnectivityChanged event,
     Emitter<MeshState> emit,
   ) async {
     final currentState = state;
     if (currentState is MeshActive) {
-      emit(currentState.copyWith(hasInternet: event.hasInternet));
+      // Detect goal → relay transition (lost internet)
+      if (currentState.hasInternet && !event.hasInternet) {
+        print('⚠️ MeshBloc: Internet LOST — clearing ${_recentSosAlerts.length} stale goal-stream SOS alerts');
+        _recentSosAlerts.clear();
+        emit(currentState.copyWith(
+          hasInternet: false,
+          recentSosAlerts: const [],
+        ));
+      } else {
+        emit(currentState.copyWith(hasInternet: event.hasInternet));
+      }
       
       // FIX BUG-03: Trigger metadata re-broadcast to propagate new internet status
-      print('🌐 Connectivity changed: hasInternet=${event.hasInternet} — updating metadata');
+      print('🌐 MeshBloc: Connectivity changed → hasInternet=${event.hasInternet} — updating metadata');
       await _repository.updateMetadata();
     }
   }
@@ -513,6 +564,14 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
 
     _sosSubscription = _repository.sosAlerts.listen((sos) {
       add(_SosReceived(sos));
+    });
+
+    _relayedSosSubscription = _repository.relayedSosAlerts.listen((sos) {
+      add(_RelayedSosReceived(sos));
+    });
+
+    _immediateForwardSubscription = _repository.immediateForwards.listen((_) {
+      _relayOrchestrator.recordExternalForward();
     });
 
     _relayStatsSubscription = _relayOrchestrator.stats.listen((stats) {
@@ -528,6 +587,8 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   Future<void> close() async {
     await _neighborsSubscription?.cancel();
     await _sosSubscription?.cancel();
+    await _relayedSosSubscription?.cancel();
+    await _immediateForwardSubscription?.cancel();
     await _relayStatsSubscription?.cancel();
     await _connectivitySubscription?.cancel();
 

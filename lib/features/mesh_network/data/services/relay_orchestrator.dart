@@ -24,6 +24,12 @@ class RelayOrchestrator {
   final AiRouter _aiRouter;
   String _nodeId;
 
+  /// Optional callback that checks whether this node can now deliver a packet
+  /// locally (e.g., node gained internet since the packet was stored in the
+  /// outbox).  Returns true if it handled the packet, false to proceed with
+  /// normal relay forwarding.
+  Future<bool> Function(MeshPacket)? onLocalDelivery;
+
   // Relay loop control
   Timer? _relayTimer;
   bool _isRunning = false;
@@ -182,6 +188,25 @@ class RelayOrchestrator {
       return false;
     }
 
+    // CHECK: Has this node gained internet since the packet was stored?
+    // If so, deliver SOS locally (Goal path) instead of wasting a P2P
+    // connection attempt to relay it to another node.
+    if (onLocalDelivery != null) {
+      try {
+        final delivered = await onLocalDelivery!(packet);
+        if (delivered) {
+          _emitActivity(
+            RelayActivityType.sent,
+            'Delivered locally (this node is now a Goal)',
+          );
+          await _outbox.markSent(packet.id);
+          return true;
+        }
+      } catch (e) {
+        _emitActivity(RelayActivityType.error, 'Local delivery check error: $e');
+      }
+    }
+
     // Loop detection is handled per-target inside makeRoutingDecision
 
     // Select best neighbor
@@ -231,8 +256,14 @@ class RelayOrchestrator {
   /// connectAndSendPacket (hit-and-run) flow.
   Future<bool> _attemptSend(MeshPacket packet, NodeInfo target) async {
     try {
-      // Add our hop to the packet
-      final updatedPacket = packet.addHop(_nodeId);
+      // If we are the originator retrying our own packet, our node ID is
+      // already in the trace (placed there by MeshPacket.create).  Calling
+      // addHop would throw a StateError and silently burn all retries,
+      // permanently losing the SOS.  Skip the hop — the next relay node
+      // will add its own hop when it receives the packet.
+      final updatedPacket = packet.hasVisited(_nodeId)
+          ? packet
+          : packet.addHop(_nodeId);
 
       _emitActivity(
         RelayActivityType.connecting,
@@ -289,6 +320,13 @@ class RelayOrchestrator {
     stop();
     _statsController.close();
     _activityController.close();
+  }
+
+  /// Notifies the orchestrator that a packet was forwarded outside its loop.
+  /// This keeps the stats counter accurate for immediate forwards in the repository.
+  void recordExternalForward() {
+    _packetsSent++;
+    _updateStats();
   }
 }
 

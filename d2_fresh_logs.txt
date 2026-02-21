@@ -1,0 +1,202 @@
+﻿--------- beginning of main
+02-21 12:45:52.540 D/WifiP2pHandler(20981): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-21 12:45:52.547 D/WifiP2pHandler(20981): Γ£à Discovery nudge succeeded
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ≡ƒôï TXT RECORD RECEIVED
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Domain: rescuenet._rescuenet._tcp.local.
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Device: OPPO A78 5G
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Address: 9e:56:a1:e8:e9:44
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Data: {sig=-79, bat=77, lng=78.721140, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.470006, rol=g}
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ≡ƒôí SERVICE FOUND (Name callback)
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Instance: RescueNet
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Type: _rescuenet._tcp.local.
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Device: OPPO A78 5G
+02-21 12:45:59.467 D/WifiP2pHandler(20981):    Address: 9e:56:a1:e8:e9:44
+02-21 12:45:59.467 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.468 I/flutter (20981): Γ£à Node discovered: 8eb3b942-d9f2-4299-b095-1a9fd0494aa8 (9e:56:a1:e8:e9:44) [TXT]
+02-21 12:46:01.442 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:46:01.443 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:46:01.448 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.449 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:46:01.449 D/RescueNet(20981):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-21 12:46:01.449 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.458 D/MeshService(20981): ΓÜí [Service] Connection Changed
+02-21 12:46:01.459 D/RescueNet(20981): ΓÜí Connection Changed Intent Received
+02-21 12:46:01.472 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:46:01.472 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:46:01.478 D/MeshService(20981): ΓÜí [Service] This Device Changed
+02-21 12:46:01.479 D/RescueNet(20981): ΓÜí This Device Changed Intent Received
+02-21 12:46:01.484 D/RescueNet(20981):    Group Formed: false
+02-21 12:46:01.484 D/RescueNet(20981):    Is Group Owner: false
+02-21 12:46:01.484 D/RescueNet(20981):    Group Owner Address: null
+02-21 12:46:01.486 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.486 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:46:01.486 D/RescueNet(20981):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-21 12:46:01.486 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.537 D/MeshService(20981): ΓÜí [Service] Connection Changed
+02-21 12:46:01.538 D/RescueNet(20981): ΓÜí Connection Changed Intent Received
+02-21 12:46:01.540 D/MeshService(20981):    [Service] Group formed, GO=false, addr=192.168.49.1
+02-21 12:46:01.541 D/RescueNet(20981):    Group Formed: true
+02-21 12:46:01.541 D/RescueNet(20981):    Is Group Owner: false
+02-21 12:46:01.541 D/RescueNet(20981):    Group Owner Address: 192.168.49.1
+02-21 12:46:21.925 D/SocketServer(20981): ≡ƒôÑ Client connected: 192.168.49.1
+02-21 12:46:21.929 D/SocketServer(20981): ≡ƒôª Expecting packet size: 640 bytes, CRC32: 1024675277
+02-21 12:46:21.930 D/SocketServer(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.930 D/SocketServer(20981): Γ£à PACKET RECEIVED
+02-21 12:46:21.930 D/SocketServer(20981):    Size: 640 bytes
+02-21 12:46:21.930 D/SocketServer(20981):    Data: {"id":"1771658156543-948992222","originatorId":"8eb3b942-d9f2-4299-b095-1a9fd0494aa8","payload":"{\"sosId\":\"fb53f522-1081-4102-baeb-3490fd73abd9\",\"senderId\":\"8eb3b942-d9f2-4299-b095-1a9fd0494aa8...
+02-21 12:46:21.930 D/SocketServer(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.932 D/WifiP2pHandler(20981): ≡ƒôÑ Packet received from socket, forwarding to Flutter...
+02-21 12:46:21.934 I/flutter (20981): ≡ƒôª PACKET RECEIVED (640 bytes)
+02-21 12:46:21.935 I/flutter (20981): ≡ƒÜ¿ Repository: Received SOS packet from p2p
+02-21 12:46:21.935 I/flutter (20981): ≡ƒÜ¿ Repository: SOS emitted to GOAL stream (has internet)
+02-21 12:46:22.003 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:46:22.005 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:46:22.011 D/MeshService(20981): ΓÜí [Service] This Device Changed
+02-21 12:46:22.012 D/RescueNet(20981): ΓÜí This Device Changed Intent Received
+02-21 12:46:22.023 D/MeshService(20981): ΓÜí [Service] Connection Changed
+02-21 12:46:22.024 D/RescueNet(20981): ΓÜí Connection Changed Intent Received
+02-21 12:46:22.031 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:22.031 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 0 devices
+02-21 12:46:22.031 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:22.032 D/RescueNet(20981):    Group Formed: false
+02-21 12:46:22.032 D/RescueNet(20981):    Is Group Owner: false
+02-21 12:46:22.033 D/RescueNet(20981):    Group Owner Address: null
+02-21 12:46:23.936 I/flutter (20981): Γÿü∩╕Å [CloudDelivery] MOCK UPLOAD SUCCESS: SOS from 8eb3b942-d9f2-4299-b095-1a9fd0494aa8
+02-21 12:46:23.937 I/flutter (20981): Γ£à Cloud delivery successful for packet 1771658156543-948992222
+02-21 12:46:52.539 D/WifiP2pHandler(20981): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-21 12:46:52.545 D/WifiP2pHandler(20981): Γ£à Discovery nudge succeeded
+02-21 12:47:01.374 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: stopMeshNode
+02-21 12:47:01.374 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.374 D/WifiP2pHandler(20981): ≡ƒ¢æ STOPPING MESH NODE
+02-21 12:47:01.374 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.375 D/WifiP2pHandler(20981): Γ£à Mesh node stopped
+02-21 12:47:01.376 I/flutter (20981): Γ£à Mesh node stopped
+02-21 12:47:01.378 D/WifiP2pHandler(20981): Γ£à Service requests cleared
+02-21 12:47:01.378 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:01.380 D/WifiP2pHandler(20981): Γ£à Peer discovery stopped
+02-21 12:47:01.380 D/WifiP2pHandler(20981): Γ£à Local services cleared
+02-21 12:47:01.380 D/GeneralHandler(20981): ≡ƒô₧ Method call: startMeshService
+02-21 12:47:01.383 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.383 I/flutter (20981): STARTING MESH NODE (DUAL MODE)
+02-21 12:47:01.383 I/flutter (20981):    Node ID: 930c7985-6386-4410-9c09-b247d40be6bf
+02-21 12:47:01.383 I/flutter (20981):    Metadata: {id: 930c7985-6386-4410-9c09-b247d40be6bf, bat: 19, net: 1, lat: 17.469813, lng: 78.721235, sig: -86, tri: n, rol: g, rel: 1}
+02-21 12:47:01.383 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.383 D/MeshService(20981): Γä╣∩╕Å MeshService onStartCommand
+02-21 12:47:01.383 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: startMeshNode
+02-21 12:47:01.384 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.384 D/WifiP2pHandler(20981): ≡ƒÜÇ STARTING MESH NODE
+02-21 12:47:01.384 D/WifiP2pHandler(20981):    Metadata: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:01.384 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.386 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.386 D/WifiP2pHandler(20981): Wi-Fi P2P Diagnostics:
+02-21 12:47:01.386 D/WifiP2pHandler(20981):   Wi-Fi Enabled: true
+02-21 12:47:01.386 D/WifiP2pHandler(20981):   Location Enabled: true
+02-21 12:47:01.386 D/WifiP2pHandler(20981):   Permissions Granted: true
+02-21 12:47:01.386 D/WifiP2pHandler(20981):   P2P Manager Exists: true
+02-21 12:47:01.386 D/WifiP2pHandler(20981):   Overall Ready: true
+02-21 12:47:01.386 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.386 D/WifiP2pHandler(20981): ≡ƒöä Clearing existing local services...
+02-21 12:47:01.391 D/WifiP2pHandler(20981): Γ£à Local services cleared, attempting registration...
+02-21 12:47:01.392 D/WifiP2pHandler(20981): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:01.396 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.396 D/WifiP2pHandler(20981): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:01.396 D/WifiP2pHandler(20981):    Name: RescueNet
+02-21 12:47:01.396 D/WifiP2pHandler(20981):    Type: _rescuenet._tcp
+02-21 12:47:01.396 D/WifiP2pHandler(20981):    Metadata: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:01.396 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.396 D/WifiP2pHandler(20981): ≡ƒöì Starting discovery sequence...
+02-21 12:47:01.397 D/WifiP2pHandler(20981): Γ£à Service requests cleared
+02-21 12:47:01.399 D/WifiP2pHandler(20981): Γ£à Service request added (unfiltered, filtering in callback)
+02-21 12:47:01.403 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.403 D/WifiP2pHandler(20981): Γ£à SERVICE DISCOVERY STARTED
+02-21 12:47:01.403 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.403 D/WifiP2pHandler(20981): ΓÅ░ Starting consolidated discovery refresh timer (60000ms)...
+02-21 12:47:01.405 D/WifiP2pHandler(20981): Γ£à Refresh timer started (consolidated, 60000ms interval)
+02-21 12:47:01.405 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.405 D/WifiP2pHandler(20981): Γ£à MESH NODE OPERATIONAL
+02-21 12:47:01.405 D/WifiP2pHandler(20981):    Service Registered: true
+02-21 12:47:01.405 D/WifiP2pHandler(20981):    Discovery Active: true
+02-21 12:47:01.405 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:01.407 I/flutter (20981): Γ£à Mesh node started successfully
+02-21 12:47:02.294 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:02.296 D/GeneralHandler(20981): ≡ƒô₧ Method call: startMeshService
+02-21 12:47:02.299 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.299 I/flutter (20981): STARTING MESH NODE (DUAL MODE)
+02-21 12:47:02.299 I/flutter (20981):    Node ID: 930c7985-6386-4410-9c09-b247d40be6bf
+02-21 12:47:02.299 I/flutter (20981):    Metadata: {id: 930c7985-6386-4410-9c09-b247d40be6bf, bat: 19, net: 1, lat: 17.469813, lng: 78.721235, sig: -86, tri: n, rol: g, rel: 1}
+02-21 12:47:02.299 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.299 D/MeshService(20981): Γä╣∩╕Å MeshService onStartCommand
+02-21 12:47:02.300 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: startMeshNode
+02-21 12:47:02.300 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.300 D/WifiP2pHandler(20981): ≡ƒÜÇ STARTING MESH NODE
+02-21 12:47:02.300 D/WifiP2pHandler(20981):    Metadata: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:02.300 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.300 W/WifiP2pHandler(20981): ΓÜá∩╕Å Mesh node already running ΓÇö updating metadata only
+02-21 12:47:02.300 D/WifiP2pHandler(20981): ≡ƒô¥ Updating metadata: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:02.302 D/WifiP2pHandler(20981): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:02.305 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.305 D/WifiP2pHandler(20981): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:02.305 D/WifiP2pHandler(20981):    Name: RescueNet
+02-21 12:47:02.305 D/WifiP2pHandler(20981):    Type: _rescuenet._tcp
+02-21 12:47:02.305 D/WifiP2pHandler(20981):    Metadata: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:02.305 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:02.305 I/flutter (20981): Γ£à Mesh node started successfully
+02-21 12:47:10.737 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:47:10.738 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:47:10.743 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.743 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:10.743 D/RescueNet(20981):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-21 12:47:10.743 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.284 D/GeneralHandler(20981): ≡ƒô₧ Method call: checkPermissions
+02-21 12:47:28.285 D/GeneralHandler(20981): Permissions check: missing=0, needsBgLocation=false
+02-21 12:47:28.294 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:28.296 D/GeneralHandler(20981): ≡ƒô₧ Method call: startMeshService
+02-21 12:47:28.298 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.298 I/flutter (20981): STARTING MESH NODE (DUAL MODE)
+02-21 12:47:28.298 I/flutter (20981):    Node ID: 930c7985-6386-4410-9c09-b247d40be6bf
+02-21 12:47:28.298 I/flutter (20981):    Metadata: {id: 930c7985-6386-4410-9c09-b247d40be6bf, bat: 19, net: 1, lat: 17.469909, lng: 78.721081, sig: -85, tri: n, rol: g, rel: 1}
+02-21 12:47:28.298 I/flutter (20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.299 D/MeshService(20981): Γä╣∩╕Å MeshService onStartCommand
+02-21 12:47:28.299 D/WifiP2pHandler(20981): ≡ƒô₧ Method call: startMeshNode
+02-21 12:47:28.299 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.299 D/WifiP2pHandler(20981): ≡ƒÜÇ STARTING MESH NODE
+02-21 12:47:28.299 D/WifiP2pHandler(20981):    Metadata: {sig=-85, bat=19, lng=78.721081, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469909, rol=g}
+02-21 12:47:28.299 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.299 W/WifiP2pHandler(20981): ΓÜá∩╕Å Mesh node already running ΓÇö updating metadata only
+02-21 12:47:28.299 D/WifiP2pHandler(20981): ≡ƒô¥ Updating metadata: {sig=-85, bat=19, lng=78.721081, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469909, rol=g}
+02-21 12:47:28.306 D/WifiP2pHandler(20981): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:28.310 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.310 D/WifiP2pHandler(20981): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:28.310 D/WifiP2pHandler(20981):    Name: RescueNet
+02-21 12:47:28.310 D/WifiP2pHandler(20981):    Type: _rescuenet._tcp
+02-21 12:47:28.310 D/WifiP2pHandler(20981):    Metadata: {sig=-85, bat=19, lng=78.721081, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469909, rol=g}
+02-21 12:47:28.310 D/WifiP2pHandler(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:28.310 I/flutter (20981): Γ£à Mesh node started successfully
+02-21 12:47:41.400 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:47:41.402 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:47:41.410 D/MeshService(20981): ΓÜí [Service] Connection Changed
+02-21 12:47:41.411 D/RescueNet(20981): ΓÜí Connection Changed Intent Received
+02-21 12:47:41.425 D/MeshService(20981): ΓÜí [Service] Peers Changed
+02-21 12:47:41.426 D/RescueNet(20981): ΓÜí Peers Changed Intent Received
+02-21 12:47:41.432 D/MeshService(20981): ΓÜí [Service] This Device Changed
+02-21 12:47:41.433 D/RescueNet(20981): ΓÜí This Device Changed Intent Received
+02-21 12:47:41.441 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.441 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:41.441 D/RescueNet(20981):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-21 12:47:41.441 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.442 D/RescueNet(20981):    Group Formed: false
+02-21 12:47:41.442 D/RescueNet(20981):    Is Group Owner: false
+02-21 12:47:41.442 D/RescueNet(20981):    Group Owner Address: null
+02-21 12:47:41.442 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.442 D/RescueNet(20981): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:41.442 D/RescueNet(20981):    -> OPPO A78 5G (9e:56:a1:e8:e9:44)
+02-21 12:47:41.442 D/RescueNet(20981): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.483 D/MeshService(20981): ΓÜí [Service] Connection Changed
+02-21 12:47:41.484 D/RescueNet(20981): ΓÜí Connection Changed Intent Received
+02-21 12:47:41.487 D/MeshService(20981):    [Service] Group formed, GO=false, addr=192.168.49.1
+02-21 12:47:41.487 D/RescueNet(20981):    Group Formed: true
+02-21 12:47:41.487 D/RescueNet(20981):    Is Group Owner: false
+02-21 12:47:41.487 D/RescueNet(20981):    Group Owner Address: 192.168.49.1

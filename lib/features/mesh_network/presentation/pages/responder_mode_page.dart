@@ -6,6 +6,7 @@ import '../bloc/mesh_bloc.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../domain/entities/mesh_packet.dart';
 import '../../data/repositories/mesh_repository_impl.dart';
+import 'navigation_map_page.dart';
 
 /// Responder Mode Page - For users who can help others.
 /// Listens for incoming SOS alerts and displays them with location.
@@ -118,7 +119,10 @@ class _ResponderModePageState extends State<ResponderModePage> {
   Widget _buildMainContent() {
     return BlocBuilder<MeshBloc, MeshState>(
       builder: (context, state) {
-        final sosAlerts = state is MeshActive ? state.recentSosAlerts : <ReceivedSos>[];
+        // Only show SOS alerts if this node has internet (is a Goal node).
+        // Relay nodes should NEVER display responder alerts — defense-in-depth guard.
+        final isGoalNode = state is MeshActive && state.hasInternet;
+        final sosAlerts = isGoalNode ? state.recentSosAlerts : <ReceivedSos>[];
         
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -509,7 +513,18 @@ class _ResponderModePageState extends State<ResponderModePage> {
                     Expanded(
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          // TODO: Navigate to help
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => NavigationMapPage(
+                                victimLatitude: payload.latitude,
+                                victimLongitude: payload.longitude,
+                                locationAccuracy: payload.locationAccuracy,
+                                victimName: payload.senderName,
+                                emergencyLabel: payload.emergencyType.displayName,
+                                severityColor: _getSeverityColor(payload.triageLevel),
+                              ),
+                            ),
+                          );
                         },
                         icon: const Icon(Icons.directions, size: 20),
                         label: const Text('Navigate'),

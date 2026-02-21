@@ -1,0 +1,453 @@
+﻿--------- beginning of main
+02-21 12:45:56.480 D/WifiP2pHandler( 3386): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-21 12:45:56.491 D/WifiP2pHandler( 3386): Γ£à Discovery nudge succeeded
+02-21 12:45:56.510 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:45:56.510 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:45:56.510 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:45:56.510 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:45:56.510 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:45:56.517 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:45:56.519 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:45:56.519 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-78, bat=77, lng=78.721140, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.470006, rol=g}
+02-21 12:45:56.522 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:45:56.542 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.542 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:45:56.542 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:45:56.542 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:45:56.542 D/WifiP2pHandler( 3386):    Metadata: {sig=-78, bat=77, lng=78.721140, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.470006, rol=g}
+02-21 12:45:56.542 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.543 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658156543-948992222
+02-21 12:45:56.546 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:45:56.546 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:45:56.546 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:45:56.547 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:45:56.547 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:45:56.547 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.547 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:45:56.547 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:45:56.547 I/flutter ( 3386):    Packet size: 640 bytes
+02-21 12:45:56.547 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.547 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:45:56.547 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.548 D/WifiP2pHandler( 3386): ≡ƒôñ CONNECT AND SEND
+02-21 12:45:56.548 D/WifiP2pHandler( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:45:56.548 D/WifiP2pHandler( 3386):    Packet size: 640 chars
+02-21 12:45:56.548 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:56.548 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:45:56.548 D/ConnectionManager( 3386): CONNECTING TO: 6a:cc:11:ae:dd:07
+02-21 12:45:56.548 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:45:56.551 W/ConnectionManager( 3386): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-21 12:45:57.979 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:45:57.979 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:45:57.979 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:45:57.979 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:45:57.979 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:45:57.982 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:45:57.985 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:45:57.985 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-79, bat=77, lng=78.721140, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.470006, rol=g}
+02-21 12:45:57.990 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:45:58.000 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:58.001 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:45:58.001 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:45:58.001 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:45:58.001 D/WifiP2pHandler( 3386):    Metadata: {sig=-79, bat=77, lng=78.721140, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.470006, rol=g}
+02-21 12:45:58.001 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:58.001 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658158001-948992222
+02-21 12:45:58.002 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:45:58.002 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:45:58.002 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:45:58.002 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:45:58.002 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:45:58.002 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:58.002 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:45:58.002 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:45:58.002 I/flutter ( 3386):    Packet size: 640 bytes
+02-21 12:45:58.002 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:58.003 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:45:58.003 W/WifiP2pHandler( 3386): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-21 12:45:58.003 I/flutter ( 3386): Γ¥î Connect and send exception: Connection already in progress
+02-21 12:45:58.003 I/flutter ( 3386): Γ¥î Forward failed: BUSY - Connection already in progress
+02-21 12:45:58.003 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:45:58.003 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658158001-948992222
+02-21 12:45:59.054 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-21 12:45:59.134 D/ConnectionManager( 3386): ├ó┼ôΓÇª Connection initiated (attempt 1, intent=0), waiting for group...
+02-21 12:45:59.140 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:45:59.141 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:45:59.192 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:45:59.192 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:45:59.242 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.242 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:45:59.242 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:45:59.242 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:45:59.243 D/RescueNet( 3386):    Group Formed: false
+02-21 12:45:59.243 D/RescueNet( 3386):    Is Group Owner: false
+02-21 12:45:59.243 D/RescueNet( 3386):    Group Owner Address: null
+02-21 12:46:00.137 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 1):
+02-21 12:46:00.137 D/ConnectionManager( 3386):    Group Formed: false
+02-21 12:46:00.137 D/ConnectionManager( 3386):    Is Group Owner: false
+02-21 12:46:00.137 D/ConnectionManager( 3386):    Group Owner Address: null
+02-21 12:46:00.137 D/ConnectionManager( 3386): ├ó┬Å┬│ Group not formed yet, retrying (1/15)...
+02-21 12:46:00.701 D/MeshService( 3386): ΓÜí [Service] This Device Changed
+02-21 12:46:00.701 D/RescueNet( 3386): ΓÜí This Device Changed Intent Received
+02-21 12:46:01.139 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 2):
+02-21 12:46:01.139 D/ConnectionManager( 3386):    Group Formed: true
+02-21 12:46:01.140 D/ConnectionManager( 3386):    Is Group Owner: true
+02-21 12:46:01.140 D/ConnectionManager( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:46:01.140 D/ConnectionManager( 3386): ├░┼╕ΓÇÿΓÇÿ We are Group Owner ├óΓé¼ΓÇ¥ resolving client IP via requestGroupInfo
+02-21 12:46:01.146 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Group Info: 0 clients connected
+02-21 12:46:01.146 D/ConnectionManager( 3386): ├ó┬Å┬│ No clients in group yet, retrying (1/15)...
+02-21 12:46:01.158 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:46:01.159 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:46:01.166 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:46:01.167 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:46:01.189 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:46:01.190 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:46:01.197 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.198 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:46:01.198 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:46:01.198 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.198 D/MeshService( 3386):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-21 12:46:01.199 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.199 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:46:01.199 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:46:01.199 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:01.199 D/RescueNet( 3386):    Group Formed: true
+02-21 12:46:01.199 D/RescueNet( 3386):    Is Group Owner: true
+02-21 12:46:01.199 D/RescueNet( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:46:01.249 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:46:01.249 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:46:01.255 D/MeshService( 3386):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-21 12:46:01.255 D/RescueNet( 3386):    Group Formed: true
+02-21 12:46:01.255 D/RescueNet( 3386):    Is Group Owner: true
+02-21 12:46:01.255 D/RescueNet( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:46:02.157 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Group Info: 1 clients connected
+02-21 12:46:02.158 D/ConnectionManager( 3386): ΓÅ│ Waiting 4000ms for client DHCP to settle...
+02-21 12:46:06.160 E/ConnectionManager( 3386): ├ó┬¥┼Æ Error reading ARP table: /proc/net/arp: open failed: EACCES (Permission denied)
+02-21 12:46:06.160 D/ConnectionManager( 3386): ≡ƒöä MAC-based ARP failed, trying MAC-free ARP...
+02-21 12:46:06.161 E/ConnectionManager( 3386): Γ¥î Error reading ARP table: /proc/net/arp: open failed: EACCES (Permission denied)
+02-21 12:46:06.161 W/ConnectionManager( 3386): ΓÜá∩╕Å ARP miss, retrying in 2s (attempt 1/3)...
+02-21 12:46:08.165 E/ConnectionManager( 3386): Γ¥î Error reading ARP table: /proc/net/arp: open failed: EACCES (Permission denied)
+02-21 12:46:08.165 W/ConnectionManager( 3386): ΓÜá∩╕Å ARP miss, retrying in 2s (attempt 2/3)...
+02-21 12:46:10.166 E/ConnectionManager( 3386): Γ¥î Error reading ARP table: /proc/net/arp: open failed: EACCES (Permission denied)
+02-21 12:46:10.166 W/ConnectionManager( 3386): ΓÜá∩╕Å ARP miss, retrying in 2s (attempt 3/3)...
+02-21 12:46:12.170 E/ConnectionManager( 3386): Γ¥î Error reading ARP table: /proc/net/arp: open failed: EACCES (Permission denied)
+02-21 12:46:12.172 D/ConnectionManager( 3386): ≡ƒöì Starting parallel subnet scan (192.168.49.2-254)...
+02-21 12:46:21.198 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:46:21.198 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:46:21.198 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:46:21.198 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:46:21.198 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:46:21.201 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:46:21.203 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:46:21.203 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-82, bat=77, lng=78.721123, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469958, rol=g}
+02-21 12:46:21.208 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:46:21.217 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.217 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:46:21.217 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:46:21.217 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:46:21.217 D/WifiP2pHandler( 3386):    Metadata: {sig=-82, bat=77, lng=78.721123, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469958, rol=g}
+02-21 12:46:21.217 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.218 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658181218-948992222
+02-21 12:46:21.218 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:46:21.218 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:46:21.218 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:46:21.219 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:46:21.219 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:46:21.219 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.219 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:46:21.219 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:46:21.219 I/flutter ( 3386):    Packet size: 612 bytes
+02-21 12:46:21.219 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.219 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:46:21.219 W/WifiP2pHandler( 3386): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-21 12:46:21.220 I/flutter ( 3386): Γ¥î Connect and send exception: Connection already in progress
+02-21 12:46:21.220 I/flutter ( 3386): Γ¥î Forward failed: BUSY - Connection already in progress
+02-21 12:46:21.220 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:46:21.220 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658181218-948992222
+02-21 12:46:21.422 D/ConnectionManager( 3386): Γ£à Found reachable P2P client at 192.168.49.222 (parallel subnet scan)
+02-21 12:46:21.422 D/ConnectionManager( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.422 D/ConnectionManager( 3386): Γ£à CONNECTED (GO mode) - Client IP: 192.168.49.222
+02-21 12:46:21.422 D/ConnectionManager( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.422 D/WifiP2pHandler( 3386): Γ£à Connected, sending to IP: 192.168.49.222
+02-21 12:46:21.424 D/WifiP2pHandler( 3386): ≡ƒöù Binding socket to P2P Interface: p2p0 (/192.168.49.1)
+02-21 12:46:21.643 D/WifiP2pHandler( 3386): ≡ƒôñ Sent 640 bytes, waiting for ACK...
+02-21 12:46:21.653 D/WifiP2pHandler( 3386): Γ£à ACK received, disconnecting...
+02-21 12:46:21.653 D/ConnectionManager( 3386): Disconnecting P2P group...
+02-21 12:46:21.672 D/ConnectionManager( 3386): ├ó┼ôΓÇª P2P group removed
+02-21 12:46:21.672 I/flutter ( 3386): Γ£à Packet sent successfully
+02-21 12:46:21.673 I/flutter ( 3386): Γ£à Packet forwarded successfully to 930c7985-6386-4410-9c09-b247d40be6bf
+02-21 12:46:21.673 I/flutter ( 3386): ≡ƒÜ¿ Repository: Marked as sent in outbox
+02-21 12:46:21.674 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658156543-948992222
+02-21 12:46:21.698 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:46:21.699 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:46:21.700 D/MeshService( 3386): ΓÜí [Service] This Device Changed
+02-21 12:46:21.701 D/RescueNet( 3386): ΓÜí This Device Changed Intent Received
+02-21 12:46:21.716 E/flutter ( 3386): [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: Null check operator used on a null value
+02-21 12:46:21.716 E/flutter ( 3386): #0      State.setState (package:flutter/src/widgets/framework.dart:1219)
+02-21 12:46:21.716 E/flutter ( 3386): #1      _SosFormPageState._loadLocation (package:ultra_pro_rescuenet/features/mesh_network/presentation/pages/sos_form_page.dart:88)
+02-21 12:46:21.716 E/flutter ( 3386): <asynchronous suspension>
+02-21 12:46:21.716 E/flutter ( 3386): 
+02-21 12:46:21.730 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:46:21.731 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:46:21.743 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.743 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 0 devices
+02-21 12:46:21.743 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:21.745 D/RescueNet( 3386):    Group Formed: false
+02-21 12:46:21.745 D/RescueNet( 3386):    Is Group Owner: false
+02-21 12:46:21.745 D/RescueNet( 3386):    Group Owner Address: null
+02-21 12:46:23.672 D/WifiP2pHandler( 3386): ≡ƒöä Restarting discovery after send...
+02-21 12:46:23.685 D/WifiP2pHandler( 3386): Γ£à Service request added (unfiltered, filtering in callback)
+02-21 12:46:23.699 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:23.700 D/WifiP2pHandler( 3386): Γ£à SERVICE DISCOVERY STARTED
+02-21 12:46:23.700 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:23.700 D/WifiP2pHandler( 3386): ≡ƒöä Post-send discovery restart: Γ£à
+02-21 12:46:47.102 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:46:47.103 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:46:47.103 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:46:47.103 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:46:47.103 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:46:47.113 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:46:47.117 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:46:47.117 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-80, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:46:47.134 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:46:47.146 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.146 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:46:47.146 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:46:47.146 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:46:47.146 D/WifiP2pHandler( 3386):    Metadata: {sig=-80, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:46:47.146 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.147 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658207147-948992222
+02-21 12:46:47.148 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:46:47.148 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:46:47.148 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:46:47.148 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:46:47.148 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:46:47.148 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.148 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:46:47.148 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:46:47.148 I/flutter ( 3386):    Packet size: 641 bytes
+02-21 12:46:47.148 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.148 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:46:47.148 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.148 D/WifiP2pHandler( 3386): ≡ƒôñ CONNECT AND SEND
+02-21 12:46:47.148 D/WifiP2pHandler( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:46:47.148 D/WifiP2pHandler( 3386):    Packet size: 641 chars
+02-21 12:46:47.148 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.148 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:46:47.148 D/ConnectionManager( 3386): CONNECTING TO: 6a:cc:11:ae:dd:07
+02-21 12:46:47.148 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:46:47.153 W/ConnectionManager( 3386): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-21 12:46:47.916 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:46:47.916 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:46:47.917 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:46:47.917 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:46:47.917 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:46:47.927 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:46:47.930 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:46:47.930 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-80, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:46:47.936 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:46:47.949 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.949 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:46:47.949 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:46:47.949 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:46:47.950 D/WifiP2pHandler( 3386):    Metadata: {sig=-80, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:46:47.950 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.950 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658207950-948992222
+02-21 12:46:47.951 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:46:47.951 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:46:47.951 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:46:47.951 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:46:47.951 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:46:47.951 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.951 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:46:47.951 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:46:47.951 I/flutter ( 3386):    Packet size: 641 bytes
+02-21 12:46:47.951 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:46:47.952 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:46:47.952 W/WifiP2pHandler( 3386): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-21 12:46:47.952 I/flutter ( 3386): Γ¥î Connect and send exception: Connection already in progress
+02-21 12:46:47.952 I/flutter ( 3386): Γ¥î Forward failed: BUSY - Connection already in progress
+02-21 12:46:47.952 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:46:47.952 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658207950-948992222
+02-21 12:46:49.655 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-21 12:46:49.667 W/ConnectionManager( 3386): ΓÜá∩╕Å connect() returned ERROR (attempt 1/5)
+02-21 12:46:49.667 D/ConnectionManager( 3386): ≡ƒöä Refreshing peer discovery before retry...
+02-21 12:46:49.679 D/ConnectionManager( 3386): Γ£à Peer discovery refresh triggered
+02-21 12:46:53.170 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 2/5 (GO intent=0)
+02-21 12:46:53.183 W/ConnectionManager( 3386): ΓÜá∩╕Å connect() returned ERROR (attempt 2/5)
+02-21 12:46:53.183 D/ConnectionManager( 3386): ≡ƒöä Refreshing peer discovery before retry...
+02-21 12:46:53.196 D/ConnectionManager( 3386): Γ£à Peer discovery refresh triggered
+02-21 12:46:56.481 D/WifiP2pHandler( 3386): ≡ƒöä Refreshing service discovery (lightweight nudge)...
+02-21 12:46:56.501 D/WifiP2pHandler( 3386): Γ£à Discovery nudge succeeded
+02-21 12:46:56.687 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 3/5 (GO intent=15)
+02-21 12:46:56.698 W/ConnectionManager( 3386): ΓÜá∩╕Å connect() returned ERROR (attempt 3/5)
+02-21 12:46:56.699 D/ConnectionManager( 3386): ≡ƒöä Refreshing peer discovery before retry...
+02-21 12:46:56.711 D/ConnectionManager( 3386): Γ£à Peer discovery refresh triggered
+02-21 12:47:00.203 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 4/5 (GO intent=15)
+02-21 12:47:00.210 W/ConnectionManager( 3386): ΓÜá∩╕Å connect() returned ERROR (attempt 4/5)
+02-21 12:47:00.210 D/ConnectionManager( 3386): ≡ƒöä Refreshing peer discovery before retry...
+02-21 12:47:00.219 D/ConnectionManager( 3386): Γ£à Peer discovery refresh triggered
+02-21 12:47:03.713 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 5/5 (GO intent=15)
+02-21 12:47:03.739 E/ConnectionManager( 3386): ├ó┬¥┼Æ Connection failed: ERROR (after 5 attempt(s))
+02-21 12:47:03.739 E/WifiP2pHandler( 3386): Γ¥î Connection failed: Connection failed: ERROR
+02-21 12:47:03.742 I/flutter ( 3386): Γ¥î Connect and send exception: Connection failed: ERROR
+02-21 12:47:03.742 I/flutter ( 3386): Γ¥î Forward failed: CONNECTION_FAILED - Connection failed: ERROR
+02-21 12:47:03.742 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:47:03.742 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658207147-948992222
+02-21 12:47:05.739 D/WifiP2pHandler( 3386): ≡ƒöä Restarting discovery after send...
+02-21 12:47:05.751 D/WifiP2pHandler( 3386): Γ£à Service request added (unfiltered, filtering in callback)
+02-21 12:47:05.761 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:05.761 D/WifiP2pHandler( 3386): Γ£à SERVICE DISCOVERY STARTED
+02-21 12:47:05.761 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:05.761 D/WifiP2pHandler( 3386): ≡ƒöä Post-send discovery restart: Γ£à
+02-21 12:47:09.728 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:47:09.728 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:47:09.728 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:47:09.729 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:47:09.729 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:47:09.739 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:09.744 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:47:09.744 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-77, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:09.749 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:09.762 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:09.762 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:09.762 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:47:09.763 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:47:09.763 D/WifiP2pHandler( 3386):    Metadata: {sig=-77, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:09.763 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:09.763 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658229763-948992222
+02-21 12:47:09.764 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:47:09.764 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:47:09.764 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:47:09.764 I/flutter ( 3386): Γ¥î No viable route found by AI router
+02-21 12:47:09.764 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:47:09.764 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658229763-948992222
+02-21 12:47:10.089 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:47:10.091 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:47:10.101 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.102 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:10.102 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:47:10.102 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.160 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.161 D/WifiP2pHandler( 3386): ≡ƒôï TXT RECORD RECEIVED
+02-21 12:47:10.161 D/WifiP2pHandler( 3386):    Domain: rescuenet._rescuenet._tcp.local.
+02-21 12:47:10.161 D/WifiP2pHandler( 3386):    Device: Redmi 12
+02-21 12:47:10.161 D/WifiP2pHandler( 3386):    Address: 6a:cc:11:ae:dd:07
+02-21 12:47:10.161 D/WifiP2pHandler( 3386):    Data: {sig=-86, bat=19, lng=78.721235, rel=1, tri=n, id=930c7985-6386-4410-9c09-b247d40be6bf, net=1, lat=17.469813, rol=g}
+02-21 12:47:10.161 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.162 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.162 D/WifiP2pHandler( 3386): ≡ƒôí SERVICE FOUND (Name callback)
+02-21 12:47:10.162 D/WifiP2pHandler( 3386):    Instance: RescueNet
+02-21 12:47:10.162 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp.local.
+02-21 12:47:10.162 D/WifiP2pHandler( 3386):    Device: Redmi 12
+02-21 12:47:10.162 D/WifiP2pHandler( 3386):    Address: 6a:cc:11:ae:dd:07
+02-21 12:47:10.162 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:10.164 I/flutter ( 3386): Γ£à Node discovered: 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07) [TXT]
+02-21 12:47:37.806 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:47:37.806 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:47:37.806 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:47:37.806 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:47:37.806 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:47:37.817 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:37.821 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:47:37.821 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-78, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:37.834 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:37.845 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.845 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:37.845 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:47:37.845 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:47:37.845 D/WifiP2pHandler( 3386):    Metadata: {sig=-78, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:37.845 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.846 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658257846-948992222
+02-21 12:47:37.847 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:47:37.847 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:47:37.847 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:47:37.847 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:47:37.847 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:47:37.847 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.847 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:47:37.847 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:47:37.847 I/flutter ( 3386):    Packet size: 638 bytes
+02-21 12:47:37.847 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.848 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:47:37.848 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.848 D/WifiP2pHandler( 3386): ≡ƒôñ CONNECT AND SEND
+02-21 12:47:37.848 D/WifiP2pHandler( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:47:37.848 D/WifiP2pHandler( 3386):    Packet size: 638 chars
+02-21 12:47:37.848 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:37.848 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:47:37.848 D/ConnectionManager( 3386): CONNECTING TO: 6a:cc:11:ae:dd:07
+02-21 12:47:37.848 D/ConnectionManager( 3386): ├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É├óΓÇó┬É
+02-21 12:47:37.850 W/ConnectionManager( 3386): ├ó┼í┬á├»┬╕┬Å removeGroup returned BUSY ├óΓé¼ΓÇ¥ waiting 2500ms
+02-21 12:47:40.352 D/ConnectionManager( 3386): ├ó┼╛┬í├»┬╕┬Å connect() attempt 1/5 (GO intent=0)
+02-21 12:47:40.376 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: _onSendSos triggered
+02-21 12:47:40.376 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Current state is MeshActive
+02-21 12:47:40.376 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: Calling repository.sendSos
+02-21 12:47:40.376 I/flutter ( 3386): ≡ƒÜ¿ Repository: sendSos called
+02-21 12:47:40.376 I/flutter ( 3386): ≡ƒÜ¿ Repository: sos type is SosPayload
+02-21 12:47:40.385 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: getSignalStrength
+02-21 12:47:40.390 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:47:40.391 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:47:40.391 D/ConnectionManager( 3386): ├ó┼ôΓÇª Connection initiated (attempt 1, intent=0), waiting for group...
+02-21 12:47:40.392 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: updateMetadata
+02-21 12:47:40.392 D/WifiP2pHandler( 3386): ≡ƒô¥ Updating metadata: {sig=-78, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:40.417 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:47:40.417 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:47:40.428 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.428 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:40.428 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:47:40.429 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.429 D/WifiP2pHandler( 3386): ≡ƒô¥ Registering service (attempts left: 3)
+02-21 12:47:40.431 D/RescueNet( 3386):    Group Formed: false
+02-21 12:47:40.431 D/RescueNet( 3386):    Is Group Owner: false
+02-21 12:47:40.431 D/RescueNet( 3386):    Group Owner Address: null
+02-21 12:47:40.434 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.434 D/WifiP2pHandler( 3386): Γ£à SERVICE REGISTERED SUCCESSFULLY
+02-21 12:47:40.434 D/WifiP2pHandler( 3386):    Name: RescueNet
+02-21 12:47:40.434 D/WifiP2pHandler( 3386):    Type: _rescuenet._tcp
+02-21 12:47:40.434 D/WifiP2pHandler( 3386):    Metadata: {sig=-78, bat=77, lng=78.721126, rel=1, tri=n, id=8eb3b942-d9f2-4299-b095-1a9fd0494aa8, net=1, lat=17.469923, rol=g}
+02-21 12:47:40.434 D/WifiP2pHandler( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.434 I/flutter ( 3386): ≡ƒÜ¿ Repository: Adding packet to outbox: 1771658260434-948992222
+02-21 12:47:40.435 I/flutter ( 3386): ≡ƒÜ¿ Repository: Attempting immediate forward
+02-21 12:47:40.435 I/flutter ( 3386): ≡ƒÜ¿ _forwardPacket: Checking neighbors (count: 1)
+02-21 12:47:40.435 I/flutter ( 3386): ≡ƒÜ¿ Neighbors: [6a:cc:11:ae:dd:07]
+02-21 12:47:40.435 I/flutter ( 3386): ≡ƒôí Forwarding packet to 930c7985-6386-4410-9c09-b247d40be6bf (6a:cc:11:ae:dd:07)
+02-21 12:47:40.435 I/flutter ( 3386): ≡ƒÜ¿ Calling wifiP2pSource.connectAndSendPacket...
+02-21 12:47:40.435 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.435 I/flutter ( 3386): CONNECT AND SEND PACKET
+02-21 12:47:40.435 I/flutter ( 3386):    Target: 6a:cc:11:ae:dd:07
+02-21 12:47:40.435 I/flutter ( 3386):    Packet size: 638 bytes
+02-21 12:47:40.435 I/flutter ( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:40.435 D/WifiP2pHandler( 3386): ≡ƒô₧ Method call: connectAndSend
+02-21 12:47:40.435 W/WifiP2pHandler( 3386): ΓÜá∩╕Å connectAndSend skipped: connection already in progress
+02-21 12:47:40.438 I/flutter ( 3386): Γ¥î Connect and send exception: Connection already in progress
+02-21 12:47:40.438 I/flutter ( 3386): Γ¥î Forward failed: BUSY - Connection already in progress
+02-21 12:47:40.438 I/flutter ( 3386): ≡ƒÜ¿ Repository: Forward failed (initial attempt)
+02-21 12:47:40.438 I/flutter ( 3386): ≡ƒÜ¿ MeshBloc: SOS sent successfully, ID: 1771658260434-948992222
+02-21 12:47:40.615 D/MeshService( 3386): ΓÜí [Service] This Device Changed
+02-21 12:47:40.617 D/RescueNet( 3386): ΓÜí This Device Changed Intent Received
+02-21 12:47:41.128 D/MeshService( 3386): ΓÜí [Service] Peers Changed
+02-21 12:47:41.129 D/RescueNet( 3386): ΓÜí Peers Changed Intent Received
+02-21 12:47:41.161 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:47:41.162 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:47:41.174 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.174 D/RescueNet( 3386): ≡ƒô▒ Physical Device List: 1 devices
+02-21 12:47:41.174 D/RescueNet( 3386):    -> Redmi 12 (6a:cc:11:ae:dd:07)
+02-21 12:47:41.174 D/RescueNet( 3386): ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+02-21 12:47:41.174 D/RescueNet( 3386):    Group Formed: true
+02-21 12:47:41.174 D/RescueNet( 3386):    Is Group Owner: true
+02-21 12:47:41.174 D/RescueNet( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:47:41.174 D/MeshService( 3386):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-21 12:47:41.199 D/MeshService( 3386): ΓÜí [Service] Connection Changed
+02-21 12:47:41.199 D/RescueNet( 3386): ΓÜí Connection Changed Intent Received
+02-21 12:47:41.203 D/RescueNet( 3386):    Group Formed: true
+02-21 12:47:41.203 D/RescueNet( 3386):    Is Group Owner: true
+02-21 12:47:41.203 D/RescueNet( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:47:41.203 D/MeshService( 3386):    [Service] Group formed, GO=true, addr=192.168.49.1
+02-21 12:47:41.395 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Connection Info (Attempt 1):
+02-21 12:47:41.395 D/ConnectionManager( 3386):    Group Formed: true
+02-21 12:47:41.395 D/ConnectionManager( 3386):    Is Group Owner: true
+02-21 12:47:41.395 D/ConnectionManager( 3386):    Group Owner Address: 192.168.49.1
+02-21 12:47:41.395 D/ConnectionManager( 3386): ├░┼╕ΓÇÿΓÇÿ We are Group Owner ├óΓé¼ΓÇ¥ resolving client IP via requestGroupInfo
+02-21 12:47:41.400 D/ConnectionManager( 3386): ├░┼╕ΓÇ£ΓÇ╣ Group Info: 1 clients connected
+02-21 12:47:41.401 D/ConnectionManager( 3386): ΓÅ│ Waiting 4000ms for client DHCP to settle...

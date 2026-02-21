@@ -35,7 +35,8 @@ class MeshRepositoryImpl {
   final LoopDetector _loopDetector;
   final InternetProbe _internetProbe;
   final Battery _battery;
-  final CloudDeliveryService _cloudDeliveryService;
+  // ignore: unused_field
+  final CloudDeliveryService _cloudDeliveryService; // Reserved for future cloud upload
 
   // Node ID for this device
   String? _nodeId;
@@ -46,6 +47,8 @@ class MeshRepositoryImpl {
   // Streams
   final _meshStateController = BehaviorSubject<RepositoryState>.seeded(RepositoryState.idle);
   final _sosReceivedController = StreamController<ReceivedSos>.broadcast();
+  final _relayedSosController = StreamController<ReceivedSos>.broadcast();
+  final _immediateForwardController = StreamController<String>.broadcast();
   final _neighborController = BehaviorSubject<List<NodeInfo>>.seeded([]);
 
   // Subscription management
@@ -77,8 +80,42 @@ class MeshRepositoryImpl {
   /// Current mesh network state.
   Stream<RepositoryState> get meshState => _meshStateController.stream;
 
-  /// Stream of received SOS alerts.
+  /// Stream of received SOS alerts (Goal nodes only — has internet).
   Stream<ReceivedSos> get sosAlerts => _sosReceivedController.stream;
+
+  /// Stream of relayed SOS alerts (Relay nodes only — no internet).
+  Stream<ReceivedSos> get relayedSosAlerts => _relayedSosController.stream;
+
+  /// Stream of packet IDs that were forwarded immediately (bypassing orchestrator).
+  Stream<String> get immediateForwards => _immediateForwardController.stream;
+
+  /// Checks if this node can now deliver a packet locally (Goal path).
+  ///
+  /// Called by the RelayOrchestrator before it attempts to forward a packet.
+  /// If this node has gained internet since the packet was stored, and the
+  /// packet is SOS, we deliver it to the Goal stream here and return true.
+  /// The orchestrator then marks it as sent instead of wasting a P2P connection.
+  Future<bool> tryDeliverLocally(MeshPacket packet) async {
+    if (!packet.isSos) return false;
+
+    final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
+    if (!hasInternet) return false;
+
+    // We are now a Goal node — deliver the SOS locally.
+    print('\u2705 Orchestrator→Repository: Delivering SOS ${packet.id} locally (this node gained internet)');
+    try {
+      final sosPayload = SosPayload.fromJsonString(packet.payload);
+      _sosReceivedController.add(ReceivedSos(
+        packet: packet,
+        sos: sosPayload,
+        receivedAt: DateTime.now(),
+        senderIp: 'local-goal-delivery',
+      ));
+    } catch (e) {
+      print('\u26a0\ufe0f Failed to parse SOS payload for local delivery: $e');
+    }
+    return true;
+  }
 
   /// Stream of discovered neighbor nodes.
   Stream<List<NodeInfo>> get neighbors => _neighborController.stream;
@@ -305,28 +342,47 @@ class MeshRepositoryImpl {
         return;
       }
 
+      // CRITICAL FIX: Force-refresh internet probe BEFORE deciding GOAL vs RELAY.
+      // Declared at method scope so _handleForwardOrDeliver can reuse the result
+      // (eliminates a redundant ~4s HTTP-timeout round on offline nodes).
+      bool? freshConnectivity;
+
       // Process based on packet type
       if (packet.isSos) {
         print('🚨 Repository: Received SOS packet from ${received.senderIp}');
-        // Emit SOS to local stream
+        freshConnectivity = await _internetProbe.checkConnectivity(forceRefresh: true);
+        print('🚨 Repository: Real-time internet check → hasInternet=$freshConnectivity');
+
+        // Emit SOS to the correct stream based on REAL internet status
         try {
           final sosPayload = SosPayload.fromJsonString(packet.payload);
-          _sosReceivedController.add(ReceivedSos(
+          final receivedSos = ReceivedSos(
             packet: packet,
             sos: sosPayload,
             receivedAt: DateTime.now(),
             senderIp: received.senderIp,
-          ));
-          print('🚨 Repository: SOS emitted to stream');
+          );
+
+          if (freshConnectivity) {
+            // Goal node: show in "I Can Help" responder UI
+            _sosReceivedController.add(receivedSos);
+            print('🚨 Repository: SOS emitted to GOAL stream (verified internet)');
+          } else {
+            // Relay node: emit to relay stream (shows in Relay Mode UI)
+            _relayedSosController.add(receivedSos);
+            print('🚨 Repository: SOS emitted to RELAY stream (no internet)');
+          }
         } catch (e) {
           print('🚨 Repository: Failed to parse SOS payload: $e');
           // Invalid SOS payload, but still try to forward
         }
       }
 
-      // Check if we should deliver here (have internet)
-      // For now, always forward - internet check will be added
-      await _handleForwardOrDeliver(packet, received.senderIp);
+      // Forward or deliver the packet.
+      // For SOS: reuse the FRESH probe result (freshConnectivity != null).
+      // For non-SOS (future): freshConnectivity is null → _handleForwardOrDeliver
+      // does its own force-refresh.
+      await _handleForwardOrDeliver(packet, received.senderIp, knownConnectivity: freshConnectivity);
     } catch (e) {
       // Log error but don't crash
     }
@@ -344,32 +400,33 @@ class MeshRepositoryImpl {
   /// hop) in the outbox.  The hop is appended only at actual send time so that
   /// both the immediate-forward path and every orchestrator retry add exactly
   /// one hop, not two.
-  Future<void> _handleForwardOrDeliver(MeshPacket packet, String senderIp) async {
+  /// [knownConnectivity] — when provided by the caller (e.g., _processIncomingPacket
+  /// already did a force-refresh), we reuse that result instead of probing again.
+  /// This eliminates a redundant ~4 s HTTP-timeout round on offline nodes.
+  Future<void> _handleForwardOrDeliver(
+    MeshPacket packet,
+    String senderIp, {
+    bool? knownConnectivity,
+  }) async {
     // If packet is expired, don't forward
     if (!packet.isAlive) {
       print('⏰ Packet ${packet.id} expired (TTL exhausted), dropping');
       return;
     }
 
-    // Check if we have internet (Goal Node)
-    if (_internetProbe.hasInternet && packet.isSos) {
-      // We are the goal! Deliver to cloud.
-      try {
-        final sosPayload = SosPayload.fromJsonString(packet.payload);
-        final result = await _cloudDeliveryService.uploadSos(
-          sosPayload,
-          packet.originatorId
-        );
-        
-        if (result.isRight()) {
-          // Delivery successful! We stop forwarding.
-          print('✅ Cloud delivery successful for packet ${packet.id}');
-          return;
-        }
-      } catch (e) {
-        print('⚠️ Cloud delivery failed, falling back to relay: $e');
-        // Parsing failed or upload failed, fall back to forwarding
-      }
+    // Use the already-verified result when available; otherwise force-refresh.
+    final hasInternetNow = knownConnectivity ??
+        await _internetProbe.checkConnectivity(forceRefresh: true);
+    if (hasInternetNow && packet.isSos) {
+      // ✅ This node has VERIFIED real internet — it IS the Goal node.
+      // The SOS was already emitted to the Goal stream (I Can Help UI) in
+      // _processIncomingPacket. Our job here is to STOP forwarding so the
+      // packet doesn't continue bouncing through the mesh.
+      //
+      // NOTE: Real cloud upload is future work. For now, reaching a phone
+      // with verified internet is the mission-complete condition.
+      print('✅ Goal node reached — SOS ${packet.id} delivered to device with real internet. Stopping relay.');
+      return;
     }
 
     // FIX BUG-06 + double-hop fix:
@@ -392,6 +449,7 @@ class MeshRepositoryImpl {
       // Forward succeeded — mark as sent in outbox so orchestrator skips it
       print('✅ Relay packet ${packet.id} forwarded immediately, marking sent');
       await _outbox.markSent(packet.id);
+      _immediateForwardController.add(packet.id);
     } else {
       // Forward failed — packet stays in outbox. RelayOrchestrator will pick it up
       // on the next 10-second cycle when neighbors become available.
@@ -451,7 +509,9 @@ class MeshRepositoryImpl {
   Future<Map<String, String>> _buildNodeMetadata() async {
     final location = _locationManager.lastKnownLocation;
     final batteryLevel = await _battery.batteryLevel;
-    final hasInternet = _internetProbe.hasInternet;
+    // FIX Internet-Probe False-Positive: Force-refresh probe so metadata
+    // always reflects true connectivity, not stale cache.
+    final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
     // FIX B-7: Read real RSSI from native Wi-Fi interface
     final rssi = await _wifiP2pSource.getSignalStrength();
     
@@ -515,6 +575,8 @@ class MeshRepositoryImpl {
 
     await _meshStateController.close();
     await _sosReceivedController.close();
+    await _relayedSosController.close();
+    await _immediateForwardController.close();
     await _neighborController.close();
   }
 }

@@ -74,7 +74,7 @@ class _SosFormPageState extends State<SosFormPage> {
           _accuracy = position.accuracy;
           _isLoadingLocation = false;
         });
-      } else {
+      } else if (mounted) {
         // Default to a sample location if GPS not available
         setState(() {
           _latitude = 17.47159;
@@ -85,6 +85,7 @@ class _SosFormPageState extends State<SosFormPage> {
       }
     } catch (e) {
       // Use default location on error
+      if (!mounted) return;
       setState(() {
         _latitude = 17.47159;
         _longitude = 78.72168;
@@ -914,7 +915,19 @@ class _SosFormPageState extends State<SosFormPage> {
     );
   }
 
+  /// Debounce guard — prevents duplicate SOS packets from rapid taps.
+  bool _isSendingInProgress = false;
+
   void _sendSos() {
+    // Debounce: ignore rapid taps while a send is already in flight.
+    if (_isSendingInProgress) return;
+    _isSendingInProgress = true;
+    // Reset after a short delay so the button isn't permanently disabled
+    // even if the BlocListener callback is delayed.
+    Future.delayed(const Duration(seconds: 3), () {
+      _isSendingInProgress = false;
+    });
+
     // Resolve the real node ID from the current BLoC state.
     // CRITICAL FIX: 'current_node' was hardcoded before, making every device
     // appear identical to the cloud and to other relay nodes.  Using the actual
