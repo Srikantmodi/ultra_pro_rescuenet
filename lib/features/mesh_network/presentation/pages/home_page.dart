@@ -228,7 +228,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    final activeState = state as MeshActive;
+    final activeState = state;
     final isGoal = activeState.hasInternet;
     final sosCount = isGoal ? activeState.recentSosAlerts.length : 0;
     final color = isGoal ? const Color(0xFF10B981) : const Color(0xFF3B82F6);

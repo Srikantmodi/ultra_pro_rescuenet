@@ -522,16 +522,32 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   /// a node that gains internet (becoming a Goal Node) never propagates its
   /// `net=1` / `rol=g` values — other relay nodes keep routing with the old
   /// `net=0` value and the Goal Node is never selected for delivery.
+  ///
+  /// FIX: Internet Probe False-Positive — When connectivity transitions from
+  /// true → false (node loses internet), clear all stale "I Can Help" SOS
+  /// alerts. These alerts were routed to the GOAL stream when the node thought
+  /// it had internet. Now that it doesn't, they're invalid — this node can't
+  /// actually deliver them to the cloud.
   Future<void> _onConnectivityChanged(
     _ConnectivityChanged event,
     Emitter<MeshState> emit,
   ) async {
     final currentState = state;
     if (currentState is MeshActive) {
-      emit(currentState.copyWith(hasInternet: event.hasInternet));
+      // Detect goal → relay transition (lost internet)
+      if (currentState.hasInternet && !event.hasInternet) {
+        print('⚠️ MeshBloc: Internet LOST — clearing ${_recentSosAlerts.length} stale goal-stream SOS alerts');
+        _recentSosAlerts.clear();
+        emit(currentState.copyWith(
+          hasInternet: false,
+          recentSosAlerts: const [],
+        ));
+      } else {
+        emit(currentState.copyWith(hasInternet: event.hasInternet));
+      }
       
       // FIX BUG-03: Trigger metadata re-broadcast to propagate new internet status
-      print('🌐 Connectivity changed: hasInternet=${event.hasInternet} — updating metadata');
+      print('🌐 MeshBloc: Connectivity changed → hasInternet=${event.hasInternet} — updating metadata');
       await _repository.updateMetadata();
     }
   }

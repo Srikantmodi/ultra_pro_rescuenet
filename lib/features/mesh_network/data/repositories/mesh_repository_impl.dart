@@ -35,7 +35,8 @@ class MeshRepositoryImpl {
   final LoopDetector _loopDetector;
   final InternetProbe _internetProbe;
   final Battery _battery;
-  final CloudDeliveryService _cloudDeliveryService;
+  // ignore: unused_field
+  final CloudDeliveryService _cloudDeliveryService; // Reserved for future cloud upload
 
   // Node ID for this device
   String? _nodeId;
@@ -316,7 +317,14 @@ class MeshRepositoryImpl {
       // Process based on packet type
       if (packet.isSos) {
         print('🚨 Repository: Received SOS packet from ${received.senderIp}');
-        // Emit SOS to the correct stream based on internet status
+        // CRITICAL FIX: Force-refresh internet probe BEFORE deciding GOAL vs RELAY.
+        // The cached `hasInternet` getter was permanently true due to
+        // InternetAddress.lookup() false positives on IP literals.
+        // A real-time HTTP check is the ONLY reliable authority here.
+        final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
+        print('🚨 Repository: Real-time internet check → hasInternet=$hasInternet');
+
+        // Emit SOS to the correct stream based on REAL internet status
         try {
           final sosPayload = SosPayload.fromJsonString(packet.payload);
           final receivedSos = ReceivedSos(
@@ -326,10 +334,10 @@ class MeshRepositoryImpl {
             senderIp: received.senderIp,
           );
 
-          if (_internetProbe.hasInternet) {
+          if (hasInternet) {
             // Goal node: show in "I Can Help" responder UI
             _sosReceivedController.add(receivedSos);
-            print('🚨 Repository: SOS emitted to GOAL stream (has internet)');
+            print('🚨 Repository: SOS emitted to GOAL stream (verified internet)');
           } else {
             // Relay node: emit to relay stream (shows in Relay Mode UI)
             _relayedSosController.add(receivedSos);
@@ -341,8 +349,7 @@ class MeshRepositoryImpl {
         }
       }
 
-      // Check if we should deliver here (have internet)
-      // For now, always forward - internet check will be added
+      // Forward or deliver the packet
       await _handleForwardOrDeliver(packet, received.senderIp);
     } catch (e) {
       // Log error but don't crash
@@ -368,25 +375,19 @@ class MeshRepositoryImpl {
       return;
     }
 
-    // Check if we have internet (Goal Node)
-    if (_internetProbe.hasInternet && packet.isSos) {
-      // We are the goal! Deliver to cloud.
-      try {
-        final sosPayload = SosPayload.fromJsonString(packet.payload);
-        final result = await _cloudDeliveryService.uploadSos(
-          sosPayload,
-          packet.originatorId
-        );
-        
-        if (result.isRight()) {
-          // Delivery successful! We stop forwarding.
-          print('✅ Cloud delivery successful for packet ${packet.id}');
-          return;
-        }
-      } catch (e) {
-        print('⚠️ Cloud delivery failed, falling back to relay: $e');
-        // Parsing failed or upload failed, fall back to forwarding
-      }
+    // CRITICAL FIX: Force-refresh internet probe before forwarding decision.
+    // Do NOT trust the cached hasInternet — it may be stale.
+    final hasInternetNow = await _internetProbe.checkConnectivity(forceRefresh: true);
+    if (hasInternetNow && packet.isSos) {
+      // ✅ This node has VERIFIED real internet — it IS the Goal node.
+      // The SOS was already emitted to the Goal stream (I Can Help UI) in
+      // _processIncomingPacket. Our job here is to STOP forwarding so the
+      // packet doesn't continue bouncing through the mesh.
+      //
+      // NOTE: Real cloud upload is future work. For now, reaching a phone
+      // with verified internet is the mission-complete condition.
+      print('✅ Goal node reached — SOS ${packet.id} delivered to device with real internet. Stopping relay.');
+      return;
     }
 
     // FIX BUG-06 + double-hop fix:
@@ -469,7 +470,9 @@ class MeshRepositoryImpl {
   Future<Map<String, String>> _buildNodeMetadata() async {
     final location = _locationManager.lastKnownLocation;
     final batteryLevel = await _battery.batteryLevel;
-    final hasInternet = _internetProbe.hasInternet;
+    // FIX Internet-Probe False-Positive: Force-refresh probe so metadata
+    // always reflects true connectivity, not stale cache.
+    final hasInternet = await _internetProbe.checkConnectivity(forceRefresh: true);
     // FIX B-7: Read real RSSI from native Wi-Fi interface
     final rssi = await _wifiP2pSource.getSignalStrength();
     
