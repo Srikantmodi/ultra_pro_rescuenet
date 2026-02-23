@@ -49,6 +49,11 @@ class _SosFormPageState extends State<SosFormPage> {
   // only acts on our own SOS confirmation, not a pre-existing activeSosId.
   bool _awaitingSosConfirmation = false;
 
+  /// FIX BUG-S1+S2: Local submitting flag — drives the spinner and disables
+  /// the button *immediately* on tap (before BLoC processes the event).
+  /// Reset in the BlocListener when the SOS is confirmed or an error occurs.
+  bool _isSubmitting = false;
+
   @override
   void initState() {
     super.initState();
@@ -154,6 +159,9 @@ class _SosFormPageState extends State<SosFormPage> {
         if (_awaitingSosConfirmation) {
           if (state is MeshActive && state.activeSosId != null) {
             _awaitingSosConfirmation = false;
+            _isSendingInProgress = false;
+            // FIX BUG-S1+S2: Reset submitting flag now that BLoC confirmed.
+            setState(() => _isSubmitting = false);
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -166,6 +174,9 @@ class _SosFormPageState extends State<SosFormPage> {
             }
           } else if (state is MeshError) {
             _awaitingSosConfirmation = false;
+            _isSendingInProgress = false;
+            // FIX BUG-S1+S2: Reset submitting flag so user can retry.
+            setState(() => _isSubmitting = false);
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -859,9 +870,18 @@ class _SosFormPageState extends State<SosFormPage> {
         final isMeshActive = state is MeshActive;
         final isLoading = state is MeshLoading;
 
+        // FIX BUG-S2: Derive button appearance from local _isSubmitting flag
+        // FIRST so the user sees immediate feedback, then fall back to BLoC
+        // state for the mesh-connecting phase.
+        final bool showSpinner = _isSubmitting || isLoading;
+        final bool disableButton = _isSubmitting || isLoading;
+
         String buttonLabel;
         Color buttonColor;
-        if (isLoading) {
+        if (_isSubmitting) {
+          buttonLabel = 'SENDING SOS...';
+          buttonColor = const Color(0xFF6B7280);
+        } else if (isLoading) {
           buttonLabel = 'CONNECTING TO MESH...';
           buttonColor = const Color(0xFF6B7280);
         } else if (isMeshActive) {
@@ -876,7 +896,7 @@ class _SosFormPageState extends State<SosFormPage> {
         return SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: isLoading ? null : _sendSos,
+            onPressed: disableButton ? null : _sendSos,
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
               foregroundColor: Colors.white,
@@ -889,7 +909,7 @@ class _SosFormPageState extends State<SosFormPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (isLoading)
+                if (showSpinner)
                   const SizedBox(
                     width: 20, height: 20,
                     child: CircularProgressIndicator(
@@ -922,11 +942,12 @@ class _SosFormPageState extends State<SosFormPage> {
     // Debounce: ignore rapid taps while a send is already in flight.
     if (_isSendingInProgress) return;
     _isSendingInProgress = true;
-    // Reset after a short delay so the button isn't permanently disabled
-    // even if the BlocListener callback is delayed.
-    Future.delayed(const Duration(seconds: 3), () {
-      _isSendingInProgress = false;
-    });
+
+    // FIX BUG-S1+S2: Immediately update local state so the button shows a
+    // spinner and becomes disabled on the VERY FIRST tap — no need to wait
+    // for BLoC to process the event (which can take 2–5 s when auto-starting
+    // the mesh).  _isSubmitting is reset by BlocListener on success / error.
+    setState(() => _isSubmitting = true);
 
     // Resolve the real node ID from the current BLoC state.
     // CRITICAL FIX: 'current_node' was hardcoded before, making every device

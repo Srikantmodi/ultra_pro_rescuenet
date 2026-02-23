@@ -43,6 +43,10 @@ class RelayOrchestrator {
   // Statistics
   int _packetsSent = 0;
   int _packetsFailed = 0;
+  /// FIX BUG-R4: Separate permanent drops from temporary no-route retries.
+  /// [_permanentDrops] counts only irrecoverable failures (TTL expired, max
+  /// retries exceeded).  [_packetsFailed] keeps the total for backward compat.
+  int _permanentDrops = 0;
   int _consecutiveFailures = 0;
 
   // Stream controllers
@@ -144,12 +148,31 @@ class RelayOrchestrator {
 
         final result = await _processPacket(packet, neighbors);
 
-        if (result) {
-          _packetsSent++;
-          _consecutiveFailures = 0;
-        } else {
-          _packetsFailed++;
-          _consecutiveFailures++;
+        // FIX BUG-R4: Classify the result so only permanent failures count as
+        // "Dropped" in the UI.  Temporary no-route attempts are tracked
+        // separately and don't inflate the counter.
+        switch (result) {
+          case _RelayResult.sent:
+            _packetsSent++;
+            _consecutiveFailures = 0;
+          case _RelayResult.noRoute:
+            // Temporary — route may appear later, don't count as drop
+            _packetsFailed++;
+            _consecutiveFailures++;
+          case _RelayResult.expired:
+            // Permanent — packet's TTL ran out
+            _packetsFailed++;
+            _permanentDrops++;
+            _consecutiveFailures = 0; // not a connectivity issue
+          case _RelayResult.retrying:
+            // Temporary — send failed but will retry
+            _packetsFailed++;
+            _consecutiveFailures++;
+          case _RelayResult.permanentFail:
+            // Permanent — max retries exceeded
+            _packetsFailed++;
+            _permanentDrops++;
+            _consecutiveFailures++;
         }
 
         _updateStats();
@@ -175,7 +198,10 @@ class RelayOrchestrator {
   }
 
   /// Processes a single packet for relay.
-  Future<bool> _processPacket(MeshPacket packet, List<NodeInfo> neighbors) async {
+  ///
+  /// FIX BUG-R4: Returns a [_RelayResult] instead of a plain bool so the
+  /// caller can distinguish permanent drops from recoverable no-route retries.
+  Future<_RelayResult> _processPacket(MeshPacket packet, List<NodeInfo> neighbors) async {
     _emitActivity(
       RelayActivityType.processing,
       'Processing packet ${packet.id.substring(0, 8)}...',
@@ -185,7 +211,7 @@ class RelayOrchestrator {
     if (!packet.isAlive) {
       _emitActivity(RelayActivityType.expired, 'Packet expired (TTL=0)');
       await _outbox.removePacket(packet.id);
-      return false;
+      return _RelayResult.expired;
     }
 
     // CHECK: Has this node gained internet since the packet was stored?
@@ -200,7 +226,7 @@ class RelayOrchestrator {
             'Delivered locally (this node is now a Goal)',
           );
           await _outbox.markSent(packet.id);
-          return true;
+          return _RelayResult.sent;
         }
       } catch (e) {
         _emitActivity(RelayActivityType.error, 'Local delivery check error: $e');
@@ -226,7 +252,7 @@ class RelayOrchestrator {
         RelayActivityType.noRoute,
         'No viable route: ${reason ?? "unknown"}',
       );
-      return false;
+      return _RelayResult.noRoute;
     }
 
     final targetNode = decision.selectedNode!;
@@ -241,15 +267,15 @@ class RelayOrchestrator {
     if (sendResult) {
       await _outbox.markSent(packet.id);
       _emitActivity(RelayActivityType.sent, 'Packet sent successfully');
+      return _RelayResult.sent;
     } else {
       final canRetry = await _outbox.markFailed(packet.id);
       _emitActivity(
         RelayActivityType.failed,
         canRetry ? 'Send failed, will retry' : 'Send failed, max retries exceeded',
       );
+      return canRetry ? _RelayResult.retrying : _RelayResult.permanentFail;
     }
-
-    return sendResult;
   }
 
   /// Attempts to send a packet to a target node using the unified
@@ -299,6 +325,7 @@ class RelayOrchestrator {
     _statsController.add(RelayStats(
       packetsSent: _packetsSent,
       packetsFailed: _packetsFailed,
+      permanentDrops: _permanentDrops,
       pendingCount: outboxStats.pending,
       neighborsCount: _wifiP2pSource.currentNodes.length,
       isRunning: _isRunning,
@@ -333,7 +360,12 @@ class RelayOrchestrator {
 /// Statistics about relay operations.
 class RelayStats {
   final int packetsSent;
+  /// Total failed attempts (includes temporary no-route + permanent drops).
+  /// Kept for backward compatibility with [successRate] and diagnostic page.
   final int packetsFailed;
+  /// FIX BUG-R4: Count of permanently lost packets only (TTL expired or max
+  /// retries exceeded).  The relay UI shows this as "Dropped".
+  final int permanentDrops;
   final int pendingCount;
   final int neighborsCount;
   final bool isRunning;
@@ -342,6 +374,7 @@ class RelayStats {
   const RelayStats({
     required this.packetsSent,
     required this.packetsFailed,
+    this.permanentDrops = 0,
     required this.pendingCount,
     required this.neighborsCount,
     required this.isRunning,
@@ -351,6 +384,7 @@ class RelayStats {
   factory RelayStats.empty() => const RelayStats(
         packetsSent: 0,
         packetsFailed: 0,
+        permanentDrops: 0,
         pendingCount: 0,
         neighborsCount: 0,
         isRunning: false,
@@ -366,8 +400,24 @@ class RelayStats {
   @override
   String toString() {
     return 'RelayStats(sent: $packetsSent, failed: $packetsFailed, '
-        'pending: $pendingCount, neighbors: $neighborsCount)';
+        'drops: $permanentDrops, pending: $pendingCount, '
+        'neighbors: $neighborsCount)';
   }
+}
+
+/// FIX BUG-R4: Internal result enum for [RelayOrchestrator._processPacket].
+/// Allows the relay loop to classify failures accurately.
+enum _RelayResult {
+  /// Packet sent or delivered locally.
+  sent,
+  /// No viable route found — temporary, route may appear later.
+  noRoute,
+  /// Packet TTL expired — permanent.
+  expired,
+  /// Send failed but packet can still be retried — temporary.
+  retrying,
+  /// Send failed and max retries exceeded — permanent.
+  permanentFail,
 }
 
 /// A relay activity event.

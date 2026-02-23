@@ -126,6 +126,13 @@ class MeshRepositoryImpl {
   /// This node's ID.
   String get nodeId => _nodeId ?? '';
 
+  /// FIX BUG-R1: Expose pending outbox packets so the BLoC can compute
+  /// forward targets by filtering out originators and nodes in traces.
+  List<MeshPacket> getPendingPackets() {
+    if (!_outbox.isInitialized) return [];
+    return _outbox.getPendingPackets();
+  }
+
   /// Initializes the mesh network system.
   ///
   /// 1. Initializes Wi-Fi P2P
@@ -556,11 +563,6 @@ class MeshRepositoryImpl {
   /// Gets outbox statistics.
   OutboxStats getOutboxStats() {
     return _outbox.getStats();
-  }
-
-  /// Gets pending packets from outbox.
-  List<MeshPacket> getPendingPackets() {
-    return _outbox.getPendingPackets();
   }
 
   /// Disposes of all resources.

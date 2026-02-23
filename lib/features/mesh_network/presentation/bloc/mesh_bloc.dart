@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/platform/device_info_provider.dart';
+import '../../domain/entities/mesh_packet.dart';
 import '../../domain/entities/node_info.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../data/repositories/mesh_repository_impl.dart';
@@ -171,6 +172,12 @@ class MeshActive extends MeshState {
   final bool isRelaying;
   final int relayedSosCount;
 
+  /// FIX BUG-R1: Pre-filtered list of neighbors eligible as forward targets.
+  /// Excludes SOS originators, nodes in packet traces, and sender-role nodes.
+  /// The relay_mode_page uses this instead of raw [neighbors] to avoid
+  /// displaying the SOS sender as a forward target (routing loop visual).
+  final List<NodeInfo> forwardTargets;
+
   const MeshActive({
     required this.nodeId,
     this.neighbors = const [],
@@ -178,6 +185,7 @@ class MeshActive extends MeshState {
     this.relayStats = const RelayStats(
       packetsSent: 0,
       packetsFailed: 0,
+      permanentDrops: 0,
       pendingCount: 0,
       neighborsCount: 0,
       isRunning: false,
@@ -187,6 +195,7 @@ class MeshActive extends MeshState {
     this.activeSosId,
     this.isRelaying = false,
     this.relayedSosCount = 0,
+    this.forwardTargets = const [],
   });
 
   MeshActive copyWith({
@@ -198,6 +207,7 @@ class MeshActive extends MeshState {
     String? activeSosId,
     bool? isRelaying,
     int? relayedSosCount,
+    List<NodeInfo>? forwardTargets,
   }) {
     return MeshActive(
       nodeId: nodeId ?? this.nodeId,
@@ -208,6 +218,7 @@ class MeshActive extends MeshState {
       activeSosId: activeSosId,
       isRelaying: isRelaying ?? this.isRelaying,
       relayedSosCount: relayedSosCount ?? this.relayedSosCount,
+      forwardTargets: forwardTargets ?? this.forwardTargets,
     );
   }
 
@@ -221,6 +232,7 @@ class MeshActive extends MeshState {
         activeSosId,
         isRelaying,
         relayedSosCount,
+        forwardTargets,
       ];
 
   /// Number of neighbors currently available.
@@ -472,7 +484,11 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   ) {
     final currentState = state;
     if (currentState is MeshActive) {
-      emit(currentState.copyWith(neighbors: event.neighbors));
+      final targets = _computeForwardTargets(event.neighbors);
+      emit(currentState.copyWith(
+        neighbors: event.neighbors,
+        forwardTargets: targets,
+      ));
     }
   }
 
@@ -496,6 +512,9 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   }
 
   /// Handles SOS that was received and relayed (not for local display as responder).
+  ///
+  /// FIX BUG-R1: Also recompute forward targets because a new SOS packet in the
+  /// outbox means the originator must be excluded from the UI target list.
   void _onRelayedSosReceived(
     _RelayedSosReceived event,
     Emitter<MeshState> emit,
@@ -503,19 +522,28 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
     final currentState = state;
     if (currentState is! MeshActive) return;
 
+    final targets = _computeForwardTargets(currentState.neighbors);
     emit(currentState.copyWith(
       relayedSosCount: currentState.relayedSosCount + 1,
+      forwardTargets: targets,
     ));
   }
 
   /// Handles relay stats update.
+  ///
+  /// FIX BUG-R1: Recompute forward targets because a completed send may have
+  /// removed a packet from the outbox, changing which nodes are excluded.
   void _onRelayStatsUpdated(
     _RelayStatsUpdated event,
     Emitter<MeshState> emit,
   ) {
     final currentState = state;
     if (currentState is MeshActive) {
-      emit(currentState.copyWith(relayStats: event.stats));
+      final targets = _computeForwardTargets(currentState.neighbors);
+      emit(currentState.copyWith(
+        relayStats: event.stats,
+        forwardTargets: targets,
+      ));
     }
   }
 
@@ -554,6 +582,55 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
       print('🌐 MeshBloc: Connectivity changed → hasInternet=${event.hasInternet} — updating metadata');
       await _repository.updateMetadata();
     }
+  }
+
+  /// FIX BUG-R1 + BUG-R3: Computes the filtered list of neighbors eligible as
+  /// forward targets. This mirrors the AI Router's filtering logic so the UI
+  /// stays consistent with actual routing decisions.
+  ///
+  /// Exclusion rules:
+  /// 1. Nodes whose role is 'sender' (they are SOS originators, not relay targets)
+  /// 2. Nodes whose ID matches the originatorId of any pending outbox packet
+  /// 3. Nodes whose ID appears in the trace of any pending outbox packet
+  /// 4. Stale nodes (not seen within the stale timeout window)
+  /// 5. Nodes not available for relay (isAvailableForRelay == false)
+  List<NodeInfo> _computeForwardTargets(List<NodeInfo> neighbors) {
+    final List<MeshPacket> pendingPackets = _repository.getPendingPackets();
+
+    // Collect all IDs that should be excluded
+    final excludedIds = <String>{};
+
+    for (final packet in pendingPackets) {
+      // Exclude the originator of each packet
+      excludedIds.add(packet.originatorId);
+      // Exclude every node already in the packet's trace
+      excludedIds.addAll(packet.trace);
+    }
+
+    return neighbors.where((node) {
+      // Rule 1: Exclude sender-role nodes (they are SOS originators)
+      if (node.role == NodeInfo.roleSender) {
+        return false;
+      }
+
+      // Rule 2+3: Exclude originators and nodes in packet traces
+      if (excludedIds.contains(node.id)) {
+        return false;
+      }
+
+      // Rule 4 (BUG-R3): Exclude stale nodes — they haven't been seen
+      // recently and likely moved out of range or turned off.
+      if (node.isStale) {
+        return false;
+      }
+
+      // Rule 5 (BUG-R3): Exclude nodes explicitly marked unavailable.
+      if (!node.isAvailableForRelay) {
+        return false;
+      }
+
+      return true;
+    }).toList();
   }
 
   /// Sets up stream subscriptions.

@@ -68,12 +68,17 @@ class _RelayModePageState extends State<RelayModePage> {
           }
         },
         builder: (context, state) {
-          final neighbors = state is MeshActive ? state.neighbors : <NodeInfo>[];
+          // FIX BUG-R1: Use forwardTargets (pre-filtered by BLoC) instead of
+          // raw neighbors. This ensures the UI never shows SOS originators,
+          // nodes in packet traces, or sender-role nodes as forward targets.
+          final forwardTargets = state is MeshActive ? state.forwardTargets : <NodeInfo>[];
+          final allNeighbors = state is MeshActive ? state.neighbors : <NodeInfo>[];
           final relayStats = state is MeshActive 
               ? state.relayStats 
               : const RelayStats(
                   packetsSent: 0,
                   packetsFailed: 0,
+                  permanentDrops: 0,
                   pendingCount: 0,
                   neighborsCount: 0,
                   isRunning: false,
@@ -84,6 +89,11 @@ class _RelayModePageState extends State<RelayModePage> {
           // Build UI based on state
           final currentNodeId = state.nodeId ?? 'Initializing...';
           
+          // Nodes excluded from forwarding (for transparency display)
+          final excludedNodes = allNeighbors
+              .where((n) => !forwardTargets.any((ft) => ft.id == n.id))
+              .toList();
+          
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -91,7 +101,7 @@ class _RelayModePageState extends State<RelayModePage> {
               children: [
                 _buildStatusCard(currentNodeId),
                 const SizedBox(height: 20),
-                _buildForwardTargetsSection(neighbors),
+                _buildForwardTargetsSection(forwardTargets, excludedNodes),
                 const SizedBox(height: 20),
                 _buildStatsRow(relayStats, relayedSosCount),
                 const SizedBox(height: 20),
@@ -247,9 +257,15 @@ class _RelayModePageState extends State<RelayModePage> {
     );
   }
 
-  Widget _buildForwardTargetsSection(List<NodeInfo> neighbors) {
-    // Sort neighbors by AI score (goal nodes first, then by battery/signal)
-    final sortedNeighbors = List<NodeInfo>.from(neighbors)
+  /// FIX BUG-R1: Now receives pre-filtered [forwardTargets] (excludes SOS
+  /// originators and nodes in packet traces) plus [excludedNodes] for
+  /// transparency display. The raw neighbor list is no longer shown directly.
+  Widget _buildForwardTargetsSection(
+    List<NodeInfo> forwardTargets,
+    List<NodeInfo> excludedNodes,
+  ) {
+    // Sort forward targets by AI score (goal nodes first, then by battery/signal)
+    final sortedNeighbors = List<NodeInfo>.from(forwardTargets)
       ..sort((a, b) => _calculateNodeScore(b).compareTo(_calculateNodeScore(a)));
     
     return Column(
@@ -385,6 +401,88 @@ class _RelayModePageState extends State<RelayModePage> {
                   }).toList(),
                 ),
         ),
+        // FIX BUG-R1: Show excluded nodes with transparency for debugging/awareness
+        if (excludedNodes.isNotEmpty) ...[
+          const SizedBox(height: 12),
+          Text(
+            'Excluded from forwarding (${excludedNodes.length})',
+            style: const TextStyle(
+              color: Color(0xFF64748B),
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E293B).withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: const Color(0xFF334155).withValues(alpha: 0.5)),
+            ),
+            child: Column(
+              children: excludedNodes.asMap().entries.map((entry) {
+                final index = entry.key;
+                final node = entry.value;
+                // FIX BUG-R3: Show specific exclusion reason for each node
+                final reason = _getExclusionReason(node);
+                return Opacity(
+                  opacity: 0.5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      border: index > 0
+                          ? const Border(top: BorderSide(color: Color(0xFF334155)))
+                          : null,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEF4444).withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Icon(
+                            Icons.block,
+                            color: Color(0xFFEF4444),
+                            size: 16,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            node.displayName,
+                            style: const TextStyle(
+                              color: Color(0xFF94A3B8),
+                              fontSize: 13,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEF4444).withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            reason,
+                            style: const TextStyle(
+                              color: Color(0xFFEF4444),
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -549,7 +647,7 @@ class _RelayModePageState extends State<RelayModePage> {
           child: _buildStatCard(
             icon: Icons.cancel,
             iconColor: const Color(0xFFEF4444),
-            value: stats.packetsFailed.toString(),
+            value: stats.permanentDrops.toString(),
             label: 'Dropped',
           ),
         ),
@@ -798,6 +896,17 @@ class _RelayModePageState extends State<RelayModePage> {
     if (_batteryLevel >= 50) return Icons.battery_5_bar;
     if (_batteryLevel >= 20) return Icons.battery_3_bar;
     return Icons.battery_1_bar;
+  }
+
+  /// FIX BUG-R3: Returns a human-readable reason why a node was excluded from
+  /// the forward-targets list.  The checks are ordered so the most specific
+  /// (and most actionable) reason is returned first.
+  String _getExclusionReason(NodeInfo node) {
+    if (node.role == NodeInfo.roleSender) return 'SOS SENDER';
+    if (node.isStale) return 'STALE';
+    if (!node.isAvailableForRelay) return 'UNAVAILABLE';
+    // Fallback: node is excluded because it's in a packet's trace
+    return 'IN TRACE';
   }
 }
 
