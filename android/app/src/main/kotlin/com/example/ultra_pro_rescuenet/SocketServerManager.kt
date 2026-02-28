@@ -6,9 +6,6 @@ import android.util.Log
 import kotlinx.coroutines.*
 import java.io.DataInputStream
 import java.io.DataOutputStream
-import java.net.InetAddress
-import java.net.InetSocketAddress
-import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.net.Socket
 import java.nio.ByteBuffer
@@ -26,6 +23,11 @@ class SocketServerManager(
     private var isRunning = false
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
+    /// FIX RELAY-2.3: Public health check — true only if the server loop is
+    /// running AND the underlying socket is open. Used by WifiP2pHandler to
+    /// detect a dead server after P2P group teardown and restart it.
+    val isAlive: Boolean get() = isRunning && serverSocket?.isClosed == false
+
     fun start() {
         if (isRunning) {
             Log.w(TAG, "Server already running")
@@ -34,18 +36,23 @@ class SocketServerManager(
 
         scope.launch {
             try {
-                // FIX D-3: Bind to P2P group owner interface if active.
-                // When this device is the GO (192.168.49.1), binding to 0.0.0.0
-                // causes routing ambiguity on multi-interface devices (Wi-Fi + P2P).
-                // Detect and bind specifically to the P2P interface.
-                val bindAddress = detectP2pBindAddress()
-                serverSocket = if (bindAddress != null) {
-                    Log.d(TAG, "🔗 Binding to P2P interface: $bindAddress")
-                    ServerSocket(PORT, 50, InetAddress.getByName(bindAddress))
-                } else {
-                    Log.d(TAG, "🔗 Binding to all interfaces (0.0.0.0)")
-                    ServerSocket(PORT)
-                }
+                // FIX RELAY-1.1: ALWAYS bind to 0.0.0.0 (all interfaces).
+                //
+                // The old code (FIX D-3) bound to the P2P group owner interface
+                // (p2p-wlan0-*, 192.168.49.x). This caused the server to DIE after
+                // the first connectAndSendPacket cycle because:
+                //   1. Connect-and-send creates a P2P group → p2p-wlan0-x appears
+                //   2. After send, removeGroup() tears down the P2P group
+                //   3. The p2p-wlan0-x interface disappears
+                //   4. ServerSocket bound to that interface can no longer accept()
+                //   5. All subsequent relay attempts fail — Goal node is deaf
+                //
+                // Binding to 0.0.0.0 means the server accepts on ANY interface:
+                // regular Wi-Fi, P2P (when active), loopback, etc. The P2P layer
+                // already routes 192.168.49.x traffic to us when a group is formed,
+                // regardless of which interface the ServerSocket is bound to.
+                Log.d(TAG, "🔗 Binding to all interfaces (0.0.0.0)")
+                serverSocket = ServerSocket(PORT)
                 isRunning = true
                 
                 Log.d(TAG, "═══════════════════════════════════")
@@ -143,32 +150,6 @@ class SocketServerManager(
                 }
             }
         }
-    }
-
-    /**
-     * FIX D-3: Detect P2P Group Owner interface.
-     * Scans network interfaces for the well-known p2p-wlan0-* interface.
-     * If found and has the GO address (192.168.49.1), returns it.
-     * Returns null if no P2P interface active (device is client or standalone).
-     */
-    private fun detectP2pBindAddress(): String? {
-        try {
-            val interfaces = NetworkInterface.getNetworkInterfaces() ?: return null
-            for (ni in interfaces) {
-                // P2P group owner interface is typically named "p2p-wlan0-*" or "p2p0"
-                if (ni.name.startsWith("p2p") || ni.name.contains("p2p")) {
-                    for (addr in ni.inetAddresses) {
-                        if (!addr.isLoopbackAddress && addr.hostAddress?.contains('.') == true) {
-                            Log.d(TAG, "📡 Found P2P interface: ${ni.name} → ${addr.hostAddress}")
-                            return addr.hostAddress
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "⚠️ Could not detect P2P interface: ${e.message}")
-        }
-        return null
     }
 
     fun stop() {

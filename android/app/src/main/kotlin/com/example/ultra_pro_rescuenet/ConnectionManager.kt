@@ -29,7 +29,10 @@ class ConnectionManager(
 
         // -- Client-IP resolution (GO mode) --
         private const val MAX_GROUP_INFO_RETRIES = 15
-        private const val DHCP_SETTLE_DELAY_MS = 4000L
+        // FIX: Reduced from 4000ms → 2000ms. The quick probe (.2/.3/.4) + ip-neigh
+        // fallback makes long DHCP settle delays unnecessary. Faster resolution
+        // means faster relay forwarding.
+        private const val DHCP_SETTLE_DELAY_MS = 2000L
 
         // -- connect() retry parameters --
         private const val MAX_CONNECT_RETRIES = 5
@@ -39,7 +42,10 @@ class ConnectionManager(
         // -- removeGroup settle delays --
         private const val POST_REMOVE_GROUP_DELAY_MS = 1000L
         // When removeGroup returns BUSY, the framework is actively processing.
-        private const val POST_REMOVE_BUSY_DELAY_MS = 2500L
+        // FIX: Reduced from 2500ms → 1200ms. The group-reuse logic in connect()
+        // means we rarely hit this path now.  When we do, 1.2s is sufficient for
+        // the framework to finish tearing down.
+        private const val POST_REMOVE_BUSY_DELAY_MS = 1200L
 
         fun setConnectionTimeout(attempts: Int) {
             maxConnectionAttempts = attempts.coerceIn(3, 30)
@@ -52,10 +58,40 @@ class ConnectionManager(
         onConnected: (String) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        Log.d(TAG, "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•")
+        Log.d(TAG, "═══════════════════════════════════")
         Log.d(TAG, "CONNECTING TO: $deviceAddress")
-        Log.d(TAG, "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•")
+        Log.d(TAG, "═══════════════════════════════════")
 
+        // FIX: Check if we already have an active P2P group before tearing it down.
+        // Reusing an existing group avoids the "Invitation to connect" dialog on
+        // subsequent sends, since the group is already formed.
+        manager.requestConnectionInfo(channel) { info ->
+            if (info != null && info.groupFormed) {
+                Log.d(TAG, "♻️ Existing P2P group found (GO=${info.isGroupOwner}), reusing...")
+                if (info.isGroupOwner) {
+                    resolveClientIpFromGroup(deviceAddress, onConnected, onFailure)
+                } else {
+                    val targetIp = info.groupOwnerAddress?.hostAddress
+                    if (targetIp != null) {
+                        Log.d(TAG, "♻️ Reusing existing client connection → GO IP: $targetIp")
+                        onConnected(targetIp)
+                    } else {
+                        Log.w(TAG, "⚠️ Existing group but no GO address — forming new group")
+                        tearDownAndReconnect(deviceAddress, onConnected, onFailure)
+                    }
+                }
+            } else {
+                tearDownAndReconnect(deviceAddress, onConnected, onFailure)
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun tearDownAndReconnect(
+        deviceAddress: String,
+        onConnected: (String) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
         manager.removeGroup(channel, object : WifiP2pManager.ActionListener {
             override fun onSuccess() {
                 Log.d(TAG, "âœ… Previous group removed, waiting ${POST_REMOVE_GROUP_DELAY_MS}ms...")
@@ -274,31 +310,37 @@ class ConnectionManager(
                 ?: clients.first()
 
             scope.launch {
-                Log.d(TAG, "\u23f3 Waiting ${DHCP_SETTLE_DELAY_MS}ms for client DHCP to settle...")
+                Log.d(TAG, "⏳ Waiting ${DHCP_SETTLE_DELAY_MS}ms for client DHCP to settle...")
                 delay(DHCP_SETTLE_DELAY_MS)
 
-                // Step 1: Try MAC-based ARP lookup (works if MAC not randomized)
-                var clientIp = resolveIpFromArp(targetClient.deviceAddress)
+                // Step 1: Quick probe — most DHCP servers assign .2 first
+                var clientIp = quickProbeCommonIps()
 
-                // Step 2: MAC-free ARP - find any 192.168.49.x that is not .1 (us)
-                // P2P device MAC != P2P interface MAC (Android randomizes them)
+                // Step 2: Try 'ip neigh show' (works on Android 16+ where /proc/net/arp is blocked)
                 if (clientIp == null) {
-                    Log.d(TAG, "\uD83D\uDD04 MAC-based ARP failed, trying MAC-free ARP...")
-                    clientIp = resolveAnyP2pClientFromArp()
+                    Log.d(TAG, "🔄 Quick probe failed, trying ip-neigh...")
+                    clientIp = resolveFromIpNeigh()
                 }
 
-                // Step 3: ARP retry with delay (DHCP may still be settling)
+                // Step 3: Try /proc/net/arp (works on Android ≤ 15)
                 if (clientIp == null) {
-                    for (retryArp in 1..3) {
-                        Log.w(TAG, "\u26a0\ufe0f ARP miss, retrying in 2s (attempt $retryArp/3)...")
-                        delay(2000L)
+                    Log.d(TAG, "🔄 ip-neigh failed, trying ARP table...")
+                    clientIp = resolveIpFromArp(targetClient.deviceAddress)
+                    if (clientIp == null) {
                         clientIp = resolveAnyP2pClientFromArp()
-                        if (clientIp != null) break
                     }
                 }
 
-                // Step 4: Parallel subnet scan (.2 to .254)
+                // Step 4: One ARP/neigh retry after short settle
                 if (clientIp == null) {
+                    Log.w(TAG, "⚠️ ARP miss, retrying after 2s settle...")
+                    delay(2000L)
+                    clientIp = resolveFromIpNeigh() ?: resolveAnyP2pClientFromArp()
+                }
+
+                // Step 5: Parallel subnet scan (.2 to .254)
+                if (clientIp == null) {
+                    Log.w(TAG, "⚠️ All ARP methods failed, falling back to subnet scan...")
                     clientIp = discoverP2pClientIp()
                 }
 
@@ -319,6 +361,64 @@ class ConnectionManager(
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Quick probe the most common DHCP addresses for a P2P client.
+     * DHCP servers on WiFi Direct GO typically assign .2 first, then .3, etc.
+     * This avoids the slow ARP / subnet scan for the common case.
+     */
+    private suspend fun quickProbeCommonIps(): String? {
+        return withContext(Dispatchers.IO) {
+            val commonIps = listOf("192.168.49.2", "192.168.49.3", "192.168.49.4")
+            for (ip in commonIps) {
+                try {
+                    val addr = java.net.InetAddress.getByName(ip)
+                    if (addr.isReachable(800)) {
+                        Log.d(TAG, "✅ Quick probe hit: $ip is reachable")
+                        return@withContext ip
+                    }
+                } catch (e: Exception) {
+                    // ignore
+                }
+            }
+            Log.d(TAG, "ℹ️ Quick probe: no common IPs reachable")
+            null
+        }
+    }
+
+    /**
+     * Resolve client IP using 'ip neigh show' command.
+     * Works on Android 16+ (API 36) where /proc/net/arp is blocked (EACCES).
+     * The 'ip' command queries the kernel neighbor table via netlink socket.
+     *
+     * Output format: "192.168.49.2 dev p2p-wlan0-0 lladdr xx:xx:xx:xx:xx:xx REACHABLE"
+     */
+    private fun resolveFromIpNeigh(): String? {
+        try {
+            val process = Runtime.getRuntime().exec("ip neigh show")
+            val output = process.inputStream.bufferedReader().readText()
+            process.waitFor()
+            Log.d(TAG, "📋 ip neigh output:\n$output")
+
+            for (line in output.lines()) {
+                val parts = line.trim().split("\\s+".toRegex())
+                val ip = parts.firstOrNull() ?: continue
+                if (ip.startsWith("192.168.49.") && ip != "192.168.49.1") {
+                    // Check it's in a valid state (REACHABLE, STALE, DELAY)
+                    val state = parts.lastOrNull()?.uppercase() ?: ""
+                    if (state != "FAILED" && state != "INCOMPLETE") {
+                        Log.d(TAG, "✅ Found P2P client IP from ip-neigh: $ip (state=$state)")
+                        return ip
+                    }
+                }
+            }
+            Log.w(TAG, "⚠️ No P2P client found via ip-neigh")
+            return null
+        } catch (e: Exception) {
+            Log.e(TAG, "❌ ip-neigh failed: ${e.message}")
+            return null
         }
     }
 

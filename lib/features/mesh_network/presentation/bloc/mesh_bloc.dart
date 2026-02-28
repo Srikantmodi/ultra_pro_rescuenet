@@ -466,13 +466,33 @@ class MeshBloc extends Bloc<MeshEvent, MeshState> {
   }
 
   /// Handles neighbors list update.
+  ///
+  /// FIX RELAY-2.1: Event-driven relay trigger. When new neighbors appear
+  /// and there are pending packets in the outbox, force an immediate relay
+  /// attempt instead of waiting for the 10-second polling cycle. This
+  /// eliminates the delay between discovery recovery and packet forwarding.
   void _onNeighborsUpdated(
     _NeighborsUpdated event,
     Emitter<MeshState> emit,
   ) {
     final currentState = state;
     if (currentState is MeshActive) {
+      final hasNeighborsNow = event.neighbors.isNotEmpty;
+
       emit(currentState.copyWith(neighbors: event.neighbors));
+
+      // FIX RELAY-2.1: If neighbors appeared (from 0 → N, or new nodes added)
+      // and the relay orchestrator is running, force an immediate relay attempt.
+      // This bridges the gap between discovery recovery and outbox processing.
+      if (hasNeighborsNow && _relayOrchestrator.isRunning) {
+        final pendingCount = _repository.getOutboxStats().pending;
+        if (pendingCount > 0) {
+          print('🔄 MeshBloc: ${event.neighbors.length} neighbors appeared with '
+              '$pendingCount pending packets — forcing immediate relay');
+          // Fire-and-forget — don't await to avoid blocking the BLoC
+          _relayOrchestrator.forceRelay();
+        }
+      }
     }
   }
 

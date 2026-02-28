@@ -36,9 +36,11 @@ class InternetProbe {
   /// Shorter than before (was 60s) to detect drops faster.
   static const Duration _normalProbeInterval = Duration(seconds: 30);
 
-  /// How long to wait between probes when no internet (probe more often).
-  /// Shorter than before (was 15s) to detect recovery faster.
-  static const Duration _offlineProbeInterval = Duration(seconds: 10);
+  /// How long to wait between probes when no internet.
+  /// 30s is sufficient — no need to hammer the network when offline.
+  /// Previous 10s value caused excessive metadata churn that disrupted
+  /// DNS-SD service registration on the native layer.
+  static const Duration _offlineProbeInterval = Duration(seconds: 30);
 
   /// Timeout for each HTTP probe attempt.
   static const Duration _probeTimeout = Duration(seconds: 4);

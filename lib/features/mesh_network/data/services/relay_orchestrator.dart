@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:rxdart/rxdart.dart';
 import '../../domain/entities/mesh_packet.dart';
 import '../../domain/entities/node_info.dart';
@@ -37,8 +38,15 @@ class RelayOrchestrator {
 
   // Configuration
   static const Duration relayInterval = Duration(seconds: 10);
-  static const Duration retryDelay = Duration(seconds: 30);
-  static const int maxConsecutiveFailures = 3;
+  // FIX RELAY-2.2: Replaced fixed 30s retryDelay with exponential backoff.
+  // Base delay is 5 seconds, multiplied by 1.5^consecutiveFailures with jitter.
+  // Capped at 30 seconds max to ensure packets don't wait too long.
+  static const Duration _baseRetryDelay = Duration(seconds: 5);
+  static const int _maxRetryDelaySeconds = 30;
+  // FIX RELAY-2.2: Increased from 3 to 5 to give more chances before pausing.
+  // With the event-driven trigger (Fix 2.1), failures due to discovery blackout
+  // recover faster, so we can afford more attempts before pausing.
+  static const int maxConsecutiveFailures = 5;
 
   // Statistics
   int _packetsSent = 0;
@@ -154,18 +162,23 @@ class RelayOrchestrator {
 
         _updateStats();
 
-        // If too many failures, pause and wait
+        // If too many failures, pause with exponential backoff
         if (_consecutiveFailures >= maxConsecutiveFailures) {
+          final backoffDelay = _calculateRetryDelay();
           _emitActivity(
             RelayActivityType.paused,
-            'Pausing after $maxConsecutiveFailures consecutive failures',
+            'Pausing ${backoffDelay.inSeconds}s after $maxConsecutiveFailures consecutive failures',
           );
-          await Future.delayed(retryDelay);
+          await Future.delayed(backoffDelay);
           _consecutiveFailures = 0;
         }
 
-        // Small delay between packets
-        await Future.delayed(const Duration(milliseconds: 500));
+        // FIX: Inter-packet delay must exceed the native cooldown (5s per device)
+        // to avoid COOLDOWN errors. Previously 500ms caused 4/5 packets to fail.
+        // 6s ensures each packet gets a fresh cooldown window.
+        if (packets.length > 1) {
+          await Future.delayed(const Duration(seconds: 6));
+        }
       }
     } catch (e) {
       _emitActivity(RelayActivityType.error, 'Relay loop error: $e');
@@ -226,6 +239,9 @@ class RelayOrchestrator {
         RelayActivityType.noRoute,
         'No viable route: ${reason ?? "unknown"}',
       );
+      // FIX RELAY-3.2: "No route" is a transient failure (neighbors may appear
+      // later). Mark as transient so SOS packets don't burn real retries.
+      await _outbox.markFailed(packet.id, wasTransient: true);
       return false;
     }
 
@@ -313,6 +329,21 @@ class RelayOrchestrator {
       message: message,
       timestamp: DateTime.now(),
     ));
+  }
+
+  /// FIX RELAY-2.2: Calculates retry delay with exponential backoff and jitter.
+  ///
+  /// Formula: base_delay * 1.5^consecutiveFailures + random(0..2000ms)
+  /// Capped at [_maxRetryDelaySeconds] to prevent excessive waits.
+  ///
+  /// Example progression: 5s → 7.5s → 11s → 17s → 25s → 30s (capped)
+  /// With jitter: 5-7s → 7.5-9.5s → 11-13s → ...
+  Duration _calculateRetryDelay() {
+    final baseMs = _baseRetryDelay.inMilliseconds;
+    final backoffMs = (baseMs * pow(1.5, _consecutiveFailures)).toInt();
+    final jitterMs = Random().nextInt(2000); // 0-2 second jitter
+    final totalMs = min(backoffMs + jitterMs, _maxRetryDelaySeconds * 1000);
+    return Duration(milliseconds: totalMs);
   }
 
   /// Disposes of resources.

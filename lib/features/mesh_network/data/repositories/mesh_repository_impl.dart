@@ -51,6 +51,9 @@ class MeshRepositoryImpl {
   final _immediateForwardController = StreamController<String>.broadcast();
   final _neighborController = BehaviorSubject<List<NodeInfo>>.seeded([]);
 
+  // FIX RELAY-3.1: Relay diagnostics stream for debugging relay forwarding in the field.
+  final _relayDiagController = StreamController<RelayDiagnostic>.broadcast();
+
   // Subscription management
   StreamSubscription? _packetSubscription;
   StreamSubscription? _nodeSubscription;
@@ -88,6 +91,9 @@ class MeshRepositoryImpl {
 
   /// Stream of packet IDs that were forwarded immediately (bypassing orchestrator).
   Stream<String> get immediateForwards => _immediateForwardController.stream;
+
+  /// Stream of relay diagnostics for debugging forwarding decisions.
+  Stream<RelayDiagnostic> get relayDiagnostics => _relayDiagController.stream;
 
   /// Checks if this node can now deliver a packet locally (Goal path).
   ///
@@ -417,6 +423,13 @@ class MeshRepositoryImpl {
     // Use the already-verified result when available; otherwise force-refresh.
     final hasInternetNow = knownConnectivity ??
         await _internetProbe.checkConnectivity(forceRefresh: true);
+
+    _relayDiagController.add(RelayDiagnostic(
+      packetId: packet.id,
+      stage: 'handleForwardOrDeliver',
+      detail: 'hasInternet=$hasInternetNow, isSos=${packet.isSos}, hop=${packet.hopCount}',
+    ));
+
     if (hasInternetNow && packet.isSos) {
       // ✅ This node has VERIFIED real internet — it IS the Goal node.
       // The SOS was already emitted to the Goal stream (I Can Help UI) in
@@ -426,6 +439,11 @@ class MeshRepositoryImpl {
       // NOTE: Real cloud upload is future work. For now, reaching a phone
       // with verified internet is the mission-complete condition.
       print('✅ Goal node reached — SOS ${packet.id} delivered to device with real internet. Stopping relay.');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'goalReached',
+        detail: 'Delivered to goal node with internet',
+      ));
       return;
     }
 
@@ -450,10 +468,20 @@ class MeshRepositoryImpl {
       print('✅ Relay packet ${packet.id} forwarded immediately, marking sent');
       await _outbox.markSent(packet.id);
       _immediateForwardController.add(packet.id);
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'immediateForwardSuccess',
+        detail: 'Forwarded immediately, marked sent in outbox',
+      ));
     } else {
       // Forward failed — packet stays in outbox. RelayOrchestrator will pick it up
       // on the next 10-second cycle when neighbors become available.
       print('⏳ Relay packet ${packet.id} forward failed — queued for retry in outbox');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'immediateForwardFailed',
+        detail: 'Queued for retry via orchestrator',
+      ));
     }
   }
 
@@ -470,6 +498,11 @@ class MeshRepositoryImpl {
     if (neighbors.isEmpty) {
       // No neighbors, keep in outbox for later
       print('❌ No neighbors available for forwarding');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'forwardPacket',
+        detail: 'No neighbors available',
+      ));
       return false;
     }
 
@@ -483,6 +516,11 @@ class MeshRepositoryImpl {
     if (bestNode == null) {
       // No viable route
       print('❌ No viable route found by AI router');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'forwardPacket',
+        detail: 'AI router returned no viable route (${neighbors.length} neighbors checked)',
+      ));
       return false;
     }
 
@@ -498,9 +536,19 @@ class MeshRepositoryImpl {
 
     if (result.success) {
       print('✅ Packet forwarded successfully to ${bestNode.id}');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'forwardSuccess',
+        detail: 'Sent to ${bestNode.id} (${bestNode.deviceAddress})',
+      ));
       return true;
     } else {
       print('❌ Forward failed: ${result.error} - ${result.message}');
+      _relayDiagController.add(RelayDiagnostic(
+        packetId: packet.id,
+        stage: 'forwardFailed',
+        detail: 'Target=${bestNode.id}, error=${result.error}, msg=${result.message}',
+      ));
       return false;
     }
   }
@@ -578,6 +626,7 @@ class MeshRepositoryImpl {
     await _relayedSosController.close();
     await _immediateForwardController.close();
     await _neighborController.close();
+    await _relayDiagController.close();
   }
 }
 
@@ -621,4 +670,21 @@ class ValidationFailure extends Failure {
 
 class UnexpectedFailure extends Failure {
   const UnexpectedFailure(super.message);
+}
+
+/// Diagnostic event emitted during relay forwarding decisions.
+class RelayDiagnostic {
+  final String packetId;
+  final String stage;
+  final String detail;
+  final DateTime timestamp;
+
+  RelayDiagnostic({
+    required this.packetId,
+    required this.stage,
+    required this.detail,
+  }) : timestamp = DateTime.now();
+
+  @override
+  String toString() => '[$stage] pkt=$packetId | $detail @ $timestamp';
 }

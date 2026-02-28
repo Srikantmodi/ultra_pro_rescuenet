@@ -4,7 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../bloc/mesh_bloc.dart';
 import '../../domain/entities/sos_payload.dart';
-import '../../domain/entities/mesh_packet.dart';
 import '../../data/repositories/mesh_repository_impl.dart';
 import 'navigation_map_page.dart';
 
@@ -216,30 +215,7 @@ class _ResponderModePageState extends State<ResponderModePage> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
-          // Debug Inject Button
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: OutlinedButton.icon(
-              onPressed: _injectTestAlert,
-              icon: const Text('🐛', style: TextStyle(fontSize: 16)),
-              label: const Text(
-                'TEST: Inject Alert (Debug)',
-                style: TextStyle(
-                  color: Color(0xFFFBBF24),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF334155)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ),
+
         ],
       ),
     );
@@ -610,47 +586,6 @@ class _ResponderModePageState extends State<ResponderModePage> {
     } else {
       context.read<MeshBloc>().add(const MeshStop());
     }
-  }
-
-  void _injectTestAlert() {
-    final testPayload = SosPayload.create(
-      sosId: 'test-${DateTime.now().millisecondsSinceEpoch}',
-      senderId: 'test-device',
-      senderName: 'Test User',
-      latitude: 28.6139,
-      longitude: 77.2090,
-      locationAccuracy: 15.0,
-      emergencyType: EmergencyType.medical,
-      triageLevel: TriageLevel.critical,
-      numberOfPeople: 1,
-      medicalConditions: [MedicalCondition.chestPain],
-      requiredSupplies: [SupplyType.firstAidKit, SupplyType.oxygen],
-    );
-    
-    // Create a test packet for ReceivedSos
-    final testPacket = MeshPacket.createSos(
-      originatorId: 'test-device',
-      sosPayload: testPayload.toJsonString(),
-    );
-    
-    final testSos = ReceivedSos(
-      packet: testPacket,
-      sos: testPayload,
-      receivedAt: DateTime.now(),
-      senderIp: '192.168.49.1',
-    );
-    
-    // Show the test alert
-    setState(() {
-      _selectedSos = testSos;
-    });
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Test alert injected'),
-        backgroundColor: Color(0xFFFBBF24),
-      ),
-    );
   }
 
   Color _getSeverityColor(TriageLevel level) {

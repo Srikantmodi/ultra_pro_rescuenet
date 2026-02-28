@@ -57,6 +57,17 @@ class WifiP2pHandler(
     private var isDiscoveryActive = false
     // Guard: only one connectAndSend can be in-flight at a time
     private var isConnecting = false
+    // Cooldown: track last send time per device address to avoid rapid reconnects
+    private val connectionCooldowns = mutableMapOf<String, Long>()
+    // FIX: Reduced from 5000ms → 1500ms. The Dart relay orchestrator now
+    // gates packet sends at 6s intervals. The native cooldown only needs to
+    // prevent accidental double-taps, not throttle relay storms.
+    private val COOLDOWN_MS = 1500L
+    // FIX: Reusable connection manager — keeps P2P group alive between sends
+    // to avoid repeated "Invitation to connect" dialogs.
+    private var activeConnectionManager: ConnectionManager? = null
+    private var delayedDisconnectRunnable: Runnable? = null
+    private val GROUP_KEEP_ALIVE_MS = 45_000L  // 45 seconds before auto-disconnect
     // Guard: prevent duplicate startMeshNode calls from Flutter
     private var isMeshNodeRunning = false
     private var currentServiceInfo: WifiP2pDnsSdServiceInfo? = null
@@ -582,6 +593,14 @@ class WifiP2pHandler(
         isConnecting = false
         isMeshNodeRunning = false
         
+        // FIX: Tear down any active P2P group and cancel delayed disconnect
+        delayedDisconnectRunnable?.let { mainHandler.removeCallbacks(it) }
+        delayedDisconnectRunnable = null
+        activeConnectionManager?.disconnect {
+            Log.d(TAG, "✅ Active P2P group torn down on stop")
+        }
+        activeConnectionManager = null
+        
         Log.d(TAG, "✅ Mesh node stopped")
         result.success(true)
     }
@@ -591,13 +610,35 @@ class WifiP2pHandler(
         packetJson: String,
         result: MethodChannel.Result
     ) {
+        // FIX 3.3: Connection cooldown — prevent rapid reconnects to the same device
+        val now = System.currentTimeMillis()
+        val lastSendTime = connectionCooldowns[deviceAddress] ?: 0L
+        if (now - lastSendTime < COOLDOWN_MS) {
+            val remaining = COOLDOWN_MS - (now - lastSendTime)
+            Log.w(TAG, "⏳ Cooldown active for $deviceAddress (${remaining}ms left), skipping")
+            isConnecting = false
+            mainHandler.post {
+                result.error("COOLDOWN", "Connection cooldown active ($remaining ms remaining)", null)
+            }
+            return
+        }
+        connectionCooldowns[deviceAddress] = now
+
         Log.d(TAG, "═══════════════════════════════════")
         Log.d(TAG, "📤 CONNECT AND SEND")
         Log.d(TAG, "   Target: $deviceAddress")
         Log.d(TAG, "   Packet size: ${packetJson.length} chars")
         Log.d(TAG, "═══════════════════════════════════")
 
-        val connectionManager = ConnectionManager(context, manager, channel, scope)
+        // FIX: Reuse existing ConnectionManager to keep P2P group alive.
+        // Cancel any pending delayed-disconnect since we're about to use the group.
+        delayedDisconnectRunnable?.let { mainHandler.removeCallbacks(it) }
+        delayedDisconnectRunnable = null
+
+        val connectionManager = activeConnectionManager
+            ?: ConnectionManager(context, manager, channel, scope).also {
+                activeConnectionManager = it
+            }
 
         connectionManager.connect(
             deviceAddress,
@@ -662,22 +703,19 @@ class WifiP2pHandler(
                         socket.close()
 
                         if (ack == 0x06.toByte()) {
-                            Log.d(TAG, "✅ ACK received, disconnecting...")
-                            connectionManager.disconnect {
-                                isConnecting = false
-                                // FIX D-5: Re-discover after successful send.
-                                // P2P disconnect clears channel state; without immediate
-                                // re-discovery, peers take 15-30s to reappear.
-                                restartDiscoveryAfterSend()
-                                mainHandler.post {
-                                    result.success(true)
-                                }
+                            Log.d(TAG, "✅ ACK received — keeping P2P group alive for reuse")
+                            isConnecting = false
+                            ensureSocketServerRunning()
+                            // FIX: Schedule delayed disconnect instead of immediate teardown.
+                            // This keeps the P2P group alive so subsequent sends to the
+                            // same device reuse it — avoiding the invitation dialog.
+                            scheduleDelayedDisconnect()
+                            mainHandler.post {
+                                result.success(true)
                             }
                         } else {
                             Log.e(TAG, "❌ NAK received ($ack)")
-                            connectionManager.disconnect {
-                                isConnecting = false
-                                restartDiscoveryAfterSend()
+                            forceDisconnectAndCleanup(connectionManager) {
                                 mainHandler.post {
                                     result.error("NAK", "Packet rejected by receiver", null)
                                 }
@@ -685,9 +723,7 @@ class WifiP2pHandler(
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, "❌ Socket error: ${e.message}", e)
-                        connectionManager.disconnect {
-                            isConnecting = false
-                            restartDiscoveryAfterSend()
+                        forceDisconnectAndCleanup(connectionManager) {
                             mainHandler.post {
                                 result.error("SOCKET_ERROR", e.message, null)
                             }
@@ -697,41 +733,101 @@ class WifiP2pHandler(
             },
             onFailure = { error ->
                 Log.e(TAG, "❌ Connection failed: $error")
-                isConnecting = false
-                restartDiscoveryAfterSend()
-                mainHandler.post {
-                    result.error("CONNECTION_FAILED", error, null)
+                forceDisconnectAndCleanup(connectionManager) {
+                    mainHandler.post {
+                        result.error("CONNECTION_FAILED", error, null)
+                    }
                 }
             }
         )
     }
 
     /**
-     * FIX D-5: Restart service discovery after a connect-and-send cycle.
-     * P2P disconnect clears the Wi-Fi P2P channel state. Without immediate
-     * re-discovery, new peers won't be found for 15-30 seconds. This keeps
-     * the mesh alive between transmissions.
+     * Schedule a delayed disconnect — keeps the P2P group alive for GROUP_KEEP_ALIVE_MS
+     * so subsequent sends can reuse it without triggering the invitation dialog.
+     */
+    private fun scheduleDelayedDisconnect() {
+        delayedDisconnectRunnable?.let { mainHandler.removeCallbacks(it) }
+        val runnable = Runnable {
+            Log.d(TAG, "⏰ Keep-alive expired — tearing down idle P2P group")
+            activeConnectionManager?.disconnect {
+                activeConnectionManager = null
+                ensureSocketServerRunning()
+                restartDiscoveryAfterSend()
+            } ?: run {
+                activeConnectionManager = null
+            }
+        }
+        delayedDisconnectRunnable = runnable
+        mainHandler.postDelayed(runnable, GROUP_KEEP_ALIVE_MS)
+    }
+
+    /**
+     * Immediate disconnect + cleanup after errors (NAK, socket error, connection failure).
+     * Resets the active connection manager so the next send starts fresh.
+     */
+    private fun forceDisconnectAndCleanup(connectionManager: ConnectionManager, onDone: () -> Unit) {
+        delayedDisconnectRunnable?.let { mainHandler.removeCallbacks(it) }
+        delayedDisconnectRunnable = null
+        activeConnectionManager = null
+        connectionManager.disconnect {
+            isConnecting = false
+            ensureSocketServerRunning()
+            restartDiscoveryAfterSend()
+            onDone()
+        }
+    }
+
+    /**
+     * FIX RELAY-1.2: Lightweight discovery nudge after connect-and-send.
+     *
+     * The old code (FIX D-5) did a FULL reset: clearServiceRequests → addServiceRequest
+     * → discoverServices. That nuked the entire DNS-SD session, causing a 10-30 second
+     * blackout where the node sees ZERO neighbors. This is the primary reason why the
+     * second relay attempt fails — the relay node is blind when the next SOS arrives.
+     *
+     * New approach: just call discoverServices() again. The service request is already
+     * registered from startMeshNode(). This is the same lightweight pattern used by the
+     * consolidated refresh timer, which has proven reliable. Only falls back to a full
+     * reset if the lightweight nudge fails.
      */
     @SuppressLint("MissingPermission")
     private fun restartDiscoveryAfterSend() {
         if (!isDiscoveryActive) return
         
         mainHandler.postDelayed({
-            Log.d(TAG, "🔄 Restarting discovery after send...")
-            manager.clearServiceRequests(channel, object : WifiP2pManager.ActionListener {
+            Log.d(TAG, "🔄 Lightweight discovery nudge after send...")
+            manager.discoverServices(channel, object : WifiP2pManager.ActionListener {
                 override fun onSuccess() {
-                    addServiceRequestAndDiscover { success ->
-                        Log.d(TAG, "🔄 Post-send discovery restart: ${if (success) "✅" else "❌"}")
-                    }
+                    Log.d(TAG, "✅ Post-send discovery nudge succeeded")
                 }
                 override fun onFailure(code: Int) {
-                    Log.w(TAG, "⚠️ Post-send clearServiceRequests failed (code: $code)")
+                    Log.w(TAG, "⚠️ Post-send nudge failed (code: $code) — doing full reset")
+                    // Only on failure do a full clear → add → discover reset
                     addServiceRequestAndDiscover { success ->
-                        Log.d(TAG, "🔄 Post-send discovery restart (after failed clear): ${if (success) "✅" else "❌"}")
+                        Log.d(TAG, "🔄 Post-send full reset: ${if (success) "✅" else "❌"}")
                     }
                 }
             })
-        }, 2000) // 2 second delay to let P2P channel stabilize after disconnect
+        }, 1500) // 1.5 second delay to let P2P channel stabilize after disconnect
+    }
+
+    /**
+     * FIX RELAY-2.3: Ensures the socket server is still alive after P2P group teardown.
+     *
+     * When a P2P group is removed (after connectAndSendPacket), the ServerSocket may
+     * become invalid if it was accidentally bound to a P2P interface (old bug) or if
+     * the OS closed it. This method checks and restarts if needed.
+     *
+     * With FIX RELAY-1.1, the server binds to 0.0.0.0 and should survive group
+     * teardown. This is a defense-in-depth measure.
+     */
+    private fun ensureSocketServerRunning() {
+        if (socketServer == null || !socketServer!!.isAlive) {
+            Log.w(TAG, "⚠️ Socket server not alive after disconnect — restarting")
+            socketServer?.stop()
+            startSocketServer()
+        }
     }
 
     fun cleanup() {

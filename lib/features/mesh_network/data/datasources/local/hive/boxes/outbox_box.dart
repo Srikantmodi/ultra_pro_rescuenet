@@ -19,6 +19,17 @@ class OutboxBox {
   // FIX B-8: Aligned with RelayOrchestrator.maxConsecutiveFailures = 3
   // Previous value of 5 meant outbox kept retrying after orchestrator had already paused
   static const int maxRetries = 3;
+
+  // FIX RELAY-1.3: SOS/critical packets get many more retries because the
+  // discovery blackout after a P2P send can burn through 3 retries in <30 seconds
+  // while there are simply no neighbors available (transient failure).
+  static const int maxSosRetries = 10;
+
+  // FIX RELAY-1.3: SOS packets live longer in outbox (10 min vs 1 hr for normal).
+  // This is intentionally shorter than normal packetTtl because SOS urgency
+  // means if it hasn't been delivered in 10 minutes, the topology has changed.
+  static const Duration sosTtl = Duration(minutes: 10);
+
   static const Duration packetTtl = Duration(hours: 1);
 
   Box<OutboxEntry>? _box;
@@ -139,15 +150,40 @@ class OutboxBox {
   /// Marks a packet as failed (increments retry count).
   ///
   /// Returns true if the packet can be retried, false if max retries exceeded.
-  Future<bool> markFailed(String packetId) async {
+  ///
+  /// FIX RELAY-1.3: SOS/critical packets get [maxSosRetries] attempts (10)
+  /// instead of [maxRetries] (3) so they survive the discovery blackout.
+  ///
+  /// FIX RELAY-3.2: [wasTransient] — When true, the failure was due to a
+  /// transient condition (e.g., no neighbors available, discovery resetting)
+  /// rather than an actual send attempt that failed. For SOS packets,
+  /// transient failures do NOT count towards the retry limit because the
+  /// packet was never actually attempted — the relay node just couldn't
+  /// find a target yet.
+  Future<bool> markFailed(String packetId, {bool wasTransient = false}) async {
     _ensureInitialized();
 
     final entry = _box!.get(packetId);
     if (entry == null) return false;
 
+    final isSos = entry.packet.packetType == 'sos' ||
+        entry.packet.priority >= 3;
+
+    // FIX RELAY-3.2: Transient failures (no neighbors) don't burn retries
+    // for SOS packets — the packet was never actually attempted.
+    if (wasTransient && isSos) {
+      final updated = entry.copyWith(
+        status: OutboxStatus.pending,
+        lastAttemptAt: DateTime.now().millisecondsSinceEpoch,
+      );
+      await _box!.put(packetId, updated);
+      return true;
+    }
+
     final newRetryCount = entry.retryCount + 1;
-    
-    if (newRetryCount >= maxRetries) {
+    final effectiveMaxRetries = isSos ? maxSosRetries : maxRetries;
+
+    if (newRetryCount >= effectiveMaxRetries) {
       // Max retries exceeded, mark as failed permanently
       final updated = entry.copyWith(
         status: OutboxStatus.failed,

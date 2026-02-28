@@ -155,6 +155,7 @@ class _SosFormPageState extends State<SosFormPage> {
           if (state is MeshActive && state.activeSosId != null) {
             _awaitingSosConfirmation = false;
             if (mounted) {
+              setState(() => _isSendingInProgress = false);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('🆘 SOS Alert Sent! Broadcasting to mesh network...'),
@@ -167,6 +168,7 @@ class _SosFormPageState extends State<SosFormPage> {
           } else if (state is MeshError) {
             _awaitingSosConfirmation = false;
             if (mounted) {
+              setState(() => _isSendingInProgress = false);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('❌ Failed to send SOS: ${state.message}'),
@@ -859,24 +861,34 @@ class _SosFormPageState extends State<SosFormPage> {
         final isMeshActive = state is MeshActive;
         final isLoading = state is MeshLoading;
 
+        // Determine button state: sending > loading > active > initial
+        final isSending = _isSendingInProgress;
+
         String buttonLabel;
         Color buttonColor;
-        if (isLoading) {
+        bool buttonDisabled;
+        if (isSending) {
+          buttonLabel = 'SENDING SOS...';
+          buttonColor = const Color(0xFFB71C1C);
+          buttonDisabled = true;
+        } else if (isLoading) {
           buttonLabel = 'CONNECTING TO MESH...';
           buttonColor = const Color(0xFF6B7280);
+          buttonDisabled = true;
         } else if (isMeshActive) {
           buttonLabel = 'SEND EMERGENCY SOS';
           buttonColor = const Color(0xFFE53935);
+          buttonDisabled = false;
         } else {
-          // MeshReady or MeshInitial — will auto-start via B-1 fix
           buttonLabel = 'SEND SOS (will auto-connect)';
           buttonColor = const Color(0xFFE53935).withValues(alpha: 0.8);
+          buttonDisabled = false;
         }
 
         return SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: isLoading ? null : _sendSos,
+            onPressed: buttonDisabled ? null : _sendSos,
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
               foregroundColor: Colors.white,
@@ -889,7 +901,7 @@ class _SosFormPageState extends State<SosFormPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (isLoading)
+                if (isSending || isLoading)
                   const SizedBox(
                     width: 20, height: 20,
                     child: CircularProgressIndicator(
@@ -915,17 +927,18 @@ class _SosFormPageState extends State<SosFormPage> {
     );
   }
 
-  /// Debounce guard — prevents duplicate SOS packets from rapid taps.
+  /// Tracks whether the SOS is being sent — shows loading spinner on button.
   bool _isSendingInProgress = false;
 
   void _sendSos() {
     // Debounce: ignore rapid taps while a send is already in flight.
     if (_isSendingInProgress) return;
-    _isSendingInProgress = true;
-    // Reset after a short delay so the button isn't permanently disabled
-    // even if the BlocListener callback is delayed.
-    Future.delayed(const Duration(seconds: 3), () {
-      _isSendingInProgress = false;
+    setState(() => _isSendingInProgress = true);
+    // Safety reset: if BlocListener doesn't fire within 10s, re-enable button.
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted && _isSendingInProgress) {
+        setState(() => _isSendingInProgress = false);
+      }
     });
 
     // Resolve the real node ID from the current BLoC state.
