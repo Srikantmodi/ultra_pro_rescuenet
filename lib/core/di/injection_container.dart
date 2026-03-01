@@ -7,6 +7,7 @@ import '../../features/mesh_network/data/datasources/remote/wifi_p2p_source.dart
 import '../../features/mesh_network/data/repositories/mesh_repository_impl.dart';
 import '../../features/mesh_network/data/services/internet_probe.dart';
 import '../../features/mesh_network/data/services/cloud_delivery_service.dart';
+import '../../features/mesh_network/data/services/cloud_client.dart';
 import '../../features/mesh_network/data/services/relay_orchestrator.dart';
 import '../../features/mesh_network/presentation/bloc/mesh_bloc.dart';
 import '../platform/location_manager.dart';
@@ -34,6 +35,9 @@ Future<void> _registerCoreDependencies() async {
   sl.registerLazySingleton<InternetProbe>(() => InternetProbe());
   sl.registerLazySingleton<Battery>(() => Battery());
   sl.registerLazySingleton<CloudDeliveryService>(() => CloudDeliveryService());
+  sl.registerLazySingleton<CloudClient>(
+    () => CloudClient(outbox: sl<OutboxBox>()),
+  );
 }
 
 /// Register data sources.
@@ -55,6 +59,7 @@ Future<void> _registerRepositories() async {
       internetProbe: sl<InternetProbe>(),
       battery: sl<Battery>(),
       cloudDeliveryService: sl<CloudDeliveryService>(),
+      cloudClient: sl<CloudClient>(),
     ),
   );
 }

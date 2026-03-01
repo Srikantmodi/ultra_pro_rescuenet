@@ -9,6 +9,7 @@ import 'features/mesh_network/data/datasources/remote/wifi_p2p_source.dart';
 import 'features/mesh_network/data/repositories/mesh_repository_impl.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'features/mesh_network/data/services/cloud_delivery_service.dart';
+import 'features/mesh_network/data/services/cloud_client.dart';
 import 'features/mesh_network/data/services/internet_probe.dart';
 import 'features/mesh_network/data/services/relay_orchestrator.dart';
 import 'features/mesh_network/presentation/bloc/mesh_bloc.dart';
@@ -43,6 +44,9 @@ void main() async {
 
     // Initialize dependency injection
     await _initDependencies();
+
+    // Initialize CloudClient for automatic cloud upload when device has internet
+    await getIt<CloudClient>().init();
 
     runApp(const RescueNetApp());
   } catch (e, stackTrace) {
@@ -98,6 +102,9 @@ Future<void> _initDependencies() async {
   getIt.registerLazySingleton<InternetProbe>(() => InternetProbe());
   getIt.registerLazySingleton<Battery>(() => Battery());
   getIt.registerLazySingleton<CloudDeliveryService>(() => CloudDeliveryService());
+  getIt.registerLazySingleton<CloudClient>(
+    () => CloudClient(outbox: getIt<OutboxBox>()),
+  );
 
   // Repository (depends on above)
   getIt.registerLazySingleton<MeshRepositoryImpl>(
@@ -109,6 +116,7 @@ Future<void> _initDependencies() async {
       internetProbe: getIt<InternetProbe>(),
       battery: getIt<Battery>(),
       cloudDeliveryService: getIt<CloudDeliveryService>(),
+      cloudClient: getIt<CloudClient>(),
     ),
   );
 

@@ -12,6 +12,7 @@ import '../datasources/local/hive/boxes/outbox_box.dart';
 import '../datasources/remote/wifi_p2p_source.dart';
 import '../services/internet_probe.dart';
 import '../services/cloud_delivery_service.dart';
+import '../services/cloud_client.dart';
 import '../models/mesh_packet_model.dart';
 
 import '../../../../core/platform/location_manager.dart';
@@ -37,6 +38,7 @@ class MeshRepositoryImpl {
   final Battery _battery;
   // ignore: unused_field
   final CloudDeliveryService _cloudDeliveryService; // Reserved for future cloud upload
+  final CloudClient? _cloudClient;
 
   // Node ID for this device
   String? _nodeId;
@@ -68,6 +70,7 @@ class MeshRepositoryImpl {
     required InternetProbe internetProbe,
     required Battery battery,
     required CloudDeliveryService cloudDeliveryService,
+    CloudClient? cloudClient,
     AiRouter? aiRouter,
     LoopDetector? loopDetector,
   })  : _wifiP2pSource = wifiP2pSource,
@@ -77,6 +80,7 @@ class MeshRepositoryImpl {
         _internetProbe = internetProbe,
         _battery = battery,
         _cloudDeliveryService = cloudDeliveryService,
+        _cloudClient = cloudClient,
         _aiRouter = aiRouter ?? AiRouter(),
         _loopDetector = loopDetector ?? LoopDetector();
 
@@ -120,6 +124,16 @@ class MeshRepositoryImpl {
     } catch (e) {
       print('\u26a0\ufe0f Failed to parse SOS payload for local delivery: $e');
     }
+
+    // Also trigger cloud upload for this packet (it's already in outbox).
+    _cloudClient?.syncPendingPackets().then((count) {
+      if (count > 0) {
+        print('\u2601\ufe0f CloudClient: $count SOS packet(s) uploaded to AWS (local-goal-delivery)');
+      }
+    }).catchError((e) {
+      print('\u2601\ufe0f CloudClient: Upload failed — will retry: $e');
+    });
+
     return true;
   }
 
@@ -436,14 +450,27 @@ class MeshRepositoryImpl {
       // _processIncomingPacket. Our job here is to STOP forwarding so the
       // packet doesn't continue bouncing through the mesh.
       //
-      // NOTE: Real cloud upload is future work. For now, reaching a phone
-      // with verified internet is the mission-complete condition.
-      print('✅ Goal node reached — SOS ${packet.id} delivered to device with real internet. Stopping relay.');
+      // Goal node reached — upload SOS to AWS cloud via CloudClient.
+      print('✅ Goal node reached — SOS ${packet.id} delivered to device with real internet. Uploading to cloud...');
       _relayDiagController.add(RelayDiagnostic(
         packetId: packet.id,
         stage: 'goalReached',
-        detail: 'Delivered to goal node with internet',
+        detail: 'Delivered to goal node with internet — triggering cloud upload',
       ));
+
+      // Persist the SOS packet in the outbox so CloudClient can pick it up.
+      // CloudClient reads the outbox for SOS packets not yet uploaded.
+      await _outbox.addPacket(packet);
+      _seenCache.markAsSeen(packet.id);
+
+      // Trigger immediate cloud sync (non-blocking — runs in background).
+      _cloudClient?.syncPendingPackets().then((count) {
+        if (count > 0) {
+          print('☁️ CloudClient: $count SOS packet(s) uploaded to AWS');
+        }
+      }).catchError((e) {
+        print('☁️ CloudClient: Upload failed — will retry on next cycle: $e');
+      });
       return;
     }
 

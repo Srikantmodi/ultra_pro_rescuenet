@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:get_it/get_it.dart';
 import '../bloc/mesh_bloc.dart';
 import '../../domain/entities/sos_payload.dart';
 import '../../data/repositories/mesh_repository_impl.dart';
+import '../../data/services/cloud_client.dart';
 import 'navigation_map_page.dart';
 
 /// Responder Mode Page - For users who can help others.
@@ -464,14 +466,43 @@ class _ResponderModePageState extends State<ResponderModePage> {
                   children: [
                     Expanded(
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          // TODO: Implement cloud save
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Saved to cloud for further action'),
-                              backgroundColor: Color(0xFF10B981),
-                            ),
-                          );
+                        onPressed: () async {
+                          // Trigger cloud upload for ALL pending SOS packets
+                          try {
+                            final cloudClient = GetIt.instance<CloudClient>();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Uploading to cloud...'),
+                                backgroundColor: Color(0xFF3B82F6),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                            final count = await cloudClient.syncPendingPackets();
+                            if (!context.mounted) return;
+                            if (count > 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('$count SOS packet(s) saved to cloud ☁️'),
+                                  backgroundColor: const Color(0xFF10B981),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('No pending packets to upload, or no internet'),
+                                  backgroundColor: Color(0xFFFBBF24),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Cloud upload failed: $e'),
+                                backgroundColor: const Color(0xFFEF4444),
+                              ),
+                            );
+                          }
                         },
                         icon: const Icon(Icons.cloud_upload, size: 20),
                         label: const Text('Save to Cloud'),
